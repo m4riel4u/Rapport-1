@@ -7,7 +7,7 @@ title: Analyse des besoins - Cas d'utilisation
 ## Vue d’ensemble
 
 TODO: Introduction aux cas d’utilisation du système.
-
+![alt text](<Capture d’écran 2025-10-06 150358.png>)
 ## Liste des cas d’utilisation
 
 | ID | Nom | Acteurs principaux | Description |
@@ -16,8 +16,8 @@ TODO: Introduction aux cas d’utilisation du système.
 | CU02 | Recherche de cours | Utilisateur | L'étudiant peut effectuer une recherche de cours sur l'application. |
 | CU03 | Personnalisation du profil | Utilisateur | L'étudiant peut configurer ses préférences de cours pour obtenir des suggestions personnalisées. |
 | CU04 | Comparaison de cours | Utilisateur | L'étudiant peut comparer des cours pour estimer la charge total de travail d'une combinaison. |
-| CU05 | Rédaction d'avis | Anciens étudiants | Les anciens étudiants peuvent rédiger des avis sur des cours. |
-| CU06 | Création d'un compte | Utilisateur | L'utilisateur peut se créer un compte s'il n'en a pas déjà un. |
+| CU05 | Création d'un compte | Utilisateur | L'utilisateur peut se créer un compte s'il n'en a pas déjà un. |
+
 
 ## Détail
 
@@ -130,36 +130,8 @@ TODO: Introduction aux cas d’utilisation du système.
 
 - Comparaison des cours pour aider l'étudiant à évaluer la charge de travail sur une combinaison de cours.
 
-### CU05 - Rédaction d'avis
 
-**Acteurs** :
-
-- Anciens étudiants
-
-**Préconditions** :
-
-- L'étudiant doit posséder un compte et être connecté.
-- L'étudiant doit déjà avoir suivi le cours sur lequel il souhaite rédiger un avis. 
-
-**PostConditions** :
-
-- L'avis est enregistré dans la base de données.
-- L'avis devient visible sur la page du cours si celui-ci respecte les critères demandés.  
-
-**Déclencheur** :
-
-- L'ancien étudiant sélectionne "Rédiger un avis" dans le menu principal, puis choisit le cours sur lequel il veut dire son opinion. 
-
-**Dépendances** :
-
-- CU06 - Création d'un compte (l'étudiant doit avoir un compte)
-- CU01 - Connexion au compte (l'étudiant doit être connecté)
-
-**But** :
-
-- Les anciens étudiants peuvent rédiger des avis sur les cours auquels ils étaient inscrits. 
-
-### CU06 - Création d'un compte
+### CU05 - Création d'un compte
 
 **Acteurs** :
 
