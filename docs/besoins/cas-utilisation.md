@@ -12,11 +12,12 @@ TODO: Introduction aux cas d’utilisation du système.
 
 | ID | Nom | Acteurs principaux | Description |
 |----|-----|---------------------|-------------|
-| CU01 | Connexion | Utilisateur | L'utilisateur se connecte à l'application |
-| CU02 | Recherche de cours | Étudiant | L'étudiant peut effectuer une recherche de cours sur l'application |
-| CU03 | Personnalisation du profil | Étudiant | L'étudiant peut configurer ses préférences de cours pour obtenir des suggestions personnalisées |
-| CU04 | Charge de travail des cours | Étudiant | L'étudiant peut avoir une idée sur la charge de travail sur plusieurs cours comparés |
-| CU05 |  |  |  |
+| CU01 | Connexion | Utilisateur | L'utilisateur se connecte à la plateforme. |
+| CU02 | Recherche de cours | Utilisateur | L'étudiant peut effectuer une recherche de cours sur l'application. |
+| CU03 | Personnalisation du profil | Utilisateur | L'étudiant peut configurer ses préférences de cours pour obtenir des suggestions personnalisées. |
+| CU04 | Comparaison de cours | Utilisateur | L'étudiant peut comparer des cours pour estimer la charge total de travail d'une combinaison. |
+| CU05 | Rédaction d'avis | Anciens étudiants | Les anciens étudiants peuvent rédiger des avis sur des cours. |
+| CU06 | Création d'un compte | Utilisateur | L'utilisateur peut se créer un compte s'il n'en a pas déjà un. |
 
 ## Détail
 
@@ -28,16 +29,16 @@ TODO: Introduction aux cas d’utilisation du système.
 
 **Préconditions** : 
 
-- L'étudiant possède un compte activé et valide  
-- Le système d'authentification est adapté au compte de l'étudiant
+- L'étudiant possède un compte activé et valide.  
+- Le système d'authentification est adapté au compte de l'étudiant.
 
 **PostConditions** :
 
-- Le système a pu vérifier l'authentification de l'étudiant et le redirige vers le menu principal
+- Le système a pu vérifier l'authentification de l'étudiant et le redirige vers le menu principal.
 
 **Déclencheur** : 
 
-- L'étudiant a accès à la page de connexion pour saisir son identifiant et son mot de passe
+- L'étudiant a accès à la page de connexion pour saisir son identifiant et son mot de passe.
 
 **Dépendances** : 
 
@@ -45,26 +46,26 @@ TODO: Introduction aux cas d’utilisation du système.
 
 **But** :
 
-- L'étudiant a accès à son compte avec ses données enregistrées et protégées
+- L'étudiant a accès à son compte avec ses données enregistrées et protégées.
 
 ### CU02 - Rechercher un cours
 
 **Acteurs** :
 
-- Étudiant
+- Utilisateur 
 
 **Préconditions** :
 
-- L'étudiant et connecté à son compte  
-- La base de donnée sur les structures des programmes est synchronisée avec Planifium
+- L'étudiant et connecté à son compte.  
+- La base de donnée sur les structures des programmes est synchronisée avec Planifium.
 
 **PostConditions** :
 
-- Une liste de cours s'affiche selon les critères de recherche de l'étudiant
+- Une liste de cours s'affiche selon les critères de recherche de l'étudiant.
 
 **Déclencheur** :
 
-- L'étudiant écrit des mots-clés ou un titre de cours dans la barre de recherche sur l'application
+- L'étudiant écrit des mots-clés ou un titre de cours dans la barre de recherche sur l'application.
 
 **Dépendances** :
 
@@ -72,26 +73,26 @@ TODO: Introduction aux cas d’utilisation du système.
 
 **But** :
 
-- L'étudiant peut découvrir une variété de cours qui correspondent à sa recherche
+- L'étudiant peut découvrir une variété de cours qui correspondent à sa recherche.
 
 ### CU03 - Personnalisation du profil
 
 **Acteurs** :
 
-- Étudiant
+- Utilisateur
 
 **Préconditions** :
 
-- L'étudiant est connecté à son compte avec toutes ses informations valides
+- L'étudiant est connecté à son compte avec toutes ses informations valides.
 
 **PostConditions** :
 
-- Les préférences sur les choix de cours et des données personnelles sont spécifiés sur le profil de l'étudiant  
-- Les préférences présents dans le compte sont utilisés pour filtrer les suggestions des programmes de cours donnés
+- Les préférences sur les choix de cours et des données personnelles sont spécifiés sur le profil de l'étudiant. 
+- Les préférences présents dans le compte sont utilisés pour filtrer les suggestions des programmes de cours donnés.
 
 **Déclencheur** :
 
-- L'étudiant a accès à la section de 'Personnalisation du profil' dans son profil
+- L'étudiant a accès à la section de 'Personnalisation du profil' dans son profil.
 
 **Dépendances** :
 
@@ -102,23 +103,23 @@ TODO: Introduction aux cas d’utilisation du système.
 
 - Améliorer la précision des suggestions de cours en tenant compte de son profil personnalisé de l'étudiant
 
-### CU04 - Charge de travail des cours
+### CU04 - Comparaison de cours
 
 **Acteurs** :
 
-- Étudiant
+- Utilisateur
 
 **Préconditions** :
 
-- L'étudiant sélectionne au moins deux cours à comparer la charge de travaille
+- L'étudiant sélectionne au moins deux cours à comparer la charge de travail.
 
 **PostConditions** :
 
-- Les données des cours choisis s'affichent avec les données comparées
+- Les données des cours choisis s'affichent avec les données comparées.
 
 **Déclencheur** :
 
-- L'étudiant se dirige dans l'onglet de 'Comparaison de cours' dans l'application et sélectionne les cours au choix
+- L'étudiant se dirige dans l'onglet de 'Comparaison de cours' dans l'application et sélectionne les cours au choix.
 
 **Dépendances** :
 
@@ -127,32 +128,59 @@ TODO: Introduction aux cas d’utilisation du système.
 
 **But** :
 
-- Comparaison des cours pour aider l'étudiant à évaluer la charge de travail sur une combinaison de cours
+- Comparaison des cours pour aider l'étudiant à évaluer la charge de travail sur une combinaison de cours.
 
-### CU05 - 
+### CU05 - Rédaction d'avis
 
 **Acteurs** :
 
-- 
+- Anciens étudiants
 
 **Préconditions** :
 
-- 
+- L'étudiant doit posséder un compte et être connecté.
+- L'étudiant doit déjà avoir suivi le cours sur lequel il souhaite rédiger un avis. 
 
 **PostConditions** :
 
-- 
+- L'avis est enregistré dans la base de données.
+- L'avis devient visible sur la page du cours si celui-ci respecte les critères demandés.  
 
 **Déclencheur** :
 
-- 
+- L'ancien étudiant sélectionne "Rédiger un avis" dans le menu principal, puis choisit le cours sur lequel il veut dire son opinion. 
 
 **Dépendances** :
 
-- 
+- CU06 - Création d'un compte (l'étudiant doit avoir un compte)
+- CU01 - Connexion au compte (l'étudiant doit être connecté)
 
 **But** :
 
-- 
+- Les anciens étudiants peuvent rédiger des avis sur les cours auquels ils étaient inscrits. 
 
-???? maybe d'autres CU : Créer un compte, Transmettre des avis, Modérer les avis (avec discord?), Vérifier les règles d'admissibilité aux cours, Obtenir les détails d'un cours avec les reviews (5+ reviews)
+### CU06 - Création d'un compte
+
+**Acteurs** :
+
+- Utilisateur 
+
+**Préconditions** :
+
+- Vérifier que l'utilisateur n'a pas déjà un compte associé à son identifiant.
+
+**PostConditions** :
+
+- Le système a pu créer le compte de l'utilisateur et le redirige vers le menu principal.
+
+**Déclencheur** :
+
+- L'étudiant a accès à la page de création d'un compte pour créer son profil.
+
+**Dépendances** :
+
+- Aucune
+
+**But** :
+
+- L'utilisateur peut se créer un compte s'il n'en a pas déjà un. 
