@@ -1,97 +1,36 @@
-# Template de site web pour IFT2255
+ 
+# Plateforme web d'aide aux choix de cours - Phase 1
 
-Ce projet est un template pour le rapport à produire pour le cours IFT2255 (Génie logiciel), construit avec [MkDocs](https://www.mkdocs.org/) et le thème [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/).
+## Description du projet
 
-## Prérequis
+Développer une plateforme web intéractive qui permet aux étudiants de l'Université de Montréal de consulter et comparer les informations nécessaires pour faire des choix de cours éclaircis.
 
-Assurez-vous d’avoir les outils suivants installés :
+Ce site web présentera:
+- Un outil de comparaison de cours
+- Une interface claire et accessible
+- Une recherche de cours facile par titre ou mot-clé
+- Une personnalisation selon le profil de l'étudiant
 
-- Python **3.11** ou plus récent
-- `pip` (gestionnaire de paquets Python)
-- `pipenv` ou équivalent (gestion d’environnement virtuel) 
-  - Évite de polluer votre système et les conflits de version.
-  - Installez-le avec `pip install pipenv`.
 
-## Pour commencer
+Ce projet vise à centraliser plusieurs sources d'information officielles:
+- API Planifium: Catalogue officiel des programmes, cours et horaires de l'Université de Montréal
+- Résultats académiques agrégés: Résultats globaux de l'ensemble des cours durant une session précise
+- Avis étudiants provenant de Discord: Avis sur des cours recueillis directement auprès des étudiants via un bot Discord
 
-### Option 1: Le répertoire n'est pas encore créé
-
-1. Cliquez sur le bouton `Use this template` sur GitHub.
-2. Choisissez l'option `Create a new repository`.
-3. À la fin des étapes, vous devriez avoir un nouveau répertoire avec le contenu du template.
-
-### Option 2: Le répertoire existe déjà
-
-1. Clonez ce dépôt (optionnel) pour obtenir le template localement 
-```bash
-git clone git@github.com:udem-diro/template-rapport-ift2255.git
-```
-2. Copiez les fichiers du template (en local) dans votre répertoire de projet.
-
-> Note : Cette option est utile si vous souhaitez récupérer le contenu du template sans créer un nouveau dépôt (répertoire).
-
-## Installation
-
-> Vous avez maintenant le contenu du template sur votre poste. Il ne reste qu’à installer les dépendances pour commencer à l’utiliser.
-
-1. Activez l'environnement virtuel avec 
-```bash
-pipenv shell
-```
-2. Installez les dépendances listées dans `requirements.txt` (à exécuter dans le répertoire du projet) :
-
-```bash
-pip install -r requirements.txt
-```
-
-## Utilisation
-
-> Avant toute utilisation, assurez-vous que l’environnement virtuel est activé (`pipenv shell`).
-
-### Développement local
-
-Pour lancer un serveur de développement local et visualiser les modifications en temps réel, utilisez :
-
-```bash
-mkdocs serve
-```
-
-Le site sera accessible à l'adresse [http://127.0.0.1:8000](http://127.0.0.1:8000)
-
-### Construction du site (optionnel)
-
-> Cette étape n’est pas nécessaire pour la publication sur GitHub Pages
-
-Pour construire le site :
-
-```bash
-mkdocs build
-```
-
-Les fichiers générés seront dans le dossier `site/`.
-
-### Déploiement
-
-Pour déployer automatiquement le site sur GitHub Pages (branche `gh-pages`)
-
-```bash
-mkdocs gh-deploy
-```
-
-> Cette commande pousse automatiquement le contenu du site sur la branche `gh-pages`. Si la branche n'existe pas, elle est crée automatiquement.
-
-## Structure du projet
-
-- `docs/` : Contient tous les fichiers Markdown du site
-- `mkdocs.yml` : Configuration de MkDocs
-- `requirements.txt` : Dépendances Python
-- `site/` : Site généré (créé lors de la construction) -- *optionnel*
-
-## Personnalisation
-
-1. Modifiez `mkdocs.yml` pour changer la configuration du site
-2. Ajoutez/modifiez les fichiers Markdown (`.md`) dans `docs/`
-3. Personnalisez le thème en modifiant les paramètres dans `mkdocs.yml`
+## Organisation du répertoire
+- docs/ : Documentation du projet 
+  - besoins/ : Glossaire, analyse des besoins, cas d’utilisation, exigences et risques  
+  - conception/ : Structure du système et diagrammes de conception
+  - css/ : Feuilles de style 
+  - application.md : Documentation décrivant le processus de développement et l'organisation du projet
+  - bilan.md : Résumé des constats et apprentissages  
+  - evaluation.md : Évaluation du projet et pistes d’amélioration  
+  - index.md : Page d’accueil
+- mkdocs.yml : Fichier de configuration du site
+- requirements.txt : Liste des dépendances Python (MkDocs, extensions)
+- Pipfile : Définition de l’environnement virtuel avec `pipenv`
+- README.md : Brève description et organisation du projet
+- .gitignore : Exclusion des fichiers non suivis par Git
 
 ## Licence
 
