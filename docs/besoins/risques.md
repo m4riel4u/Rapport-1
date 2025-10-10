@@ -22,7 +22,7 @@ TODO: Lister les principaux risques identifiés (techniques, humains, organisati
 - **Probabilité** : Moyenne
 - **Impact** : Élevé  
 - **Plan de mitigation** :  
-  - Mettre en place un cache local
+  - Mettre en place une cache local
   - Communication avec l'équipe responsable du Planifium
 
 
