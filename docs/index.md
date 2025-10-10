@@ -14,10 +14,10 @@ title: Vue d'ensemble
 
 ## Équipe
 
-- **`M1`:** Marie Laurence Pilon (20266715) #Marie Laurence
-- **`M2`:** Sarah Rajab (20310461) #sarah
-- **`M3`:** Béatrice Phung (20265995) #beatrice  
-- **`M4`:** Sarah Cho (20296221) #srh
+- **`M1`:** Marie Laurence Pilon (20266715) #m4riel4u
+- **`M2`:** Sarah Rajab (20310461) #mango825
+- **`M3`:** Béatrice Phung (20265995) #meuhcow  
+- **`M4`:** Sarah Cho (20296221) #brickk99
 
 ## Description du projet
 Ce projet vise à développer une plateforme simple et accessible pour les étudiants de l'Université de Montréal. La plateforme est conçue pour répondre aux besoins de chaque étudiant, quel que soit leur programme d'étude ou leur parcours universitaire. En centralisant les données de l'API Planifium, des données des cours et des avis des anciens étudiants, la plateforme permet de fournir des informations pertinentes pour guider les nouveaux étudiants selon leur besoins. Ainsi, les étudiants peuvent effectuer des recherches peronnalisées, les intérêts personnels, des comparaisons de cours en fonction de leur charge de travail et leur difficulté. Enfin, les étudiants peuvent faire des choix de cours plus facilement et plus adaptés à leurs préférences académiques.
