@@ -25,11 +25,11 @@ title: Analyse des besoins - Exigences
 
 ## Priorisation
 
+- [ ] EF1 : Création du compte
 - [ ] EF4 : Recherche de cours
 - [ ] EF5 : Résultats personnalisés
 - [ ] EF6 : Détails des cours
-- [ ] EF7 : Avis des anciens étudiants
-- [ ] ENF3 : Accessibilité / clarté de l'interface
+- [ ] ENF3 : Accessibilité et clarté de l'interface du système
 - [ ] ENF4 : Confidentialité des données
 - [ ] ENF5 : Centralisation des données officielles
 
