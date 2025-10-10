@@ -6,31 +6,32 @@ title: Analyse des besoins - Exigences
 
 ## Exigences fonctionnelles
 
-TODO: Liste des fonctions que le système doit accomplir.
-
-
-- [ ] EF1 : Le système montre des avis agrégés pour un cours s'il y a 5 avis ou plus pour ce cours.
-- [ ] EF2 : Le système prend en compte quelques caractéristiques pour sortir un résultat de recherche personnalisé.
-- [ ] EF3 : Le système montre les cours associés au bon code, titre ou mots-clés.
-- [ ] EF4 : Le système indique à l'utilisateur s'il est éligible au cours ou non. 
-- [ ] EF5 : Le système estime la charge de travail d'une combinaison de cours.
-- [ ] EF6 : Le système montre les résultats académiques agrégés de chaque cours.
-
+- [ ] EF1 : L'utilisateur peut créer un nouveau compte étudiant.
+- [ ] EF2 : L'utilisateur peut effectuer une nouvelle connexion à un compte étudiant.
+- [ ] EF3 : L'utilisateur peut personnaliser son profil en modifiant ses préférences.
+- [ ] EF4 : L'étudiant peut effectuer des recherches des cours spécifiques.
+- [ ] EF5 : L'étudiant peut obtenir des résultats recommandés et personnalisés.
+- [ ] EF6 : L'étudiant peut voir les détails des cours sélectionnés, comme la charge de travail et les moyennes.
+- [ ] EF7 : L'étudiant peut voir les avis des anciens étudiants sur les cours sélectionnés.
+- [ ] EF8 : L'étudiant peut comparer des cours selon les critères désirés.
 
 ## Exigences non fonctionnelles
 
-TODO: Contraintes de performance, sécurité, compatibilité, etc.
-
-
 - [ ] ENF1 : Le système doit répondre en moins de 2 secondes.
 - [ ] ENF2 : L'application doit être compatible avec Chrome et Firefox.
-- [ ] ENF3 : Le système est facilement accessible, clair et utile. 
-- [ ] ENF4 : Le système ne divulgue pas d'informations confidentielles. 
-- [ ] ENF5 : Les données officielles sont centralisées dans une même interface. 
+- [ ] ENF3 : Le système est facilement accessible, clair et utile.
+- [ ] ENF4 : Le système ne divulgue pas d'informations confidentielles.
+- [ ] ENF5 : Les données officielles sont centralisées dans une même interface.
 
 ## Priorisation
 
-TODO: Identifier les exigences critiques.
+- [ ] EF4 : Recherche de cours
+- [ ] EF5 : Résultats personnalisés
+- [ ] EF6 : Détails des cours
+- [ ] EF7 : Avis des anciens étudiants
+- [ ] ENF3 : Accessibilité / clarté de l'interface
+- [ ] ENF4 : Confidentialité des données
+- [ ] ENF5 : Centralisation des données officielles
 
 ## Types d'utilisateurs
 
