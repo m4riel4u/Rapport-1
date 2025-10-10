@@ -14,10 +14,10 @@ title: Vue d'ensemble
 
 ## Équipe
 
-- **`M1`:** Marie Laurence Pilon (20266715) #Marie Laurence
-- **`M2`:** Sarah Rajab (20310461) #sarah
-- **`M3`:** Béatrice Phung (matricule) #beatrice  
-- **`M4`:** Sarah Cho (matricule) #srh
+- **`M1`:** Marie Laurence Pilon (20266715) #m4riel4u
+- **`M2`:** Sarah Rajab (20310461) #mango825
+- **`M3`:** Béatrice Phung (20265995) #meuhcow  
+- **`M4`:** Sarah Cho (20296221) #brickk99
 
 ## Description du projet
 Ce projet vise à développer une plateforme simple et accessible pour les étudiants de l'Université de Montréal. La plateforme est conçue pour répondre aux besoins de chaque étudiant, quel que soit leur programme d'étude ou leur parcours universitaire. En centralisant les données de l'API Planifium, des données des cours et des avis des anciens étudiants, la plateforme permet de fournir des informations pertinentes pour guider les nouveaux étudiants selon leur besoins. Ainsi, les étudiants peuvent effectuer des recherches peronnalisées, les intérêts personnels, des comparaisons de cours en fonction de leur charge de travail et leur difficulté. Enfin, les étudiants peuvent faire des choix de cours plus facilement et plus adaptés à leurs préférences académiques.
@@ -30,17 +30,15 @@ Ce projet vise à développer une plateforme simple et accessible pour les étud
 | Description du domaine:  Fonctionnement, acteurs, dépendances        | 19 septembre  | ✅ Terminé  | `M3`     |
 | Hypothèses: Hypothèses émises dans l'élaboration du projet | 19 septembre  | ✅ Terminé  | `M1` `M2` `M3`    |
 | Identification des acteurs    | 19 septembre  | ✅ Terminé  | `M1` `M2` `M3`    |
-| Glossaire                     | 21 septembre  | ✅ Terminé   | `M1`   `M3`      |
+| Glossaire                     | 21 septembre  | ✅ Terminé   | `M1` `M3`        |
 | Exigences Fonct               | 26 septembre  | ✅ Terminé   | `M1` `M2` `M4`   |
-| Exigences Non-Fonct           | 26 septembre  | ✅ Terminé  | `M1` `M2`    |
-| Évaluation des risques        | 26 septembre  | ✅ Terminé  | `M2` `M3`         |
+| Exigences Non-Fonct           | 26 septembre  | ✅ Terminé  | `M1` `M2`        |
+| Évaluation des risques        | 26 septembre  | ✅ Terminé  | `M2` `M3`        |
 | Diagramme cas d'utilisations           | 3 octobre     |✅ Terminé  | `M1`         |
 | Cas d'utilisation             | 3 octobre     | ✅ Terminé   | `M1` `M2`         |
 | Diagramme d'activités         | 6 octobre     | ✅ Terminé  | `M1`         |
 | Modèle C4                     | 6 octobre     | ✅ Terminé | `M1`         |
 | README: Brève description du projet, organisation du répertoire | 6 octobre    | ✅ Terminé   | `M3`         |
-| Descriptions flux principaux         | 7 octobre     | ⏳ À faire  | `M2`         |
-| Besoins matériels             | 7 octobre     | ⏳ À faire | `M3`         |
-| Rapport                       | 10 octobre    | ⏳ À faire  | `M1`  `M2`  `M3`  `M4`         |
-
-
+| Descriptions flux principaux         | 7 octobre     | ✅ Terminé  | `M2`         |
+| Besoins matériels             | 7 octobre     | ✅ Terminé | `M3`         |
+| Rapport                       | 10 octobre    | ✅ Terminé  | `M1`  `M2`  `M3`  `M4`         |

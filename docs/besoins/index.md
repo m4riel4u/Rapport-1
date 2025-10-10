@@ -5,8 +5,7 @@ title: Analyse des besoins - Présentation générale
 # Présentation du projet
 
 ## Méthodologie pour la cueillette des données
-
-TODO: Préciser comment les besoins ont été collectés (entrevues, questionnaires, brainstorming, etc.).
+- Brainstorming  
 
 ## Description du domaine
 
@@ -42,7 +41,15 @@ Réseau informatique de l'UdeM
 - Les données officielles sont fiables et actualisées selon l'année et la session  
 
 ### Contraintes
-Loi 25: Garder la confidentialité et protéger les données  
-Contrainte du logiciel?
-Contrainte de l'environnement?
-Contrainte de performance?
+Contrainte légale  
+- Loi 25: Garder la confidentialité et protéger les données  
+Contrainte du logiciel  
+- La plateforme doit être hébergée sous forme de site web statique (MkDocs + GitHub Pages).  
+- Les API intégrées doivent suivre les protocoles REST et être accessibles via HTTPS.  
+Contrainte de l'environnement  
+- L’application doit être compatible avec les postes informatiques et réseaux de l’Université de Montréal.  
+- Le système doit fonctionner sur les navigateurs récents (Chrome, Firefox, Edge, Safari).  
+- Le service doit être accessible depuis n’importe quel appareil (ordinateur portable, tablette, mobile).  
+Contrainte de performance  
+- Le site doit se charger en moins de 3 secondes sur une connexion Internet standard (≥ 2 Mbps).  
+- L’interface doit supporter tous les cours sans ralentissement notable.  

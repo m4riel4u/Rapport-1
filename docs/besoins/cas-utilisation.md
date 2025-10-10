@@ -38,7 +38,7 @@ TODO: Introduction aux cas d’utilisation du système.
 
 **Déclencheur** : 
 
-- L'étudiant a accès à la page de connexion pour saisir son identifiant et son mot de passe.
+- L'étudiant ouvre la page de connexion pour saisir son identifiant et son mot de passe.
 
 **Dépendances** : 
 
@@ -46,7 +46,7 @@ TODO: Introduction aux cas d’utilisation du système.
 
 **But** :
 
-- L'étudiant a accès à son compte avec ses données enregistrées et protégées.
+- L'étudiant se connecte à son compte avec ses données enregistrées et protégées.
 
 ### CU02 - Rechercher un cours
 
@@ -92,12 +92,12 @@ TODO: Introduction aux cas d’utilisation du système.
 
 **Déclencheur** :
 
-- L'étudiant a accès à la section de 'Personnalisation du profil' dans son profil.
+- L'étudiant ouvre la section de 'Personnalisation du profil' dans son profil.
 
 **Dépendances** :
 
-- Base de données personnelles des étudiants sauvegardée  
-- Moteur de suggestions qui suit les critères du profil de l'étudiant
+- Base de données personnelles des étudiants sauvegardée.
+- Moteur de suggestions qui suit les critères du profil de l'étudiant.
 
 **But** :
 
@@ -123,8 +123,8 @@ TODO: Introduction aux cas d’utilisation du système.
 
 **Dépendances** :
 
-- Données des cours sont synchronisées avec le Planifium  
-- Les préférences de la charge de travail dans le profil de l'étudiant
+- Données des cours sont synchronisées avec le Planifium.
+- Les préférences de la charge de travail dans le profil de l'étudiant.
 
 **But** :
 
@@ -147,7 +147,7 @@ TODO: Introduction aux cas d’utilisation du système.
 
 **Déclencheur** :
 
-- L'étudiant a accès à la page de création d'un compte pour créer son profil.
+- L'étudiant ouvre la page de création d'un compte pour créer son profil.
 
 **Dépendances** :
 

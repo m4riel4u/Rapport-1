@@ -15,6 +15,7 @@ Ce glossaire définit les termes importants utilisés dans le projet, en particu
 | Calendrier académique | Planification des cours, périodes d'inscription, examens, remises de travaux, et congés. |
 | Centralisation | Regroupement des informations, des sources ou des décisions en un seul point de contrôle. |
 | Charge de travail | Volume de tâches à accomplir dans un temps donnée pour un cours. |
+| Cheminement académique | Parcours suivi par un étudiant dans son programme, comprenant les cours obligatoires et optionnels. |
 | Combinaison | Assemblage/ association de plusieurs éléments (cours) pour former un tout. |
 | Compatibilité | Capacité de deux entités à coexister sans conflit. |
 | Confidentialité | Protection des informations pour qu'elles ne soient accessible qu'aux personnes autorisées. |
