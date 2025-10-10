@@ -12,7 +12,7 @@ Ce site web présentera:
 - Une personnalisation selon le profil de l'étudiant
 
 
-Ce projet vise à centraliser plusieurs sources d'information officielles:
+Ce projet vise à centraliser plusieurs sources d'information:
 - API Planifium: Catalogue officiel des programmes, cours et horaires de l'Université de Montréal
 - Résultats académiques agrégés: Résultats globaux de l'ensemble des cours durant une session précise
 - Avis étudiants provenant de Discord: Avis sur des cours recueillis directement auprès des étudiants via un bot Discord
