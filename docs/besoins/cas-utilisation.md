@@ -96,8 +96,8 @@ TODO: Introduction aux cas d’utilisation du système.
 
 **Dépendances** :
 
-- Base de données personnelles des étudiants sauvegardée  
-- Moteur de suggestions qui suit les critères du profil de l'étudiant
+- Base de données personnelles des étudiants sauvegardée.
+- Moteur de suggestions qui suit les critères du profil de l'étudiant.
 
 **But** :
 
@@ -123,8 +123,8 @@ TODO: Introduction aux cas d’utilisation du système.
 
 **Dépendances** :
 
-- Données des cours sont synchronisées avec le Planifium  
-- Les préférences de la charge de travail dans le profil de l'étudiant
+- Données des cours sont synchronisées avec le Planifium.
+- Les préférences de la charge de travail dans le profil de l'étudiant.
 
 **But** :
 
