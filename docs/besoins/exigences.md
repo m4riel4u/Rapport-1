@@ -17,11 +17,11 @@ title: Analyse des besoins - Exigences
 
 ## Exigences non fonctionnelles
 
-- [ ] ENF1 : Le système doit répondre en moins de 2 secondes.
-- [ ] ENF2 : L'application doit être compatible avec Chrome et Firefox.
-- [ ] ENF3 : Le système est facilement accessible, clair et utile.
-- [ ] ENF4 : Le système ne divulgue pas d'informations confidentielles.
-- [ ] ENF5 : Les données officielles sont centralisées dans une même interface.
+- [ ] ENF1 : Performance : Le système doit répondre en moins de 2 secondes.
+- [ ] ENF2 : L'application doit être compatible avec Chrome, Firefox, Safari et Microsoft Edge.
+- [ ] ENF3 : Le système est facilement accessible, clair et utile. Les caractères sont assez gros avec un constraste suffisant entre la couleur du texte et celle de l'arrière-plan. 
+- [ ] ENF4 : Le système ne divulgue pas d'informations confidentielles. La sécurisation des données personnelles est assurer par l'anonymat des avis sur la plateforme Discord et l'anonymat des résultats académiques agrégés de chaque cours. 
+- [ ] ENF5 : Le système doit être utilisable sur PC et sur mobile. 
 
 ## Priorisation
 
@@ -43,7 +43,6 @@ title: Analyse des besoins - Exigences
 | Utilisateur authentifié | Compte personnel, fonctions principales | Réservation, historique |
 | Administrateur | Droits étendus, gestion des ressources | Création/suppression de ressources, gestion des utilisateurs |
 
-<!-- TODO: Détailler selon le périmètre du projet. -->
 
 ## Infrastructures
 
@@ -54,7 +53,6 @@ title: Analyse des besoins - Exigences
 - Serveur Web : Nginx + Gunicorn (pour une app Python, par exemple).
 - Framework principal : [À spécifier selon le projet].
 
-<!-- TODO: Compléter selon le stack technique prévu. -->
 
 ## Besoins matériels, solution de stockage et solution d'intégration
 
@@ -64,7 +62,7 @@ title: Analyse des besoins - Exigences
 
 | Équipement | Spécifications minimales | Rôles |
 |-------------|--------------------------|------|
-| Ordinateur portable ou de bureau | Processeur double cœur, 4 Go RAM, 1 Go d’espace libre | Accès via navigateur web, affichage de l’interface sans  |
+| Ordinateur portable ou de bureau | Processeur double cœur, 4 Go RAM, 1 Go d’espace libre | Accès via navigateur web, affichage de l’interface |
 | Tablette / mobile | Navigateur moderne, 2 Go RAM | Consultation mobile, lecture et recherche rapide |
 | Connexion internet | Stable, ≥ 2 Mbps | Chargement fluide des données depuis les API (Planifium, Discord) |
 | Navigateur web | Version récente (Chrome, Firefox, Edge, Safari) | Compatibilité avec les standards HTML5 et JavaScript |

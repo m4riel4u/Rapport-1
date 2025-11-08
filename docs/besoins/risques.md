@@ -6,8 +6,6 @@ title: Analyse des besoins - Risques
 
 ## Identification des risques
 
-TODO: Lister les principaux risques identifiés (techniques, humains, organisationnels).
-
 ### Risque 1 – Absence prolongée d’un membre de l'équipe  
 
 - **Probabilité** : Moyenne  
@@ -54,7 +52,3 @@ TODO: Lister les principaux risques identifiés (techniques, humains, organisati
   - Authentification double
   - Aucun stockage de données personnelles (Loi 25)
 
-
-## Modification du processus opérationnel
-
-> Si la mise en place du système modifie des processus internes ou des pratiques actuelles, il est essentiel de les identifier ici. 

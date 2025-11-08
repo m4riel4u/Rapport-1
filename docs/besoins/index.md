@@ -9,8 +9,10 @@ title: Analyse des besoins - Présentation générale
 
 ## Description du domaine
 
+Le choix de cours est une étape cruciale dans un parcours académique, car c'est cette combinaison d'apprentissages qui forme l'étudiant et le propulse vers l'obtention de son diplome. Par contre, cette tâche peut vite devenir un vrai casse-tête, car plusieurs contraintes interviennent lors de ce choix : les intérêts personnels de l'étudiant, son éligibilité au cours, la difficulté des cours, la charge de travail, les prérequis nécessaires ainsi que les ambitions de l'étudiant (orienté son parcous vers des études au cycle supérieur ou vers le marché du travail).
+
 ### Fonctionnement
-Cet outil numérique permet aux utilisateurs de consulter les horaires et description de cours, comparer ceux-ci ainsi qu'offrir une affichage personnalisé selon chaque utilisateur. Cette plateforme combine des données provenant de sources officielles (Planifium, résultats académiques agrégés) et des avis personnels provenant des élèves via la plateforme Discord. L'interface est clair et concis pour pourvoir faciliter et adapter la planification du parcours académique selon la situation de chaque étudiant.
+Oriento est un outil numérique permettant aux utilisateurs de consulter les horaires et description de cours, comparer ceux-ci ainsi qu'offrir une affichage personnalisé selon chaque utilisateur. Cette plateforme combine des données provenant de sources officielles (Planifium, résultats académiques agrégés) et des avis personnels provenant des élèves via la plateforme Discord. L'interface est clair et concis pour pourvoir faciliter et adapter la planification du parcours académique selon la situation de chaque utilisateur.
 
 ### Acteurs
 Étudiants de l'Université de Montréal:     
@@ -28,6 +30,8 @@ Administration facultaire:
 - TGDE  
 - Responsables de programmes   
 - Doyens de programmes 
+
+
 ### Dépendances
 API Planifium  
 Résultats académiques agrégés  
