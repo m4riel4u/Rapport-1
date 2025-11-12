@@ -10,7 +10,7 @@ title: Vue d'ensemble
     }
 </style>
 
-# Plateforme d'aide aux choix de cours
+# Plateforme d'aide aux choix de cours - Oriento
 
 ## Équipe
 
@@ -20,7 +20,7 @@ title: Vue d'ensemble
 - **`M4`:** Sarah Cho (20296221) #brickk99
 
 ## Description du projet
-Ce projet vise à développer une plateforme simple et accessible pour les étudiants de l'Université de Montréal. La plateforme est conçue pour répondre aux besoins de chaque étudiant, quel que soit leur programme d'étude ou leur parcours universitaire. En centralisant les données de l'API Planifium, des données des cours et des avis des anciens étudiants, la plateforme permet de fournir des informations pertinentes pour guider les nouveaux étudiants selon leur besoins. Ainsi, les étudiants peuvent effectuer des recherches peronnalisées, les intérêts personnels, des comparaisons de cours en fonction de leur charge de travail et leur difficulté. Enfin, les étudiants peuvent faire des choix de cours plus facilement et plus adaptés à leurs préférences académiques.
+Ce projet vise à développer une plateforme simple et accessible pour les étudiants de l'Université de Montréal. La plateforme nommé "Oriento" est conçue pour répondre aux besoins de chaque étudiant, quel que soit leur programme d'étude ou leur parcours universitaire. En centralisant les données de l'API Planifium, des données des cours et des avis des anciens étudiants, la plateforme permet de fournir des informations pertinentes pour guider les nouveaux étudiants selon leur besoins. Ainsi, les étudiants peuvent effectuer des recherches peronnalisées, les intérêts personnels, des comparaisons de cours en fonction de leur charge de travail et leur difficulté. Enfin, les étudiants peuvent faire des choix de cours plus facilement et plus adaptés à leurs préférences académiques.
 
 ## Échéancier
 
@@ -42,3 +42,6 @@ Ce projet vise à développer une plateforme simple et accessible pour les étud
 | Descriptions flux principaux         | 7 octobre     | ✅ Terminé  | `M2`         |
 | Besoins matériels             | 7 octobre     | ✅ Terminé | `M3`         |
 | Rapport                       | 10 octobre    | ✅ Terminé  | `M1`  `M2`  `M3`  `M4`         |
+
+## Lien du répertoire GitHub
+https://github.com/m4riel4u/Oriento 

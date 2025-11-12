@@ -6,8 +6,7 @@ title: Analyse des besoins - Cas d'utilisation
 
 ## Vue d’ensemble
 
-TODO: Introduction aux cas d’utilisation du système.
-![alt text](<Capture d’écran 2025-10-06 150358.png>)
+![alt text](<Capture d’écran 2025-10-03 111800.png>)
 ## Liste des cas d’utilisation
 
 | ID | Nom | Acteurs principaux | Description |

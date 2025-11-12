@@ -15,6 +15,7 @@ Le choix de cours est une étape cruciale dans un parcours académique, car c'es
 Oriento est un outil numérique permettant aux utilisateurs de consulter les horaires et description de cours, comparer ceux-ci ainsi qu'offrir une affichage personnalisé selon chaque utilisateur. Cette plateforme combine des données provenant de sources officielles (Planifium, résultats académiques agrégés) et des avis personnels provenant des élèves via la plateforme Discord. L'interface est clair et concis pour pourvoir faciliter et adapter la planification du parcours académique selon la situation de chaque utilisateur.
 
 ### Acteurs
+#### Acteurs principaux
 Étudiants de l'Université de Montréal:     
 - Étudiants de 1er cycle  
 - Étudiants de cycles supérieurs  
@@ -30,7 +31,9 @@ Administration facultaire:
 - TGDE  
 - Responsables de programmes   
 - Doyens de programmes 
-
+#### Acteurs secondaires
+- bot Discord
+- API planifium 
 
 ### Dépendances
 API Planifium  
@@ -45,15 +48,22 @@ Réseau informatique de l'UdeM
 - Les données officielles sont fiables et actualisées selon l'année et la session  
 
 ### Contraintes
-Contrainte légale  
+#### Contrainte légale  
+
 - Loi 25: Garder la confidentialité et protéger les données  
-Contrainte du logiciel  
-- La plateforme doit être hébergée sous forme de site web statique (MkDocs + GitHub Pages).  
-- Les API intégrées doivent suivre les protocoles REST et être accessibles via HTTPS.  
-Contrainte de l'environnement  
-- L’application doit être compatible avec les postes informatiques et réseaux de l’Université de Montréal.  
-- Le système doit fonctionner sur les navigateurs récents (Chrome, Firefox, Edge, Safari).  
-- Le service doit être accessible depuis n’importe quel appareil (ordinateur portable, tablette, mobile).  
-Contrainte de performance  
-- Le site doit se charger en moins de 3 secondes sur une connexion Internet standard (≥ 2 Mbps).  
-- L’interface doit supporter tous les cours sans ralentissement notable.  
+
+#### Contrainte du logiciel  
+
+- Les API intégrées doivent suivre les protocoles REST et être accessibles via HTTPS. 
+
+#### Contrainte temporelle
+
+- Le projet doit être terminé avant le 23 décembre 2025.
+
+- Les tests utilisateurs doivent être réalisés pour le 23 novembre 2025.
+
+#### Contrainte organisationnelles 
+
+- L'équipe de développement se limite à 4 personnes.
+
+- L'équipe de développement doit contacter les clients au moins 5 fois avant la livraison finale.

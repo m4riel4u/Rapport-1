@@ -9,19 +9,19 @@ title: Analyse des besoins - Exigences
 - [ ] EF1 : L'utilisateur peut créer un nouveau compte étudiant.
 - [ ] EF2 : L'utilisateur peut effectuer une nouvelle connexion à un compte étudiant.
 - [ ] EF3 : L'utilisateur peut personnaliser son profil en modifiant ses préférences.
-- [ ] EF4 : L'étudiant peut effectuer des recherches des cours spécifiques.
-- [ ] EF5 : L'étudiant peut obtenir des résultats recommandés et personnalisés.
-- [ ] EF6 : L'étudiant peut voir les détails des cours sélectionnés, comme la charge de travail et les moyennes.
-- [ ] EF7 : L'étudiant peut voir les avis des anciens étudiants sur les cours sélectionnés.
-- [ ] EF8 : L'étudiant peut comparer des cours selon les critères désirés.
+- [ ] EF4 : L'utilisateur peut effectuer des recherches des cours spécifiques.
+- [ ] EF5 : L'utilisateur peut obtenir des résultats recommandés et personnalisés.
+- [ ] EF6 : L'utilisateur peut voir les détails des cours sélectionnés, comme la charge de travail et les moyennes.
+- [ ] EF7 : L'utilisateur peut voir les avis des anciens étudiants sur les cours sélectionnés.
+- [ ] EF8 : L'utilisateur peut comparer des cours selon les critères désirés.
 
 ## Exigences non fonctionnelles
 
-- [ ] ENF1 : Performance : Le système doit répondre en moins de 2 secondes.
-- [ ] ENF2 : L'application doit être compatible avec Chrome, Firefox, Safari et Microsoft Edge.
-- [ ] ENF3 : Le système est facilement accessible, clair et utile. Les caractères sont assez gros avec un constraste suffisant entre la couleur du texte et celle de l'arrière-plan. 
-- [ ] ENF4 : Le système ne divulgue pas d'informations confidentielles. La sécurisation des données personnelles est assurer par l'anonymat des avis sur la plateforme Discord et l'anonymat des résultats académiques agrégés de chaque cours. 
-- [ ] ENF5 : Le système doit être utilisable sur PC et sur mobile. 
+- [ ] ENF1 : Performance : Le système doit répondre en moins de 2 secondes aux requêtes de l'utilisateur. 
+- [ ] ENF2 : Utilisabilité : L'application doit être compatible avec Chrome, Firefox, Safari et Microsoft Edge. Le site web doit être fonctionnel et l'interface doit être intact sur chacun des moteurs de recherches mentionné. 
+- [ ] ENF3 : Utilisabilité : Le système est facilement accessible, clair et utile. Les caractères sont assez gros avec un constraste suffisant entre la couleur du texte et celle de l'arrière-plan. 
+- [ ] ENF4 : Sécurité :  Le système ne divulgue pas d'informations confidentielles. La sécurisation des données personnelles est assurer par l'anonymat des avis sur la plateforme Discord et l'anonymat des résultats académiques agrégés de chaque cours. De plus, une clé de chiffrement des données doit être utilisée. 
+- [ ] ENF5 : Portabilité : Le système s'exécute sur les OS majeurs soient Windows, Mac et Linux. 
 
 ## Priorisation
 
@@ -42,16 +42,6 @@ title: Analyse des besoins - Exigences
 | Utilisateur invité | Accès limité, pas d’authentification | Consultation des ressources |
 | Utilisateur authentifié | Compte personnel, fonctions principales | Réservation, historique |
 | Administrateur | Droits étendus, gestion des ressources | Création/suppression de ressources, gestion des utilisateurs |
-
-
-## Infrastructures
-
-> Informations sur l’environnement d’exécution cible, les outils ou plateformes nécessaires.
-
-- Le système sera hébergé sur un serveur Ubuntu 22.04.
-- Base de données : PostgreSQL version 15.
-- Serveur Web : Nginx + Gunicorn (pour une app Python, par exemple).
-- Framework principal : [À spécifier selon le projet].
 
 
 ## Besoins matériels, solution de stockage et solution d'intégration
