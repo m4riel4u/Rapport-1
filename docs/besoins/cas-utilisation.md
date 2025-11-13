@@ -47,6 +47,26 @@ title: Analyse des besoins - Cas d'utilisation
 
 - L'étudiant se connecte à son compte avec ses données enregistrées et protégées.
 
+#### Scénario:
+- Scénario principal
+    1. L'utilisateur ouvre l'application.
+    2. L'application affiche la page de connexion.
+    3. L'utilisateur entre son adresse couriiel et son mot de passe.
+    4. L'utilisateur clique sur « Se connecter ».
+    5. La plateforme vérifie les identifiants.
+    6. La plateforme affiche la page d’accueil de l’utilisateur.
+
+- Scénarios alternatifs
+    1. Le mot de passe incorrect
+        1. L’utilisateur entre son courriel et un mauvais mot de passe.
+        2. L’utilisateur clique sur « Se connecter ».
+        3. La plateforme indique que les informations sont invalides.
+        4. L’utilisateur peut réessayer ou demander une récupération du mot de passe.
+    2. Les champs sont vides
+        1. L’utilisateur clique sur « Se connecter » sans remplir les champs.
+        2. La plateforme affiche un message d’erreur demandant de compléter les informations.
+
+
 ### CU02 - Rechercher un cours
 
 **Acteurs** :
@@ -73,6 +93,24 @@ title: Analyse des besoins - Cas d'utilisation
 **But** :
 
 - L'étudiant peut découvrir une variété de cours qui correspondent à sa recherche.
+
+#### Scénario:
+- Scénario principal
+    1. L’utilisateur accède à la barre de recherche sur la page principale.
+    2. L’utilisateur saisit un mot-clé.
+    3. L’utilisateur clique sur « Rechercher ».
+    4. L’application fait appel à la base de données des cours.
+    5. La plateforme affiche une liste de cours correspondant aux critères.
+    6. L’utilisateur sélectionne un cours pour afficher les détails.
+
+- Scénarios alternatifs
+    1. Aucun résultat trouvé
+        1. L’utilisateur entre un mot-clé qui ne correspond à aucun cours.
+        2. La plateforme affiche : « Aucun cours trouvé ».
+        3. L’utilisateur peut modifier sa recherche.
+    2. Les informations de recherche sont incomplètes
+        1. L’utilisateur clique sur « Rechercher » sans mot-clé.
+        2. La plateforme demande d’entrer un critère de recherche.
 
 ### CU03 - Personnalisation du profil
 
@@ -102,6 +140,20 @@ title: Analyse des besoins - Cas d'utilisation
 
 - Améliorer la précision des suggestions de cours en tenant compte de son profil personnalisé de l'étudiant
 
+#### Scénario:
+- Scénario principal
+    1. L’utilisateur ouvre la section « Profil ».
+    2. La plateforme affiche les informations actuelles du profil.
+    3. L’utilisateur modifie ses préférences.
+    4. L’utilisateur clique sur « Enregistrer ».
+    5. La plateforme met à jour les informations dans la base de données.
+    6. Un message confirme que la personnalisation est sauvegardée.
+
+- Scénario alternatif
+    1. L’utilisateur tente d’enregistrer un champ obligatoire vide.
+    2. La plateforme affiche un message d’erreur.
+    3. L’utilisateur corrige les informations et réessaie.
+
 ### CU04 - Comparaison de cours
 
 **Acteurs** :
@@ -129,6 +181,18 @@ title: Analyse des besoins - Cas d'utilisation
 
 - Comparaison des cours pour aider l'étudiant à évaluer la charge de travail sur une combinaison de cours.
 
+#### Scénario:
+- Scénario principal
+    1. L’utilisateur effectue une recherche ou navigue parmi les cours.
+    2. L’utilisateur sélectionne deux cours à comparer.
+    3. L’utilisateur clique sur « Comparer ».
+    4. La plateforme analyse les charges de travail, horaires, et critères similaires.
+    5. Un tableau comparatif est affiché.
+    6. L’utilisateur consulte les différences pour choisir une combinaison personnalisée.
+
+- Scénario alternatif
+    1. L’utilisateur clique sur « Comparer » avec seulement un cours sélectionné.
+    2. La plateforme affiche un message demandant de sélectionner au moins deux cours.
 
 ### CU05 - Création d'un compte
 
@@ -155,3 +219,24 @@ title: Analyse des besoins - Cas d'utilisation
 **But** :
 
 - L'utilisateur peut se créer un compte s'il n'en a pas déjà un. 
+
+#### Scénario:
+- Scénario principal
+    1. L’utilisateur ouvre l’application et clique sur « Créer un compte ».
+    2. La plateforme affiche le formulaire d’inscription.
+    3. L’utilisateur remplit les champs requis.
+    4. L’utilisateur clique sur « S’inscrire ».
+    5. La plateforme vérifie que les informations sont valides.
+    6. Le compte est créé et un message de confirmation est affiché.
+    7. L’utilisateur est redirigé vers la page d’accueil ou la page de connexion.
+
+- Scénarios alternatifs
+    1. Le courriel est déjà utilisé
+        1. L’utilisateur remplit le formulaire avec un courriel existant.
+        2. La plateforme affiche : « Ce courriel est déjà associé à un compte ».
+        3. L’utilisateur doit entrer une autre adresse ou se connecter.
+    2. Des champs obligatoires sont manquants
+        1. L’utilisateur tente d’envoyer le formulaire incomplet.
+        2. La plateforme affiche un message d’erreur.
+        3. L’utilisateur complète les champs manquants.
+    
