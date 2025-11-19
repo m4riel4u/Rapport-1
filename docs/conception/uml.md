@@ -6,9 +6,10 @@ title: Conception - Diagrammes UML
 
 ## Diagrammes de classes
 
-- Modèle de données orienté objet
-
+![Diagramme de classes](cd.png)
 
 ## Diagrammes de séquence
 
-- Exécution pas à pas d’un scénario type
+![Diagramme de séquences](sd recherche de cours.png)
+![Diagramme de séquences](sd comparer cours.png)
+![Diagramme de séquences](sd soumettre avis.png)
