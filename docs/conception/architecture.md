@@ -6,8 +6,8 @@ title: Conception - Architecture
 
 ## Vue d’ensemble
 
-- Description du type d’architecture retenue (ex. : monolithique, microservices, REST...)
-- Raisons du choix
+- L'architecture REST sera retenue.
+- C'est un style d'architecture utilisé principalement pour créer des API web. Cette architecture repose sur un ensemble de principes qui permet aux systèmes informatique de communiquer facilement via le protocole HTTP. De plus il est sans état, le serveur ne conserve pas d'état entre les requêtes. Les données utilisées sont représentées sous forme de ressource identifiées par des URI, et ces ressources peuvent être présentées sous différentes formes spécifiable via les en-têtes HTTP.
 
 ## Composants principaux
 
@@ -15,12 +15,14 @@ title: Conception - Architecture
   - Module d’authentification
   - Gestion des utilisateurs
   - Interface (frontend)
-  - API backend
+  - API (backend)
+  - Base de données
+  - Notifications
 
 ## Communication entre composants
 
-- Mécanismes d’échange : appels HTTP, WebSocket, messages, etc.
-- Format des données : JSON, XML, etc.
+- Mécanismes d’échange : appels HTTP, WebSocket, messages
+- Format des données : JSON, XML
 
 ## Diagramme d’architecture (Modèle C4)
 Niveau 1 : 
