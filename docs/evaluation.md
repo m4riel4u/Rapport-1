@@ -14,7 +14,7 @@ title: Évaluation et tests
 
 ## Plan de test
 
-- - Types de tests réalisés :
+- Types de tests réalisés :
   - Tests unitaires
   - Tests d’intégration
   - Tests manuels
@@ -33,6 +33,19 @@ title: Évaluation et tests
 - Résumé quantitatif :
   - 85 % de couverture de code
   - Temps de réponse moyen : 1.2s
+
+## Oracle de tests
+|Entrée |Sortie attendue |Cas d'utilisation |État après l'appel |Type |Description |
+| | | | | | |
+| | | | | | |
+| | | | | | |
+| | | | | | |
+| | | | | | |
+| | | | | | |
+| | | | | | |
+| | | | | | |
+| | | | | | |
+| | | | | | |
 
 ## Évaluation du système
 

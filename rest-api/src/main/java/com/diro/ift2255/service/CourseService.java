@@ -64,10 +64,8 @@ public class CourseService {
         System.out.println("➡️ [Service] Appel API : " + uri);
         try{
             Course course = clientApi.get(uri, Course.class);
-           System.out.println("✔️ [Service] JSON reçu et mappé en Course.");
             return Optional.of(course);
         }catch (RuntimeException e){
-           System.out.println("❌ [Service] Erreur lors du mapping JSON : " + e.getMessage());
             return Optional.empty();
         }
         

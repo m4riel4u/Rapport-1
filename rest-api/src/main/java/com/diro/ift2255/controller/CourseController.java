@@ -83,15 +83,12 @@ public class CourseController {
     }
     public void getCompleteCourse(Context ctx) {
         String id = ctx.pathParam("id").trim().toUpperCase();
-        System.out.println("➡️ [Controller] getCompleteCourse() appelé avec ID = " + id);
 
         service.getCompleteCourse(id).ifPresentOrElse(
             course -> {
-                System.out.println("✔️ [Controller] Cours trouvé, envoi JSON au client.");
                 ctx.json(course);
             },
-            () -> {
-                System.out.println("❌ [Controller] Aucun cours trouvé pour ID = " + id);                
+            () -> {               
                 ctx.status(404).json(Map.of("error", "Cours introuvable"));
             }
         );

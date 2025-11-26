@@ -28,7 +28,6 @@ public class HttpClientApi {
     /** Perform a GET request */
     public HttpClientApiResponse get(URI uri) {
         try {
-            System.out.println("➡️ [HTTP] Envoi GET → " + uri);
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(uri)
                     .header("Accept", "application/json")
@@ -37,14 +36,12 @@ public class HttpClientApi {
                     .build();
 
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            System.out.println("⬅️ [HTTP] Réponse brute reçue : " + response.body());
             return new HttpClientApiResponse(
                     response.statusCode(),
                     HttpStatus.reasonPhrase(response.statusCode()),
                     response.body());
 
         } catch (IOException | InterruptedException e) {
-            System.out.println("❌ [HTTP] Erreur réseau : " + e.getMessage());
             Thread.currentThread().interrupt(); // best practice if interrupted
             return new HttpClientApiResponse(500, "Internal Server Error", e.getMessage());
         }
@@ -53,16 +50,13 @@ public class HttpClientApi {
     /** GET and map JSON body to a given class */
     public <T> T get(URI uri, Class<T> clazz) {
         HttpClientApiResponse raw = get(uri);
-        System.out.println("➡️ [JSON] Tentative de mapping vers classe : " + clazz.getSimpleName());
         if (raw.getStatusCode() >= 200 && raw.getStatusCode() < 300) {
             try {
                 return mapper.readValue(raw.getBody(), clazz);
             } catch (IOException e) {
-                System.out.println("❌ [JSON] ERREUR mapping : " + e.getMessage());
                 throw new RuntimeException("Failed to parse JSON: " + e.getMessage(), e);
             }
         } else {
-            System.out.println("❌ [JSON] Code HTTP invalide : " + raw.getStatusCode());
             throw new RuntimeException("Request failed: " + raw.getStatusCode() + " - " + raw.getStatusMessage());
         }
     }
