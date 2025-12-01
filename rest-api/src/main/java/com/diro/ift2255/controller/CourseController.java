@@ -75,4 +75,22 @@ public class CourseController {
 
         return queryParams;
     }
+    public void getCoursesByQuery (Context ctx){
+        String query = ctx.queryParam("query");
+        List<Course> results = service.searchCourses(query);
+        ctx.json(results);
+
+    }
+    public void getCompleteCourse(Context ctx) {
+        String id = ctx.pathParam("id").trim().toUpperCase();
+
+        service.getCompleteCourse(id).ifPresentOrElse(
+            course -> {
+                ctx.json(course);
+            },
+            () -> {               
+                ctx.status(404).json(Map.of("error", "Cours introuvable"));
+            }
+        );
+    }
 }
