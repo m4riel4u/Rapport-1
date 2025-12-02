@@ -36,7 +36,6 @@ public class HttpClientApi {
                     .build();
 
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
             return new HttpClientApiResponse(
                     response.statusCode(),
                     HttpStatus.reasonPhrase(response.statusCode()),

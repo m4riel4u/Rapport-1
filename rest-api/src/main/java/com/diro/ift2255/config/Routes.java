@@ -13,6 +13,7 @@ public class Routes {
     public static void register(Javalin app) {
         registerUserRoutes(app);
         registerCourseRoutes(app);
+        registrerWebPageRoutes(app);
     }
 
     private static void registerUserRoutes(Javalin app) {
@@ -31,6 +32,14 @@ public class Routes {
         CourseController courseController = new CourseController(courseService);
 
         app.get("/courses", courseController::getAllCourses);
+        app.get("/courses/search", courseController::getCoursesByQuery);
         app.get("/courses/{id}", courseController::getCourseById);
+        app.get("/courses/complete/{id}", courseController::getCompleteCourse);
+        
+    }
+
+    private static void registrerWebPageRoutes(Javalin app) {
+
+        app.get("/", ctx -> ctx.redirect("/index.html"));
     }
 }
