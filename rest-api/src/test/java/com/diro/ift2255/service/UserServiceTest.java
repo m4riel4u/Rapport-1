@@ -51,15 +51,16 @@ public class UserServiceTest {
 
         // Assert
         assertTrue(userOpt.isEmpty(),
-            "Aucun utilisateur possède un ID de 0.")
+            "Aucun utilisateur possède un ID de 0.");
     }
 
-    @Test testGetUserById_idNegatif() {
+    @Test 
+    void testGetUserById_idNegatif() {
         // Arrange & Act
         var userOpt = userService.getUserById(-1);
 
         // Assert
         assertTrue(userOpt.isEmpty(),
-            "Aucun utilisateur possède un ID négatif.")
+            "Aucun utilisateur possède un ID négatif.");
     }
 }

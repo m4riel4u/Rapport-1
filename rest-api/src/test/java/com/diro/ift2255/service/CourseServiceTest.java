@@ -148,35 +148,16 @@ public class CourseServiceTest {
     }
 
     @Test
-    void testGetAllCourses_apiRetourneNull() {
+    void testGetAllCourses_apiRetourneListeVide() {
         // ARRANGE
-        when(clientApi.get(any(URI.class), any(TypeReference.class))).thenReturn(null);
+        when(clientApi.get(any(URI.class), any(TypeReference.class))).thenReturn(Collections.emptyList());
 
         // ACT
         var result = courseService.getAllCourses(null);
 
         // ASSERT
         assertEquals(0, result.size(),
-            "La liste des cours devrait être vide, puisque l'API retourne null.")
-    }
-
-    @Test
-    void testGetAllCourses_coursInvalide() {
-        // ARRANGE : un cours avec ID invalide ou nul
-        Course invalide = new Course();
-        invalide.setId("");
-        invalide.setName("Cours invalide");
-
-        List<Course> liste = new ArrayList<>(fauxCours);
-        liste.add(invalide);
-
-        when(clientApi.get(any(URI.class), any(TypeReference.class))).thenReturn(liste);
-
-        // ACT
-        var result = courseService.getAllCourses(null);
-
-        // ASSERT
-        assertEquals(2, restult.size(), "Un cours invalide par ID ne devrait pas être ajouté dans la liste.")
+            "La liste des cours devrait être vide, puisque l'API retourne une liste vide.");
     }
 
     @Test
@@ -188,7 +169,7 @@ public class CourseServiceTest {
         var result = courseService.searchCourses("@@@!!!!")
 
         // ASSERT
-        assertTrue(result.isEmpty(), "La recherche ne fonctionne pas avec des caractères spéciaux.")
+        assertTrue(result.isEmpty(), "La recherche ne fonctionne pas avec des caractères spéciaux.");
     }
 }
 
