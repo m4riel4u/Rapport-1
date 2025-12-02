@@ -28,6 +28,8 @@ title: Conception - Architecture
 
 ## Diagramme d’architecture (Modèle C4)
 Niveau 1 : 
-![alt text](<Capture d’écran 2025-10-03 131537.png>)
+![C4 niveau 1](C4 niveau1 v2.png)
 Niveau 2 : 
-![alt text](<Capture d’écran 2025-10-03 131505.png>)
+![C4 niveau 2](Diagramme C4 niveau 2.png)
+Niveau 3 :
+![C4 niveau 3](Diagramme C4 niveau 3.png)

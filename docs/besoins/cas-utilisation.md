@@ -21,10 +21,10 @@ title: Analyse des besoins - Cas d'utilisation
 | CU08 | Ajout des cours réussis | Utilisateur | L'utilisateur peut ajouter ses cours réussis à son profil pour obtenir des recommandations de cours avec les préalables déjà acquis. |
 | CU09 | Affichage des résultats académiques | Utilisateur | L'utilisateur peut voir les résultats des cours sélectionnés pour estimer la difficulté de ces cours. |
 | CU010 | Éligibilité au cours | Utilisateur | L'utilisateur peut vérifier s'il est éligible pour un cours spécifique avec les données de son profil. |
-| CU011 | Consulter les avis sur les cours | Utilisateur | L'utilisateur peut voir les avis des autres étudiants sur des cours spécifiques. |
+| CU011 | Consulter les avis sur les cours | Utilisateur | L'utilisateur peut voir les avis des autres utilisateurs sur des cours spécifiques. |
 | CU012 | Mettre à jour les avis des cours | Utilisateur | L'utilisateur peut modifier et améliorer un ancien avis publié sous un cours. |
 | CU013 | Voir l'horaire des cours | Utilisateur | L'utilisateur peut consulter l'horaire des cours sélectionnés pour organiser sa session. |
-
+| CU014 | Voir les recommandations des cours personnalisés | Utilisateur | L'utilisateur peut consulter les cours recommandés selon ses préférences sur son profil. |
 
 ## Détail
 
@@ -36,16 +36,16 @@ title: Analyse des besoins - Cas d'utilisation
 
 **Préconditions** : 
 
-- L'étudiant possède un compte activé et valide.  
-- Le système d'authentification est adapté au compte de l'étudiant.
+- L'utilisateur possède un compte activé et valide.  
+- Le système d'authentification est adapté au compte de l'utilisateur.
 
 **PostConditions** :
 
-- Le système a pu vérifier l'authentification de l'étudiant et le redirige vers le menu principal.
+- Le système a pu vérifier l'authentification de l'utilisateur et le redirige vers le menu principal.
 
 **Déclencheur** : 
 
-- L'étudiant ouvre la page de connexion pour saisir son identifiant et son mot de passe.
+- L'utilisateur ouvre la page de connexion pour saisir son identifiant et son mot de passe.
 
 **Dépendances** : 
 
@@ -53,7 +53,7 @@ title: Analyse des besoins - Cas d'utilisation
 
 **But** :
 
-- L'étudiant se connecte à son compte avec ses données enregistrées et protégées.
+- L'utilisateur se connecte à son compte avec ses données enregistrées et protégées.
 
 #### Scénario:
 - Scénario principal
@@ -83,16 +83,16 @@ title: Analyse des besoins - Cas d'utilisation
 
 **Préconditions** :
 
-- L'étudiant et connecté à son compte.  
+- L'utilisateur et connecté à son compte.  
 - La base de donnée sur les structures des programmes est synchronisée avec Planifium.
 
 **PostConditions** :
 
-- Une liste de cours s'affiche selon les critères de recherche de l'étudiant.
+- Une liste de cours s'affiche selon les critères de recherche de l'utilisateur.
 
 **Déclencheur** :
 
-- L'étudiant écrit des mots-clés ou un titre de cours dans la barre de recherche sur l'application.
+- L'utilisateur écrit des mots-clés ou un titre de cours dans la barre de recherche sur l'application.
 
 **Dépendances** :
 
@@ -100,7 +100,7 @@ title: Analyse des besoins - Cas d'utilisation
 
 **But** :
 
-- L'étudiant peut découvrir une variété de cours qui correspondent à sa recherche.
+- L'utilisateur peut découvrir une variété de cours qui correspondent à sa recherche.
 
 #### Scénario:
 - Scénario principal
@@ -128,25 +128,25 @@ title: Analyse des besoins - Cas d'utilisation
 
 **Préconditions** :
 
-- L'étudiant est connecté à son compte avec toutes ses informations valides.
+- L'utilisateur est connecté à son compte avec toutes ses informations valides.
 
 **PostConditions** :
 
-- Les préférences sur les choix de cours et des données personnelles sont spécifiés sur le profil de l'étudiant. 
+- Les préférences sur les choix de cours et des données personnelles sont spécifiés sur le profil de l'utilisateur. 
 - Les préférences présents dans le compte sont utilisés pour filtrer les suggestions des programmes de cours donnés.
 
 **Déclencheur** :
 
-- L'étudiant ouvre la section de 'Personnalisation du profil' dans son profil.
+- L'utilisateur ouvre la section de 'Personnalisation du profil' dans son profil.
 
 **Dépendances** :
 
-- Base de données personnelles des étudiants sauvegardée.
-- Moteur de suggestions qui suit les critères du profil de l'étudiant.
+- Base de données personnelles des utilisateurs sauvegardée.
+- Moteur de suggestions qui suit les critères du profil de l'utilisateur.
 
 **But** :
 
-- Améliorer la précision des suggestions de cours en tenant compte de son profil personnalisé de l'étudiant
+- Améliorer la précision des suggestions de cours en tenant compte de son profil personnalisé de l'utilisateur.
 
 #### Scénario:
 - Scénario principal
@@ -170,7 +170,7 @@ title: Analyse des besoins - Cas d'utilisation
 
 **Préconditions** :
 
-- L'étudiant sélectionne au moins deux cours à comparer la charge de travail.
+- L'utilisateur sélectionne au moins deux cours à comparer la charge de travail.
 
 **PostConditions** :
 
@@ -178,16 +178,16 @@ title: Analyse des besoins - Cas d'utilisation
 
 **Déclencheur** :
 
-- L'étudiant se dirige dans l'onglet de 'Comparaison de cours' dans l'application et sélectionne les cours au choix.
+- L'utilisateur se dirige dans l'onglet de 'Comparaison de cours' dans l'application et sélectionne les cours au choix.
 
 **Dépendances** :
 
 - Données des cours sont synchronisées avec le Planifium.
-- Les préférences de la charge de travail dans le profil de l'étudiant.
+- Les préférences de la charge de travail dans le profil de l'utilisateur.
 
 **But** :
 
-- Comparaison des cours pour aider l'étudiant à évaluer la charge de travail sur une combinaison de cours.
+- Comparaison des cours pour aider l'utilisateur à évaluer la charge de travail sur une combinaison de cours.
 
 #### Scénario:
 - Scénario principal
@@ -218,7 +218,7 @@ title: Analyse des besoins - Cas d'utilisation
 
 **Déclencheur** :
 
-- L'étudiant ouvre la page de création d'un compte pour créer son profil.
+- L'utilisateur ouvre la page de création d'un compte pour créer son profil.
 
 **Dépendances** :
 
@@ -256,24 +256,24 @@ title: Analyse des besoins - Cas d'utilisation
 
 **Préconditions** : 
 
-- Le profil de l'étudiant possède ses préférences ainsi que ses historiques des cours réussis.
+- Le profil de l'utilisateur possède ses préférences ainsi que ses historiques des cours réussis.
 
 **PostConditions** :
 
-- Affichage d'une liste de cours recommandés et personnalisés pour l'étudiant.
+- Affichage d'une liste de cours recommandés et personnalisés pour l'utilisateur.
 
 **Déclencheur** : 
 
-- L'étudiant consulte la section de recommandations sur l'application.
+- L'utilisateur consulte la section de recommandations sur l'application.
 
 **Dépendances** : 
 
-- Personnalisation du profil de l'étudiant.
+- Personnalisation du profil de l'utilisateur.
 - Base de données des cours par l'API Planifium.
 
 **But** :
 
-- Offrir une liste de recommandations de cours adaptés à l'étudiant et à ses préférences pour faciliter ses choix de cours.
+- Offrir une liste de recommandations de cours adaptés à l'utilisateur et à ses préférences pour faciliter ses choix de cours.
 
 #### Scénario:
 - Scénario principal
@@ -297,25 +297,25 @@ title: Analyse des besoins - Cas d'utilisation
 
 **Préconditions** : 
 
-- L'étudiant est connecté à son compte.
+- L'utilisateur est connecté à son compte.
 - La fonction de personnalisation de profil est opérationnelle.
 
 **PostConditions** :
 
-- Les intérêts au choix de l'étudiant sont rajoutés sur le profil.
+- Les intérêts au choix de l'utilisateur sont rajoutés sur le profil.
 - Les intérêts sur le profil sont utilisés pour les recherches et les recommandations.
 
 **Déclencheur** : 
 
-- L'étudiant se dirige vers la personnalisation du profil et sélectionne l'option d'ajouter des intérêts.
+- L'utilisateur se dirige vers la personnalisation du profil et sélectionne l'option d'ajouter des intérêts.
 
 **Dépendances** : 
 
-- Base de données du profil de l'étudiant.
+- Base de données du profil de l'utilisateur.
 
 **But** :
 
-- Permettre à l'étudiant de choisir ses intérêts académiques pour avoir des recommandations et des recherches personnalisées.
+- Permettre à l'utilisateur de choisir ses intérêts académiques pour avoir des recommandations et des recherches personnalisées.
 
 #### Scénario:
 - Scénario principal
@@ -339,26 +339,26 @@ title: Analyse des besoins - Cas d'utilisation
 
 **Préconditions** : 
 
-- L'étudiant est connecté à son compte.
+- L'utilisateur est connecté à son compte.
 - La fonction de personnalisation de profil est opérationnelle.
 
 **PostConditions** :
 
-- Les cours réussis sélectionnés par l'étudiant sont rajoutés sur le profil.
-- La recommandation des cours sera basée sur les prérequis des cours de l'étudiant.
+- Les cours réussis sélectionnés par l'utilisateur sont rajoutés sur le profil.
+- La recommandation des cours sera basée sur les prérequis des cours de l'utilisateur.
 
 **Déclencheur** : 
 
-- L'étudiant se dirige vers la personnalisation du profil et sélectionne l'option d'ajouter des cours réussis.
+- L'utilisateur se dirige vers la personnalisation du profil et sélectionne l'option d'ajouter des cours réussis.
 
 **Dépendances** : 
 
-- Base de données du profil de l'étudiant.
+- Base de données du profil de l'utilisateur.
 - API Planifium.
 
 **But** :
 
-- Permettre à l'étudiant de rajouter des cours réussis pour faciliter les choix de cours avec les préalables demandés.
+- Permettre à l'utilisateur de rajouter des cours réussis pour faciliter les choix de cours avec les préalables demandés.
 
 #### Scénario:
 - Scénario principal
@@ -390,7 +390,7 @@ title: Analyse des besoins - Cas d'utilisation
 
 **Déclencheur** : 
 
-- L'étudiant a sélectionné l'affichage des détails d'un cours ou a effectué une recherche de cours.
+- L'utilisateur a sélectionné l'affichage des détails d'un cours ou a effectué une recherche de cours.
 
 **Dépendances** : 
 
@@ -398,7 +398,7 @@ title: Analyse des besoins - Cas d'utilisation
 
 **But** :
 
-- L'étudiant peut consulter les notes des cours sélectionnés pour anticiper la difficulté et la charge de travail des cours aux choix.
+- L'utilisateur peut consulter les notes des cours sélectionnés pour anticiper la difficulté et la charge de travail des cours aux choix.
 
 #### Scénario:
 - Scénario principal
@@ -421,25 +421,25 @@ title: Analyse des besoins - Cas d'utilisation
 
 **Préconditions** : 
 
-- Le profil de l'étudiant possède assez d'informations par rapport à son parcours et ses cours réussis.
+- Le profil de l'utilisateur possède assez d'informations par rapport à son parcours et ses cours réussis.
 - Les données des cours sont disponibles via Planifium.
 
 **PostConditions** :
 
-- Les cours éligibles pour l'étudiant sont affichés avec des détails.
+- Les cours éligibles pour l'utilisateur sont affichés avec des détails.
 
 **Déclencheur** : 
 
-- L'étudiant sélectionne un cours spécifique ou effectue une recherche.
+- L'utilisateur sélectionne un cours spécifique ou effectue une recherche.
 
 **Dépendances** : 
 
 - API Planifium.
-- Profil de l'étudiant avec les personnalisations et intérêts mis à jour.
+- Profil de l'utilisateur avec les personnalisations et intérêts mis à jour.
 
 **But** :
 
-- Présenter à l'étudiant les cours éligibles par rapport à son parcours pour faciliter ses choix de cours.
+- Présenter à l'utilisateur les cours éligibles par rapport à son parcours pour faciliter ses choix de cours.
 
 #### Scénario:
 - Scénario principal
@@ -465,11 +465,11 @@ title: Analyse des besoins - Cas d'utilisation
 
 **PostConditions** :
 
-- Les avis des étudiants sur les cours sont affichés clairement.
+- Les avis des utilisateurs sur les cours sont affichés clairement.
 
 **Déclencheur** : 
 
-- L'étudiant sélectionne l'option des avis des étudiants d'un cours.
+- L'utilisateur sélectionne l'option des avis des utilisateurs d'un cours.
 
 **Dépendances** : 
 
@@ -477,12 +477,12 @@ title: Analyse des besoins - Cas d'utilisation
 
 **But** :
 
-- L'étudiant peut consulter les avis pertinents des cours afin d'analyser la difficulté et la charge de travail des cours.
+- L'utilisateur peut consulter les avis pertinents des cours afin d'analyser la difficulté et la charge de travail des cours.
 
 #### Scénario:
 - Scénario principal
     1. L’utilisateur ouvre la fiche d’un cours.
-    2. La plateforme affiche un onglet ou une section « Avis des étudiants ».
+    2. La plateforme affiche un onglet ou une section « Avis des utilisateurs ».
     3. L’utilisateur clique sur cette section.
     4. Le système récupère les avis existants pour ce cours dans la base de données du bot Discord.
     5. Les avis sont affichés à l’utilisateur.
@@ -500,16 +500,16 @@ title: Analyse des besoins - Cas d'utilisation
 
 **Préconditions** : 
 
-- L'étudiant est connecté à son compte.
+- L'utilisateur est connecté à son compte.
 - La fonction de la gestion des avis est fonctionnelle.
 
 **PostConditions** :
 
-- L'avis de l'étudiant est modifié pour le cours.
+- L'avis de l'utilisateur est modifié pour le cours.
 
 **Déclencheur** : 
 
-- L'étudiant clique sur l'option de modifier son avis déjà existant sous un cours.
+- L'utilisateur clique sur l'option de modifier son avis déjà existant sous un cours.
 
 **Dépendances** : 
 
@@ -517,7 +517,7 @@ title: Analyse des besoins - Cas d'utilisation
 
 **But** :
 
-- Permettre à l'étudiant de modifier un avis déjà publié pour améliorer la qualité des informations disponibles pour les autres étudiants.
+- Permettre à l'utilisateur de modifier un avis déjà publié pour améliorer la qualité des informations disponibles pour les autres utilisateurs.
 
 #### Scénario:
 - Scénario principal
@@ -530,7 +530,7 @@ title: Analyse des besoins - Cas d'utilisation
     7. Le système met à jour l’avis dans la base de données de Discord et affiche un message de confirmation.
 
 - Scénario alternatif
-    1. L’utilisateur tente de modifier un avis appartenant à un autre étudiant.
+    1. L’utilisateur tente de modifier un avis appartenant à un autre utilisateur.
     2. Le système vérifie l’identité de l’auteur de l’avis.
     3. La plateforme refuse l’accès et affiche : « Vous ne pouvez modifier que vos propres avis. »
 
@@ -546,11 +546,11 @@ title: Analyse des besoins - Cas d'utilisation
 
 **PostConditions** :
 
-- L'affichage clair des horaires des cours sélectionnés par l'étudiant.
+- L'affichage clair des horaires des cours sélectionnés par l'utilisateur.
 
 **Déclencheur** : 
 
-- L'étudiant sélectionne l'option de voir l'horaire des cours spécifiques ou recherchés.
+- L'utilisateur sélectionne l'option de voir l'horaire des cours spécifiques ou recherchés.
 
 **Dépendances** : 
 
@@ -558,7 +558,7 @@ title: Analyse des besoins - Cas d'utilisation
 
 **But** :
 
-- Permettre à l'étudiant de consulter les horaires des cours choisis pour planifier sa session avec ses autres besoins.
+- Permettre à l'utilisateur de consulter les horaires des cours choisis pour planifier sa session avec ses autres besoins.
 
 #### Scénario:
 - Scénario principal
@@ -572,3 +572,47 @@ title: Analyse des besoins - Cas d'utilisation
     1. L’utilisateur clique sur « Voir l’horaire » avec des cours qui se chevauchent.
     2. Le système détecte un conflit entre deux cours.
     3. La plateforme affiche l’horaire avec les conflits en rouge et un message est affiché : « Conflit détecté entre ... et Cours ... . Veuillez ajuster votre sélection de cours. »
+ 
+ ### CU014 - Voir les recommandations de cours personnalisés
+
+**Acteurs** : 
+
+- Utilisateur
+
+**Préconditions** : 
+
+- L'utilisateur est connecté à son compte.  
+- L'utilisateur a personnalisé son compte en ajoutant ses intérêts et ses cours réussis.
+
+**PostConditions** :
+
+- L'affichage d'une liste de cours recommandés par rapport à ses préférences.
+
+**Déclencheur** : 
+
+- L'utilisateur sélectionne l'option faite pour l'affichage des recommandations personnalisées.
+
+**Dépendances** : 
+
+- Profil personnalisé de l'utilisateur.
+- Base de données de l'API Planifium.
+
+**But** :
+
+- Permettre à l'utilisateur de consulter les cours qui lui sont recommandés selon ses préférences présentes sur son profil.
+
+### Scénario:
+- Scénario principal
+  - L’utilisateur ouvre le menu.
+  - L'utilisateur clique sur « Recommandations personnalisées ».
+  - Le système récupère les préférences de l’utilisateur (intérêts, cours réussis).
+  - Le système interroge l’API Planifium pour obtenir la liste des cours.
+  - Le système filtre et sélectionne les cours qui correspondent au profil de l’utilisateur.
+  - Le système affiche à l’écran la liste des cours recommandés.
+  - L’utilisateur consulte les recommandations.
+
+- Scénario alternatif
+  - L’utilisateur clique sur « Recommandations personnalisées ».
+  - Le système détecte que le profil n’a pas assez d’informations (ex. aucun intérêt).
+  - Le système affiche un message : « Votre profil est incomplet. Veuillez ajouter vos intérêts pour obtenir des recommandations. »
+  - L’utilisateur retourne au menu ou va compléter son profil.

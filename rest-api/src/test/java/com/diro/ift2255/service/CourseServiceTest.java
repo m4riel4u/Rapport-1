@@ -104,7 +104,7 @@ public class CourseServiceTest {
     }
 
     /**
-     * Test : vérifier que searchCourses filtre correctement selon l'ID ou le nom (partiel ou complet).
+     * Test : vérifier que searchCourses filtre correctement selon l'ID ou un nom (partiel ou complet).
      */
     @Test
     void testSearchCourses_filtreParIdOuNom() {
@@ -145,6 +145,37 @@ public class CourseServiceTest {
 
         // ASSERT
         assertEquals(2, result.size(), "Une requête vide devrait retourner tous les cours.");
+    }
+    
+    /**
+     * Test : vérifier un test d'erreur avec l'API qui retourne une liste vide.
+     */
+    @Test
+    void testGetAllCourses_apiRetourneListeVide() {
+        // ARRANGE
+        when(clientApi.get(any(URI.class), any(TypeReference.class))).thenReturn(Collections.emptyList());
+
+        // ACT
+        var result = courseService.getAllCourses(null);
+
+        // ASSERT
+        assertEquals(0, result.size(),
+            "La liste des cours devrait être vide, puisque l'API retourne une liste vide.");
+    }
+    
+    /**
+     * Test : vérifier un test d'erreur qui n'accepte pas les caractères spéciaux.
+     */
+    @Test
+    void testSearchCourses_caracteresSpeciaux() {
+        // ARRANGE
+        when(clientApi.get(any(URI.class), any(TypeReference.class))).thenReturn(fauxCours);
+
+        // ACT
+        var result = courseService.searchCourses("@@@!!!!")
+
+        // ASSERT
+        assertTrue(result.isEmpty(), "La recherche ne fonctionne pas avec des caractères spéciaux.");
     }
 }
 

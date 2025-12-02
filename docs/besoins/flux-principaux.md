@@ -6,7 +6,7 @@ title: Analyse des besoins - Flux principaux
 
 ## Objectif
 
-Décrire les flux d’interaction entre les acteurs et le système.
+Dans cette section, les flux d’interaction entre les acteurs et le système sont décrits.
 
 ## Diagrammes
 

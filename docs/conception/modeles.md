@@ -11,7 +11,6 @@ title: Conception - Modèle de données
 - Ressource
 - Notification
 
-> Décrire brièvement chaque entité.
 
 ## Relations entre entités
 
