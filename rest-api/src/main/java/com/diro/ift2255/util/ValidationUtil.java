@@ -9,4 +9,8 @@ public class ValidationUtil {
     public static boolean isEmail(String email) {
         return email != null && EMAIL_PATTERN.matcher(email).matches();
     }
+
+    public static boolean isNotEmpty(String str) {
+    return str != null && !str.isEmpty();
+    }
 }
