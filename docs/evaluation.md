@@ -37,6 +37,8 @@ title: Évaluation et tests
 ## Oracle de tests
 |Nom du test|Entrée|Sortie attendue|Cas d'utilisation |État après l'appel|Type|Description|
 |-----------|------|---------------|------------------|------------------|----|-----------|
+|testIsNotEmpty |"Hello" |true |Connection |N/A |Succès |Vérifie que la méthode détecte une chaîne 
+|testIsEmail |"abc@mail.com" |true |Connection |N/A |Succès |Vérifie qu'un email valide est reconnu. |
 |testGetAllUsers |Aucune |Nombre d'utilisateurs |Créer un compte |N/A |Succès |Lorsqu'on appel tous les utilisateurs, on s'attend à avoir le bon nombre d'utilisateur. |
 |testGetUserById |userId = 1 |{id:1, name: Alice, email: alice@example.com} |Créer un compte |N/A |Succès |Lorsqu'on appel un utilisateur par son ID, on s'attend à avoir les informations liées au bon utilisateur. |
 |testCreateUser |newUser = new User(0, "Marie", "marie@example.com") |{{id:0, name: Marie, email: marie@example.com}, {id:1, name: Alice, email: alice@example.com}, {id:2, name: Charlie, email: charlie@example.com}} |Créer un compte |Un utilisateur ajouté. |Succès |Lorsqu'on ajoute un utilisateur, il devrait être présent dans le système avec les bonnes informations liées à ce profil. |
@@ -47,13 +49,6 @@ title: Évaluation et tests
 | testSearchCourses_filtreParIdOuNom (ID) | query = "IFT2255" | Liste contenant uniquement "IFT2255" | Recherche de cours | N/A | Succès | Vérifie que la recherche par ID retourne uniquement le cours correspondant. |
 | testSearchCourses_filtreParIdOuNom (nom partiel) | query = "intro" | Liste contenant "IFT1025" | Recherche de cours | N/A | Succès | Vérifie que la recherche par nom partiel (insensible à la casse) retourne le bon cours. |
 | testSearchCourses_champVide | query = "" | Les 2 cours retournés | Recherche de cours | N/A | Succès | Vérifie que lorsqu’une requête vide est fournie, tous les cours sont retournés. |
-|testIsNotEmpty |"Hello" |true |Connection |N/A |Succès |Vérifie que la méthode détecte une chaîne non vide. |
-|testIsNotEmpty |"" |false |Connection |N/A |Échec |Vérifie que la méthode renvoie false pour chaîne vide. |
-|testIsNotEmpty |null |false |Connection |N/A |Échec  |Vérifie que la méthode renvoie false pour null. |
-|testIsEmail |"abc@mail.com" |true |Connection |N/A |Succès |Vérifie qu'un email valide est reconnu. |
-|testIsEmail |"abc" |false |Connection |N/A |Échec  |Vérifie qu'une chaîne sans @ n'est pas reconnue. |
-|testIsEmail |"" |false |Connection |N/A |Échec  |Vérifie qu'une chaîne vide n'est pas reconnue. |
-|testIsEmail |null |false |Connection |N/A |Échec  |Vérifie qu'une valeur null n'est pas reconnue. |
 
 ## Évaluation du système
 
