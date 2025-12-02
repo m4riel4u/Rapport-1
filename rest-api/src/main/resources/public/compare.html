@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Comparer deux cours</title>
+    <style>
+    .compare-table {
+        width: 80%;
+        margin: 20px auto;
+        border-collapse: collapse;
+        text-align: left;
+    }
+
+    .compare-table th, .compare-table td {
+        border: 1px solid #ccc;
+        padding: 10px;
+    }
+
+    .compare-table th {
+        background-color: #007BFF;
+        color: white;
+    }
+
+    .compare-table tr:nth-child(even) td {
+        background-color: #f2f2f2;
+    }
+    </style>
+
+</head>
+<body>
+    <h1> Comparer 2 cours</h1> 
+    <h2>Cours #1</h2>
+    <input type="text" id="courseId1" placeholder="Ex: IFT2255">
+    <h2>Cours #2</h2>
+    <input type="text" id="courseId2" placeholder="Ex: IFT2255">
+    <button onclick="compareCourses()">Comparer</button>
+    <!-- Tableau de comparaison ---> 
+    <table class="compare-table">
+    <thead>
+        <tr>
+            <th>Nom du champ</th>
+            <th>Cours #1</th>
+            <th>Cours #2</th>
+        </tr>
+    </thead>
+        <tbody>
+            <tr>
+                <td>ID</td>
+                <td id="course1ID">—</td>
+                <td id="course2ID">—</td>
+            </tr>
+            <tr>
+                <td>Titre</td>
+                <td id="course1Title">—</td>
+                <td id="course2Title">—</td>
+            </tr>
+            <tr>
+                <td>Description</td>
+                <td id="course1Desc">—</td>
+                <td id="course2Desc">—</td>
+            </tr>
+            <tr>
+                <td>Horaire</td>
+                <td id="course1Schedule">—</td>
+                <td id="course2Schedule">—</td>
+            </tr>
+            <tr>
+                <td>Prérequis</td>
+                <td id="course1Prereq">—</td>
+                <td id="course2Prereq">—</td>
+            </tr>
+            <tr>
+                <td>Trimestre offert</td>
+                <td id="course1Term">—</td>
+                <td id="course2Term">—</td>
+            </tr>
+            <tr>
+                <td>Période offert</td>
+                <td id="course1Period">—</td>
+                <td id="course2Period">—</td>
+            </tr>
+            <tr>
+                <td>Cours équivalents</td>
+                <td id="course1Equiv">—</td>
+                <td id="course2Equiv">—</td>
+            </tr>
+            <tr>
+                <td>Cours concomitants</td>
+                <td id="course1Coco">—</td>
+                <td id="course2Coco">—</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+    <a class=button href="index.html"> Retour au menu principal</a>
+    <script>
+        function compareCourses() {
+            const id1 = document.getElementById("courseId1").value.trim();
+            const id2 = document.getElementById("courseId2").value.trim();
+
+            //Appel API pour cours 1
+            fetch(`/courses/complete/${id1}`)
+            .then(response =>{
+                    if(!response.ok) throw new Error("Cours introuvable");
+                    return response.json();
+                })
+                
+                .then(data =>{
+                document.getElementById("course1Title").textContent = data.name;
+                document.getElementById("course1Desc").textContent = data.description;
+                document.getElementById("course1ID").textContent = data.id;
+                 // Horaire
+                    const scheduleText1 = data.schedules.map(s => `
+                        Section ${s.section}<br>
+                        Enseignant : ${s.teachers.join(", ")}<br>
+                        Horaire :<br>${s.horaire.join("<br>")}<br>
+                        Intra : ${s.intra || "N/A"}<br>
+                        Final : ${s.final || "N/A"}
+                    `).join("<hr>");
+                    document.getElementById("course1Schedule").innerHTML = scheduleText1 || "—";
+
+                    // Prérequis
+                    const prereqText = data.prerequisite_courses.length > 0 
+                        ? data.prerequisite_courses.join(", ") 
+                        : (data.requirement_text || "—");
+                    document.getElementById("course1Prereq").textContent = prereqText;
+
+                    // Trimestre offert
+                    const terms = Object.keys(data.available_terms)
+                        .filter(k => data.available_terms[k])
+                        .join(", ");
+                    document.getElementById("course1Term").textContent = terms || "—";
+
+                    // Période offert
+                    const periods = Object.keys(data.available_periods)
+                        .filter(k => data.available_periods[k])
+                        .join(", ");
+                    document.getElementById("course1Period").textContent = periods || "—";
+
+                    // Cours équivalents
+                    document.getElementById("course1Equiv").textContent = data.equivalent_courses.join(", ") || "—";
+
+                    // Cours concomitants
+                    document.getElementById("course1Coco").textContent = data.concomitant_courses.join(", ") || "—";
+                })
+                .catch(err => {
+                    document.getElementById("course1Title").textContent = err;
+                    document.getElementById("course1Desc").textContent = "";
+                    document.getElementById("course1ID").textContent = "";
+                    document.getElementById("course1Schedule").textContent = "";
+                    document.getElementById("course1Prereq").textContent = "";
+                    document.getElementById("course1Term").textContent = "";
+                    document.getElementById("course1Period").textContent = "";
+                    document.getElementById("course1Equiv").textContent = "";
+                    document.getElementById("course1Coco").textContent = "";
+                });
+
+            //Appel API pour cours 2
+            fetch(`/courses/complete/${id2}`)
+            .then(response =>{
+                    if(!response.ok) throw new Error("Cours introuvable");
+                    return response.json();
+                })
+                
+                .then(data =>{
+                document.getElementById("course2Title").textContent = data.name;
+                document.getElementById("course2Desc").textContent = data.description;
+                document.getElementById("course2ID").textContent = data.id; 
+                // Horaire
+                    const scheduleText2 = data.schedules.map(s => `
+                        Section ${s.section}<br>
+                        Enseignant : ${s.teachers.join(", ")}<br>
+                        Horaire :<br>${s.horaire.join("<br>")}<br>
+                        Intra : ${s.intra || "N/A"}<br>
+                        Final : ${s.final || "N/A"}
+                    `).join("<hr>");
+                    document.getElementById("course2Schedule").innerHTML = scheduleText2 || "—";
+
+                    // Prérequis
+                    const prereqText = data.prerequisite_courses.length > 0 
+                        ? data.prerequisite_courses.join(", ") 
+                        : (data.requirement_text || "—");
+                    document.getElementById("course2Prereq").textContent = prereqText;
+
+                    // Trimestre offert
+                    const terms = Object.keys(data.available_terms)
+                        .filter(k => data.available_terms[k])
+                        .join(", ");
+                    document.getElementById("course2Term").textContent = terms || "—";
+
+                    // Période offert
+                    const periods = Object.keys(data.available_periods)
+                        .filter(k => data.available_periods[k])
+                        .join(", ");
+                    document.getElementById("course2Period").textContent = periods || "—";
+
+                    // Cours équivalents
+                    document.getElementById("course2Equiv").textContent = data.equivalent_courses.join(", ") || "—";
+
+                    // Cours concomitants
+                    document.getElementById("course2Coco").textContent = data.concomitant_courses.join(", ") || "—";
+                })
+                .catch(err => {
+                    document.getElementById("course2Title").textContent = err;
+                    document.getElementById("course2Desc").textContent = "";
+                    document.getElementById("course2ID").textContent = "";
+                    document.getElementById("course2Schedule").textContent = "";
+                    document.getElementById("course2Prereq").textContent = "";
+                    document.getElementById("course2Term").textContent = "";
+                    document.getElementById("course2Period").textContent = "";
+                    document.getElementById("course2Equiv").textContent = "";
+                    document.getElementById("course2Coco").textContent = "";
+                });
+        }
+    </script>
+</body>
+</html>
+

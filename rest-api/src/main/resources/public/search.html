@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Recherche de cours</title>
+</head>
+<body>
+    <h1>Rechercher un cours</h1>
+    <a class=button href="index.html"> Retour au menu principal</a>
+    <h3>Chercher un cours par mots clé</h3>
+    <input type="text" id="searchQueryInput" placeholder="Ex: informatique">
+    <button onclick="searchCourseByQuery()">Chercher</button>
+    
+    <h3>Chercher un cours par sigle spécifique pour avoir plus de détails sur un cours particulier </h3>
+    <input type="text" id="searchIdInput" placeholder="Ex: IFT2255">
+    <button onclick="searchCourseById()">Chercher</button>
+    
+    <div id="resultDiv"> </div>
+    
+    
+    <script>
+        function searchCourseByQuery() {
+            const query = document.getElementById("searchQueryInput").value.trim();
+            const resultDiv = document.getElementById("resultDiv");
+
+            //Appel à API
+            fetch(`/courses/search?query=${encodeURIComponent(query)}`)
+                .then(res => res.json())
+                .then(courses => {
+                    if (courses.length === 0) {
+                        resultDiv.textContent = "Aucun cours trouvé.";
+                        return;
+                    }
+                    resultDiv.innerHTML = courses.map(cours => `
+                        <div>
+                            <strong>ID :</strong> ${cours.id} <br>
+                            <strong>Titre :</strong> ${cours.name} <br>
+                            <strong>Description :</strong> ${cours.description} <br>
+                            <hr>
+                        </div>
+                    `).join("");
+                });
+        }
+        function searchCourseById() {
+            const query = document.getElementById("searchIdInput").value.trim().toUpperCase();
+            const resultDiv = document.getElementById("resultDiv");
+
+
+            fetch(`/courses/complete/${query}`)
+                .then(res => {
+                    if (!res.ok) throw new Error("Cours introuvable");
+                    return res.json();
+                })
+                .then(cours => {
+                    resultDiv.innerHTML = `
+                        <div>
+                            <strong>ID :</strong> ${cours.id}<br>
+                            <strong>Titre :</strong> ${cours.name}<br>
+                            <strong>Description :</strong> ${cours.description}<br>
+                            <strong>Crédits :</strong> ${cours.credits}<br>
+                            <strong>Horaire :</strong><br>
+                            ${cours.schedules.map(s => `
+                                <div>
+                                    <strong>Section :</strong> ${s.section}<br>
+                                    <strong>Semestre:</strong> ${s.semester}<br>
+                                    <strong>Enseignant :</strong> ${s.teachers.join(", ")}<br>
+                                    <strong>Horaire :</strong><br>
+                                    ${s.horaire.join("<br>")}<br>
+                                    <strong>Intra :</strong> ${s.intra || "N/A"}<br>
+                                    <strong>Final :</strong> ${s.final || "N/A"}<br>
+                                </div>
+                            `).join("<hr>") || "Aucun horaire disponible"}
+                            <br>
+                            <strong>Prérequis :</strong> ${cours.prerequisite_courses?.join(", ") || "Aucun"}<br>
+                            <strong>Trimestre offert :</strong> 
+                            ${Object.keys(cours.available_terms)
+                                .filter(k => cours.available_terms[k])
+                                .join(", ") || "N/D"}<br>
+                            <strong>Période offerte :</strong> 
+                            ${Object.keys(cours.available_periods)
+                                .filter(k => cours.available_periods[k])
+                                .join(", ") || "N/D"}<br>
+                            <strong> Cours équivalents : </strong>${cours.equivalent_courses?.join(", ") || "Aucun"}<br>
+                            <strong> Cours concomitants : </strong>${cours.concomitant_courses?.join(", ") || "Aucun"}<br>
+                            <strong> 
+                        </div>
+                    `;
+                })
+                .catch(err => {
+                    resultDiv.textContent = "Aucun cours trouvé pour ce sigle.";
+                });
+        }
+    </script>
+</body>
+</html>
