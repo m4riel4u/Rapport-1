@@ -48,6 +48,9 @@ title: Évaluation et tests
 | testSearchCourses_filtreParIdOuNom (nom partiel) | query = "intro" | Liste contenant "IFT1025" | Recherche de cours | N/A | Succès | Vérifie que la recherche par nom partiel (insensible à la casse) retourne le bon cours. |
 | testSearchCourses_champVide | query = "" | Les 2 cours retournés | Recherche de cours | N/A | Succès | Vérifie que lorsqu’une requête vide est fournie, tous les cours sont retournés. |
 
+|testIsNotEmpty|------|---------------|------------------|------------------|----|-----------|
+|testIsEmail|------|---------------|------------------|------------------|----|-----------|
+
 
 ## Évaluation du système
 
