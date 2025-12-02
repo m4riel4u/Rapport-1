@@ -10,6 +10,7 @@ public class Main {
         // Ici, on définit le type de contenu par défaut des réponses HTTP en JSON
         Javalin app = Javalin.create(config -> {
             config.http.defaultContentType = "application/json";
+            config.staticFiles.add("public"); //pour les pages HTML
         });
 
         // Enregistre toutes les routes de l'application

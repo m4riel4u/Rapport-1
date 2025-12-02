@@ -41,4 +41,33 @@ public class CourseService {
             return Optional.empty();
         }
     }
+    /**Fetch a course by query */
+    public List<Course> searchCourses(String query) {
+        if (query == null || query.isEmpty()){
+            return getAllCourses(null); //Retourne tous les cours si c'est vide
+        }
+        String lowerQuery = query.toLowerCase(); 
+
+        List<Course> allCourses = getAllCourses(null);
+        List<Course> filteredCourses = new ArrayList<>();
+        for (Course cours : allCourses){
+            if (cours.getId().toLowerCase().contains(lowerQuery) || cours.getName().toLowerCase().contains(lowerQuery)){
+                filteredCourses.add(cours);
+            }
+        }
+        return filteredCourses;
+    }
+    /**Fetch course details */
+    public Optional<Course> getCompleteCourse(String CourseId){
+        Map<String, String> params = Map.of("complete", "true");
+        URI uri = HttpClientApi.buildUri("https://planifium-api.onrender.com/api/v1/courses/" + CourseId, params);
+        System.out.println("➡️ [Service] Appel API : " + uri);
+        try{
+            Course course = clientApi.get(uri, Course.class);
+            return Optional.of(course);
+        }catch (RuntimeException e){
+            return Optional.empty();
+        }
+        
+    }
 }
