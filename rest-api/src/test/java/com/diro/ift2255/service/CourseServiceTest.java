@@ -8,6 +8,7 @@ import static org.mockito.Mockito.when;
 
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -172,7 +173,7 @@ public class CourseServiceTest {
         when(clientApi.get(any(URI.class), any(TypeReference.class))).thenReturn(fauxCours);
 
         // ACT
-        var result = courseService.searchCourses("@@@!!!!")
+        var result = courseService.searchCourses("@@@!!!!");
 
         // ASSERT
         assertTrue(result.isEmpty(), "La recherche ne fonctionne pas avec des caractères spéciaux.");
