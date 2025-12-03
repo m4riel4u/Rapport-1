@@ -37,7 +37,7 @@ title: Évaluation et tests
 ## Oracle de tests
 |Nom du test|Entrée|Sortie attendue|Cas d'utilisation |État après l'appel|Type|Description|
 |-----------|------|---------------|------------------|------------------|----|-----------|
-|testIsNotEmpty |"Hello" |true |Connection |N/A |Succès |Vérifie que la méthode détecte une chaîne 
+|testIsNotEmpty |"Hello" |true |Connection |N/A |Succès |Vérifie que la méthode détecte une chaîne de caractères. |
 |testIsEmail |"abc@mail.com" |true |Connection |N/A |Succès |Vérifie qu'un email valide est reconnu. |
 |testGetAllUsers |Aucune |Nombre d'utilisateurs |Créer un compte |N/A |Succès |Lorsqu'on appel tous les utilisateurs, on s'attend à avoir le bon nombre d'utilisateur. |
 |testGetUserById |userId = 1 |{id:1, name: Alice, email: alice@example.com} |Créer un compte |N/A |Succès |Lorsqu'on appel un utilisateur par son ID, on s'attend à avoir les informations liées au bon utilisateur. |
