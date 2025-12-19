@@ -146,6 +146,8 @@ public class CourseService {
         }
         
     }
+
+    //Fetch les cours d'un programme à un trimestre donné*/
     public List<Course> getCoursesByProgramWithSchedule(String program, boolean includeSchedule, String semester) {
     System.out.println(">>> getCoursesByProgramWithSchedule SERVICE CALLED");
     System.out.println(">>> program reçu = " + program);
@@ -162,11 +164,49 @@ public class CourseService {
 
     // Extraire tous les sigles de tous les blocs de tous les segments
     List<String> siglesList = new ArrayList<>();
-    for (Course prog : programs) {
-        if (prog.getCourses() != null) {
-            siglesList.addAll(prog.getCourses());
+
+String term = semesterToTerm(semester);
+System.out.println(">>> Filtrage OBLIGATOIRE par terme = " + term);
+
+for (Course prog : programs) {
+
+    if (prog.getCourses() == null || prog.getCourses().isEmpty()) {
+        System.out.println("⚠️ Programme sans cours");
+        continue;
+    }
+
+    for (String sigle : prog.getCourses()) {
+
+        System.out.println(">>> Analyse du cours " + sigle);
+
+        Optional<Course> optCourse = getCourseById(sigle, null);
+
+        if (optCourse.isEmpty()) {
+            System.out.println("❌ Cours introuvable: " + sigle);
+            continue;
+        }
+
+        Course course = optCourse.get();
+        Map<String, Boolean> terms = course.getAvailable_terms();
+
+        if (terms == null) {
+            System.out.println("❌ available_terms absent pour " + sigle);
+            continue;
+        }
+
+        Boolean offered = terms.get(term);
+
+        if (Boolean.TRUE.equals(offered)) {
+            siglesList.add(sigle);
+            System.out.println("✅ AJOUTÉ (" + term + "=true) : " + sigle);
+        } else {
+            System.out.println("⛔ REJETÉ (" + term + "=false) : " + sigle);
         }
     }
+}
+
+System.out.println(">>> Total sigles retenus = " + siglesList.size());
+
 
     if (siglesList.isEmpty()) {
         System.out.println(">>> Aucun cours trouvé dans le programme " + program);
@@ -213,6 +253,19 @@ public class CourseService {
         return Collections.emptyList();
     }
 }
+  private String semesterToTerm(String semester) {
+    if (semester == null || semester.isBlank()) {
+        throw new IllegalArgumentException("Semester obligatoire pour le filtrage");
+    }
 
+    switch (Character.toUpperCase(semester.charAt(0))) {
+        case 'H': return "winter";
+        case 'A': return "autumn";
+        case 'E': return "summer";
+        default:
+            throw new IllegalArgumentException("Semester invalide: " + semester);
+    }
+}
+  
 
 }
