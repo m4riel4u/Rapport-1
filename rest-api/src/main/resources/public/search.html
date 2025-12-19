@@ -19,6 +19,14 @@
     <input type="text" id="courseProgram" placeholder="Ex.: 146811">
     <button onclick="searchCourseByProgram()">Chercher</button>
 
+    <h3>Voir les cours offerts d'un programme dans un trimestre donné pour un programme</h3>
+    <input type="text" id="program" placeholder="Ex.: 146811">
+    <input type="text" id="trimestre" placeholder="Ex.: H25">
+    <label>
+        <input type="checkbox" id="includeSchedule"> Afficher l'horaire
+    </label>
+    <button onclick="getProgramCourses()">Chercher</button>
+    
     <div id="resultDiv"> </div>
     
     
@@ -105,7 +113,6 @@
                     return res.json();
                 })
                 .then(programs => {
-                    console.log("Réponse brute :", programs);
 
                     // Si ce n'est pas un tableau, on le transforme en tableau
                     if (!Array.isArray(programs)) {
@@ -118,8 +125,7 @@
                     }
 
                     const prog = programs[0];
-                    console.log("PROGRAM :", prog);
-                    console.log("prog.courses :", prog.courses);
+
                     let html = `
                         <h2>${prog.name}</h2>
                         <p><strong>Code :</strong> ${prog.id}</p>
@@ -140,6 +146,61 @@
                 });
 
         }
+        function getProgramCourses() {
+    const program = document.getElementById("program").value.trim();
+    const semester = document.getElementById("trimestre").value.trim().toUpperCase();
+    const includeSchedule = document.getElementById("includeSchedule").checked;
+    const resultDiv = document.getElementById("resultDiv");
+
+    const url = `/courses/program/${program}/schedule?includeSchedule=${includeSchedule}&semester=${semester}`;
+    console.log(">>> Fetch URL:", url);
+
+    fetch(url)
+        .then(res => {
+            if (!res.ok) throw new Error("Aucun cours trouvé pour ce programme et trimestre.");
+            return res.json();
+        })
+        .then(courses => {
+            console.log(">>> courses reçus:", courses);
+            if (!Array.isArray(courses) || courses.length === 0) {
+                resultDiv.textContent = "Aucun cours trouvé.";
+                return;
+            }
+
+            let html = "";
+            courses.forEach(cours => {
+                html += `<div>
+                    <strong>ID :</strong> ${cours.id}<br>
+                    <strong>Titre :</strong> ${cours.name}<br>
+                    <strong>Description :</strong> ${cours.description}<br>
+                    <strong>Crédits :</strong> ${cours.credits}<br>`;
+
+                if (includeSchedule && cours.schedules) {
+                    html += `<strong>Horaires :</strong><br>`;
+                    cours.schedules.forEach(s => {
+                        html += `
+                            Section: ${s.section}<br>
+                            Semestre: ${s.semester}<br>
+                            Enseignants: ${s.teachers.join(", ")}<br>
+                            Horaire: ${s.horaire.join(", ")}<br>
+                            Intra: ${s.intra || "N/A"}<br>
+                            Final: ${s.final || "N/A"}<br>
+                            <hr>`;
+                    });
+                }
+                html += `<hr></div>`;
+            });
+
+            resultDiv.innerHTML = html;
+        })
+        .catch(err => {
+            console.error(err);
+            resultDiv.textContent = "Erreur lors de la récupération des cours : " + err.message;
+        });
+}
+
+
+
     </script>
 </body>
 </html>

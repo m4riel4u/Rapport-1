@@ -1,9 +1,9 @@
 Implémentation : MARIE
 >recherche des cours par sigle partiel (IFT) et par mot clés dans le titre/description
 >Cours offerts dans un programme
-
 >Cours offerts pour un trimestre donnés limiter aux cours d'un programme 
 >Voir horaire d'un cours pour un trimestre avec les sections et activités 
+
 >Vérifier éligibilité à un cours en donnant liste de cours suivis + cycle et outil vérifie si les prérequis sont satisfaits et le cycle est approprié 
 >Soumettre un avis pour un cours (le bot Discord doit pouvoir soumettre un nouvel avis à l'outil)
 > Comparer 2 cours : comparaison utilise les avis pour estimer la charge de travail, les résultats agrégés pour estimer la difficulté et le catalogue pour tout autres critères

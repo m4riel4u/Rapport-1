@@ -5,6 +5,7 @@ import com.diro.ift2255.model.Course;
 import com.diro.ift2255.service.CourseService;
 import com.diro.ift2255.util.ResponseUtil;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -134,11 +135,50 @@ public class CourseController {
     );
 }
     public void getCoursesByProgram (Context ctx){
-        System.out.println(">>> getCoursesByProgram CALLED");
         String program = ctx.pathParam("program");
-        System.out.println(">>> program reçu = [" + program + "]");
         List<Course> results = service.getCourseByProgram(program);
         ctx.json(results);
 
     }
+    public void getCoursesByProgramWithSchedule(Context ctx) {
+    String program = ctx.pathParam("program");
+    System.out.println(">>> getCoursesByProgramWithSchedule called, program=" + program);
+
+    if (program == null || program.isEmpty()) {
+        ctx.status(400).json(Map.of("error", "Le code du programme est requis"));
+        return;
+    }
+
+    String includeScheduleParam = ctx.queryParam("includeSchedule");
+    boolean includeSchedule = includeScheduleParam != null && includeScheduleParam.equalsIgnoreCase("true");
+    String semester = ctx.queryParam("semester"); 
+    System.out.println(">>> includeSchedule=" + includeSchedule + ", semester=" + semester);
+
+    List<Course> courses = service.getCoursesByProgramWithSchedule(program, includeSchedule, semester);
+    System.out.println(">>> courses.size()=" + courses.size());
+
+    if (courses.isEmpty()) {
+        ctx.status(404).json(Map.of("error", "Aucun cours trouvé pour ce programme et trimestre."));
+        return;
+    }
+
+    if (includeSchedule) {
+        List<Map<String, Object>> response = new ArrayList<>();
+        for (Course course : courses) {
+            Map<String, Object> courseMap = new LinkedHashMap<>();
+            courseMap.put("id", course.getId());
+            courseMap.put("name", course.getName());
+            courseMap.put("description", course.getDescription());
+            courseMap.put("credits", course.getCredits());
+            courseMap.put("schedules", service.rebuild(course));
+            response.add(courseMap);
+        }
+        ctx.json(response);
+    } else {
+        ctx.json(courses);
+    }
+}
+
+
+
 }

@@ -135,19 +135,84 @@ public class CourseService {
     public List<Course> getCourseByProgram(String program){
         Map<String, String> params = (null);
         URI uri = HttpClientApi.buildUri("https://planifium-api.onrender.com/api/v1/programs?programs_list=" + program, params);
-        System.out.println(">>> appel API pour program = " + program);
-        System.out.println(">>> URI = " + uri);
         try{
             Course[] courses = clientApi.get(uri, Course[].class);
             System.out.println(">>> réponse API OK : " + courses);
             return java.util.Arrays.asList(courses);
 
         }catch (RuntimeException e){
-            System.out.println(">>> ERREUR API : " + e.getMessage());
             e.printStackTrace();
             return Collections.emptyList();
         }
         
     }
+    public List<Course> getCoursesByProgramWithSchedule(String program, boolean includeSchedule, String semester) {
+    System.out.println(">>> getCoursesByProgramWithSchedule SERVICE CALLED");
+    System.out.println(">>> program reçu = " + program);
+    System.out.println(">>> includeSchedule = " + includeSchedule + ", semester = " + semester);
+
+    //  Récupérer le programme pour avoir la liste des cours
+    List<Course> programs = getCourseByProgram(program);
+    System.out.println(">>> Réponse API getCourseByProgram OK, programmes récupérés = " + programs.size());
+
+    if (programs.isEmpty()) {
+        System.out.println(">>> Aucun programme trouvé pour " + program);
+        return Collections.emptyList();
+    }
+
+    // Extraire tous les sigles de tous les blocs de tous les segments
+    List<String> siglesList = new ArrayList<>();
+    for (Course prog : programs) {
+        if (prog.getCourses() != null) {
+            siglesList.addAll(prog.getCourses());
+        }
+    }
+
+    if (siglesList.isEmpty()) {
+        System.out.println(">>> Aucun cours trouvé dans le programme " + program);
+        return Collections.emptyList();
+    }
+
+    //  Construire la chaîne de sigles séparés par des virgules
+    String sigles = String.join(",", siglesList);
+    System.out.println(">>> Sigles à envoyer à l'API courses: " + sigles);
+
+    //  Construire les paramètres de query pour l'API courses
+    Map<String, String> params = new HashMap<>();
+    params.put("courses_sigle", sigles);
+    if (includeSchedule) {
+        params.put("include_schedule", "true");
+    }
+    if (semester != null && !semester.isEmpty()) {
+        params.put("schedule_semester", semester.toLowerCase());
+    }
+
+    // Construire l'URI finale
+    URI uri = HttpClientApi.buildUri("https://planifium-api.onrender.com/api/v1/courses", params);
+    System.out.println(">>> URL finale pour l'API courses: " + uri);
+
+    //  Appeler l'API courses
+    try {
+        Course[] coursesWithSchedule = clientApi.get(uri, Course[].class);
+        System.out.println(">>> Courses récupérés = " + coursesWithSchedule.length);
+
+        List<Course> courseList = Arrays.asList(coursesWithSchedule);
+
+        //  Retourner les cours, avec horaires si demandé
+        if (includeSchedule) {
+            for (Course c : courseList) {
+                System.out.println("Cours: " + c.getId() + " - " + c.getName());
+            }
+        }
+
+        return courseList;
+
+    } catch (RuntimeException e) {
+        System.out.println(">>> ERREUR API courses: " + e.getMessage());
+        e.printStackTrace();
+        return Collections.emptyList();
+    }
+}
+
 
 }
