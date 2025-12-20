@@ -145,43 +145,43 @@ public class CourseController {
 
     }
     public void getCoursesByProgramWithSchedule(Context ctx) {
-    String program = ctx.pathParam("program");
-    System.out.println(">>> getCoursesByProgramWithSchedule called, program=" + program);
+        String program = ctx.pathParam("program");
+        System.out.println(">>> getCoursesByProgramWithSchedule called, program=" + program);
 
-    if (program == null || program.isEmpty()) {
-        ctx.status(400).json(Map.of("error", "Le code du programme est requis"));
-        return;
-    }
-
-    String includeScheduleParam = ctx.queryParam("includeSchedule");
-    boolean includeSchedule = includeScheduleParam != null && includeScheduleParam.equalsIgnoreCase("true");
-    String semester = ctx.queryParam("semester"); 
-    System.out.println(">>> includeSchedule=" + includeSchedule + ", semester=" + semester);
-
-    List<Course> courses = service.getCoursesByProgramWithSchedule(program, includeSchedule, semester);
-    System.out.println(">>> courses.size()=" + courses.size());
-
-    if (courses.isEmpty()) {
-        ctx.status(404).json(Map.of("error", "Aucun cours trouvé pour ce programme et trimestre."));
-        return;
-    }
-
-    if (includeSchedule) {
-        List<Map<String, Object>> response = new ArrayList<>();
-        for (Course course : courses) {
-            Map<String, Object> courseMap = new LinkedHashMap<>();
-            courseMap.put("id", course.getId());
-            courseMap.put("name", course.getName());
-            courseMap.put("description", course.getDescription());
-            courseMap.put("credits", course.getCredits());
-            courseMap.put("schedules", service.rebuild(course));
-            response.add(courseMap);
+        if (program == null || program.isEmpty()) {
+            ctx.status(400).json(Map.of("error", "Le code du programme est requis"));
+            return;
         }
-        ctx.json(response);
-    } else {
-        ctx.json(courses);
+
+        String includeScheduleParam = ctx.queryParam("includeSchedule");
+        boolean includeSchedule = includeScheduleParam != null && includeScheduleParam.equalsIgnoreCase("true");
+        String semester = ctx.queryParam("semester"); 
+        System.out.println(">>> includeSchedule=" + includeSchedule + ", semester=" + semester);
+
+        List<Course> courses = service.getCoursesByProgramWithSchedule(program, includeSchedule, semester);
+        System.out.println(">>> courses.size()=" + courses.size());
+
+        if (courses.isEmpty()) {
+            ctx.status(404).json(Map.of("error", "Aucun cours trouvé pour ce programme et trimestre."));
+            return;
+        }
+
+        if (includeSchedule) {
+            List<Map<String, Object>> response = new ArrayList<>();
+            for (Course course : courses) {
+                Map<String, Object> courseMap = new LinkedHashMap<>();
+                courseMap.put("id", course.getId());
+                courseMap.put("name", course.getName());
+                courseMap.put("description", course.getDescription());
+                courseMap.put("credits", course.getCredits());
+                courseMap.put("schedules", service.rebuild(course));
+                response.add(courseMap);
+            }
+            ctx.json(response);
+        } else {
+            ctx.json(courses);
+        }
     }
-}
     public void checkEligibility(Context ctx) {
         System.out.println(">>> checkEligibility CALLED");
 

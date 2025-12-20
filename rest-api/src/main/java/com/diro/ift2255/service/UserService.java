@@ -23,10 +23,6 @@ public class UserService {
                 .orElse(0) + 1;
     }
 
-    /* ======================
-       Méthodes publiques
-       ====================== */
-
     public List<User> getAllUsers() {
         return users;
     }
@@ -58,10 +54,6 @@ public class UserService {
         return removed;
     }
 
-
-    /* ======================
-       Persistance fichier
-       ====================== */
 
     private List<User> loadUsersFromFile() {
         try {

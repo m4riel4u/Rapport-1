@@ -205,107 +205,107 @@ public class CourseService {
         // Extraire tous les sigles de tous les blocs de tous les segments
         List<String> siglesList = new ArrayList<>();
 
-    String term = semesterToTerm(semester);
-    System.out.println(">>> Filtrage OBLIGATOIRE par terme = " + term);
+        String term = semesterToTerm(semester);
+        System.out.println(">>> Filtrage OBLIGATOIRE par terme = " + term);
 
-    for (Course prog : programs) {
+        for (Course prog : programs) {
 
-        if (prog.getCourses() == null || prog.getCourses().isEmpty()) {
-            System.out.println(" Programme sans cours");
-            continue;
-        }
-
-        for (String sigle : prog.getCourses()) {
-
-            System.out.println(">>> Analyse du cours " + sigle);
-
-            Optional<Course> optCourse = getCourseById(sigle, null);
-
-            if (optCourse.isEmpty()) {
-                System.out.println(" Cours introuvable: " + sigle);
+            if (prog.getCourses() == null || prog.getCourses().isEmpty()) {
+                System.out.println(" Programme sans cours");
                 continue;
             }
 
-            Course course = optCourse.get();
-            Map<String, Boolean> terms = course.getAvailable_terms();
+            for (String sigle : prog.getCourses()) {
 
-            if (terms == null) {
-                System.out.println(" available_terms absent pour " + sigle);
-                continue;
-            }
+                System.out.println(">>> Analyse du cours " + sigle);
 
-            Boolean offered = terms.get(term);
+                Optional<Course> optCourse = getCourseById(sigle, null);
 
-            if (Boolean.TRUE.equals(offered)) {
-                siglesList.add(sigle);
-                System.out.println("AJOUTÉ (" + term + "=true) : " + sigle);
-            } else {
-                System.out.println(" REJETÉ (" + term + "=false) : " + sigle);
-            }
-        }
-    }
+                if (optCourse.isEmpty()) {
+                    System.out.println(" Cours introuvable: " + sigle);
+                    continue;
+                }
 
-System.out.println(">>> Total sigles retenus = " + siglesList.size());
+                Course course = optCourse.get();
+                Map<String, Boolean> terms = course.getAvailable_terms();
 
+                if (terms == null) {
+                    System.out.println(" available_terms absent pour " + sigle);
+                    continue;
+                }
 
-    if (siglesList.isEmpty()) {
-        System.out.println(">>> Aucun cours trouvé dans le programme " + program);
-        return Collections.emptyList();
-    }
+                Boolean offered = terms.get(term);
 
-    //  Construire la chaîne de sigles séparés par des virgules
-    String sigles = String.join(",", siglesList);
-    System.out.println(">>> Sigles à envoyer à l'API courses: " + sigles);
-
-    //  Construire les paramètres de query pour l'API courses
-    Map<String, String> params = new HashMap<>();
-    params.put("courses_sigle", sigles);
-    if (includeSchedule) {
-        params.put("include_schedule", "true");
-    }
-    if (semester != null && !semester.isEmpty()) {
-        params.put("schedule_semester", semester.toLowerCase());
-    }
-
-    // Construire l'URI finale
-    URI uri = HttpClientApi.buildUri("https://planifium-api.onrender.com/api/v1/courses", params);
-    System.out.println(">>> URL finale pour l'API courses: " + uri);
-
-    //  Appeler l'API courses
-    try {
-        Course[] coursesWithSchedule = clientApi.get(uri, Course[].class);
-        System.out.println(">>> Courses récupérés = " + coursesWithSchedule.length);
-
-        List<Course> courseList = Arrays.asList(coursesWithSchedule);
-
-        //  Retourner les cours, avec horaires si demandé
-        if (includeSchedule) {
-            for (Course c : courseList) {
-                System.out.println("Cours: " + c.getId() + " - " + c.getName());
+                if (Boolean.TRUE.equals(offered)) {
+                    siglesList.add(sigle);
+                    System.out.println("AJOUTÉ (" + term + "=true) : " + sigle);
+                } else {
+                    System.out.println(" REJETÉ (" + term + "=false) : " + sigle);
+                }
             }
         }
 
-        return courseList;
+        System.out.println(">>> Total sigles retenus = " + siglesList.size());
 
-        } catch (RuntimeException e) {
-            System.out.println(">>> ERREUR API courses: " + e.getMessage());
-            e.printStackTrace();
+
+        if (siglesList.isEmpty()) {
+            System.out.println(">>> Aucun cours trouvé dans le programme " + program);
             return Collections.emptyList();
         }
-    }
-  private String semesterToTerm(String semester) {
-    if (semester == null || semester.isBlank()) {
-        throw new IllegalArgumentException("Semester obligatoire pour le filtrage");
-    }
 
-    switch (Character.toUpperCase(semester.charAt(0))) {
-        case 'H': return "winter";
-        case 'A': return "autumn";
-        case 'E': return "summer";
-        default:
-            throw new IllegalArgumentException("Semester invalide: " + semester);
+        //  Construire la chaîne de sigles séparés par des virgules
+        String sigles = String.join(",", siglesList);
+        System.out.println(">>> Sigles à envoyer à l'API courses: " + sigles);
+
+        //  Construire les paramètres de query pour l'API courses
+        Map<String, String> params = new HashMap<>();
+        params.put("courses_sigle", sigles);
+        if (includeSchedule) {
+            params.put("include_schedule", "true");
         }
-    }
+        if (semester != null && !semester.isEmpty()) {
+            params.put("schedule_semester", semester.toLowerCase());
+        }
+
+        // Construire l'URI finale
+        URI uri = HttpClientApi.buildUri("https://planifium-api.onrender.com/api/v1/courses", params);
+        System.out.println(">>> URL finale pour l'API courses: " + uri);
+
+        //  Appeler l'API courses
+        try {
+            Course[] coursesWithSchedule = clientApi.get(uri, Course[].class);
+            System.out.println(">>> Courses récupérés = " + coursesWithSchedule.length);
+
+            List<Course> courseList = Arrays.asList(coursesWithSchedule);
+
+            //  Retourner les cours, avec horaires si demandé
+            if (includeSchedule) {
+                for (Course c : courseList) {
+                    System.out.println("Cours: " + c.getId() + " - " + c.getName());
+                }
+            }
+
+            return courseList;
+
+            } catch (RuntimeException e) {
+                System.out.println(">>> ERREUR API courses: " + e.getMessage());
+                e.printStackTrace();
+                return Collections.emptyList();
+            }
+        }
+    private String semesterToTerm(String semester) {
+        if (semester == null || semester.isBlank()) {
+            throw new IllegalArgumentException("Semester obligatoire pour le filtrage");
+        }
+
+        switch (Character.toUpperCase(semester.charAt(0))) {
+            case 'H': return "winter";
+            case 'A': return "autumn";
+            case 'E': return "summer";
+            default:
+                throw new IllegalArgumentException("Semester invalide: " + semester);
+            }
+        }
     public EligibilityResult checkEligibility(List<String> completed, String target) {
 
         System.out.println(">>> checkEligibility SERVICE");
@@ -331,14 +331,14 @@ System.out.println(">>> Total sigles retenus = " + siglesList.size());
         return new EligibilityResult(missing.isEmpty(), missing);
     }
     private void loadCsvIfNeeded() {
-    if (!csvCache.isEmpty()) {
-        System.out.println(" CSV déjà chargé");
-        return;
-    }
+        if (!csvCache.isEmpty()) {
+            System.out.println(" CSV déjà chargé");
+            return;
+        }
 
-    System.out.println(" Chargement du CSV depuis resources");
+        System.out.println(" Chargement du CSV depuis resources");
 
-    try (InputStream is = getClass()
+        try (InputStream is = getClass()
             .getClassLoader()
             .getResourceAsStream("historique_cours_prog_117510.csv")) {
 
@@ -379,11 +379,10 @@ System.out.println(">>> Total sigles retenus = " + siglesList.size());
 
         System.out.println("CSV chargé : " + csvCache.size() + " cours");
 
-    } catch (Exception e) {
-        System.err.println(" Erreur chargement CSV");
-        e.printStackTrace();
+        } catch (Exception e) {
+            System.err.println(" Erreur chargement CSV");
+            e.printStackTrace();
+        }
     }
-}
    
-
 }
