@@ -13,11 +13,14 @@ public class Course {
     private String name;
     private String description;
     private String requirement_text;
+    private String class_average;
+    private String class_difficulty; 
 
     private Map<String, Boolean> available_periods;
     private Map<String, Boolean> available_terms;
 
     private double credits;
+    private double difficulty_score;
 
     private List<Schedule> schedules;
 
@@ -29,7 +32,9 @@ public class Course {
 
     public Course(String id, String name, String desc, Map<String, Boolean> peri,
         String req, double cred, List<Schedule> sche, 
-        List<String> pre, Map<String, Boolean> terms, List<String> equi, List<String> conco, List<String> courses) {
+        List<String> pre, Map<String, Boolean> terms, 
+        List<String> equi, List<String> conco, List<String> courses,
+        Double difficulty_score, String class_average, String class_difficulty) {
         this.id = id;
         this.name = name;
         this.description = desc;
@@ -42,6 +47,9 @@ public class Course {
         this.concomitant_courses = conco;
         this.requirement_text = req;
         this.courses = courses;
+        this.class_average = class_average;
+        this.difficulty_score = difficulty_score;
+        this.class_difficulty = class_difficulty;
     }
 
     public String getId() { return id; }
@@ -79,4 +87,13 @@ public class Course {
 
     public List<String> getCourses() { return courses; }
     public void setCourses(List<String> courses) { this.courses = courses; }
+
+    public String getClass_average() {return class_average;}
+    public void setClass_average(String class_average) {this.class_average = class_average;}
+
+    public double getDifficulty_score() { return difficulty_score; }
+    public void setDifficulty_score(double difficulty_score) { this.difficulty_score = difficulty_score; }
+
+    public String getClass_difficulty() {return class_difficulty;}
+    public void setClass_difficulty(String classDifficulty) {this.class_difficulty = classDifficulty;}
 }

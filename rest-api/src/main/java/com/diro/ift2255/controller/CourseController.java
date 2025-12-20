@@ -98,6 +98,9 @@ public class CourseController {
             response.put("name", course.getName());
             response.put("description", course.getDescription());
             response.put("credits", course.getCredits());
+            response.put("class_average", course.getClass_average());
+            response.put("difficulty_score", course.getDifficulty_score());
+            response.put("class_difficulty", course.getClass_difficulty());
             response.put("schedules", rebuiltSchedules);
             response.put("prerequisite_courses", course.getPrerequisite_courses());
             response.put("equivalent_courses", course.getEquivalent_courses());

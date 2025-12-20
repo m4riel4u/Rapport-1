@@ -62,6 +62,21 @@
                 <td id="course2Desc">—</td>
             </tr>
             <tr>
+                <td>Moyenne de la classe</td>
+                <td id="course1Avg">—</td>
+                <td id="course2Avg">—</td>
+            </tr>
+            <tr>
+                <td>Score de difficulté <br>(1 = faible réussite,<br> 5 = forte réussite)</td>
+                <td id="course1Diff">—</td>
+                <td id="course2Diff">—</td>
+            </tr>
+            <tr>
+                <td>Niveau de difficulté du cours <br>(1 = Très facile,<br> 5 = Très difficile)</td>
+                <td id="diffCourse1">—</td>
+                <td id="diffCourse2">—</td>
+            </tr>
+            <tr>
                 <td>Horaire</td>
                 <td id="course1Schedule">—</td>
                 <td id="course2Schedule">—</td>
@@ -112,6 +127,10 @@
                 document.getElementById("course1Title").textContent = data.name;
                 document.getElementById("course1Desc").textContent = data.description;
                 document.getElementById("course1ID").textContent = data.id;
+                document.getElementById("course1Avg").textContent = data.class_average || "—";
+                document.getElementById("course1Diff").textContent = data.difficulty_score ?? "—";
+                document.getElementById("diffCourse1").textContent = data.class_difficulty ?? "—";
+
                  // Horaire
                     const scheduleText1 = data.schedules.map(s => `
                         Section ${s.section}<br>
@@ -169,6 +188,10 @@
                 document.getElementById("course2Title").textContent = data.name;
                 document.getElementById("course2Desc").textContent = data.description;
                 document.getElementById("course2ID").textContent = data.id; 
+                document.getElementById("course2Avg").textContent = data.class_average || "—";
+                document.getElementById("course2Diff").textContent = data.difficulty_score ?? "—";
+                document.getElementById("diffCourse2").textContent = data.class_difficulty ?? "—";
+
                 // Horaire
                     const scheduleText2 = data.schedules.map(s => `
                         Section ${s.section}<br>
