@@ -7,22 +7,24 @@ title: Conception - Modèle de données
 ## Entités principales
 
 - Utilisateur
-- Réservation
-- Ressource
-- Notification
+- Cours
+- Horaire
+- Avis
 
 
 ## Relations entre entités
 
-- 1 utilisateur peut avoir plusieurs réservations
-- Une ressource peut être associée à 0 ou plusieurs réservations
+- 1 cours peut avoir plusieurs horaires
+- 1 utilisateur peut être associé à plusieurs cours 
+- 1 utilisateur peut émettre plusieurs avis
+- 1 cours peut avoir plusieurs avis 
 
 ## Contraintes métier
 
-- Une réservation ne peut pas chevaucher une autre
-- Un utilisateur doit valider son courriel avant de réserver
+- Un utilisateur ne peut pas avoir 2 fois le même cours. 
+- Un utilisateur doit avoir les préalables pour être éligible à un cours.
 
 ## Évolution potentielle du modèle
 
-- Ajouter des statuts de réservation
-- Support multi-utilisateur par ressource
+- Ajouter la détection de conflit d'horaire entre des cours
+- Comparer des ensembles de cours (horaires) différents 

@@ -14,10 +14,10 @@ title: Implémentation
 
 ## Technologies utilisées
 
-- Langage principal : Python / JavaScript / etc.
-- Frameworks : Flask, React, etc.
-- Base de données : PostgreSQL
-- Outils de développement : Git, Docker, VSCode
+- Langage principal : Java / JavaScript / CSS/ HTML /etc.
+- Frameworks : Aucun
+- Base de données : API Planifium, Résultats agrégés (CSV), Discord Bot
+- Outils de développement : Git, VSCode, Mockito, Postman
 
 ## Organisation du code
 
@@ -25,12 +25,3 @@ title: Implémentation
 - Découpage en modules (front, back, utils, etc.)
 - Gestion des dépendances (requirements.txt, package.json...)
 
-## Difficultés rencontrées
-
-- Problèmes techniques (ex. : CORS, gestion des sessions)
-- Limites de certaines bibliothèques
-
-## Solutions apportées
-
-- Utilisation de middleware
-- Refonte partielle de certains modules

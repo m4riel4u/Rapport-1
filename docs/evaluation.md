@@ -16,23 +16,7 @@ title: Évaluation et tests
 
 - Types de tests réalisés :
   - Tests unitaires
-  - Tests d’intégration
-  - Tests manuels
-- Outils utilisés : Pytest, Postman, Selenium, etc.
-
-## Critères d'évaluation
-
-- Présenter les critères utilisés pour évaluer le système.
-
-## Résultats des tests
-
-- Résumé qualitatif :
-  - Comportement attendu obtenu
-  - Bonne robustesse générale
-
-- Résumé quantitatif :
-  - 85 % de couverture de code
-  - Temps de réponse moyen : 1.2s
+- Outils utilisés : Mockito, Postman
 
 ## Oracle de tests
 |Nom du test|Entrée|Sortie attendue|Cas d'utilisation |État après l'appel|Type|Description|
@@ -54,8 +38,3 @@ title: Évaluation et tests
 |testGetUserById_zero |User ID est de 0 |Résultat vide |Obtenir un utilisateur |N/A |Succès |Aucun utilisateur ne doit possèder un ID de 0. |
 |testGetUserById_idNegatif |User ID est de -1 |Résultat vide |Obtenir un utilisateur |N/A |Succès |Aucun utilisateur ne doit possèder un ID négatif. |
 
-## Évaluation du système
-
-- Qualité globale perçue
-- Facilité d’utilisation
-- Performance en conditions réelles

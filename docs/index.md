@@ -42,6 +42,21 @@ Ce projet vise à développer une plateforme simple et accessible pour les étud
 | Descriptions flux principaux         | 7 octobre     | ✅ Terminé  | `M2`         |
 | Besoins matériels             | 7 octobre     | ✅ Terminé | `M3`         |
 | Rapport                       | 10 octobre    | ✅ Terminé  | `M1`  `M2`  `M3`  `M4`         |
+| Révision du rapport                      | 10 novembre    | ✅ Terminé  | `M1`           |
+| Modèle C4 niveau 3   | 11 novembre    | ✅ Terminé  |  `M2`        |
+| Mise à jour du diagramme de classe        | 11 novembre    | ✅ Terminé  |   `M3`         |
+| Diagrammes de séquences      | 12 novembre   | ✅ Terminé  | `M3`         |
+| Justification du choix de design    | 16 novembre    | ✅ Terminé  |   `M4`     |
+| Implémentation : Recherche de cours, détails d'un cours et comparer des cours | 21 novembre    | ✅ Terminé  | `M1`    |
+| Tests unitaires  | 22 novembre    | ✅ Terminé  | `M1`  `M2`  `M3`  `M4`         |
+| Oracle de tests    | 22 novembre  | ✅ Terminé  | `M1`  `M2`  `M3`  `M4`         |
+| Bonus Discord bot    | 23 novembre    | ✅ Terminé  | `M2`    |
+| Terminer l'implémentation complète     | 20 décembre | ✅ Terminé  | `M1`|
+| Finaliser Discord bot et serveur   | 22 décembre    | ✅ Terminé  | `M2`   |
+| Documentation (mise à jour du README et javadoc)  | 22 décembre   | ✅ Terminé  | `M4`   |
+| Mise à jour des diagrammes de séquences et de classe suite à l'implémentation   | 22 décembre   | ✅ Terminé  | `M3`  |
+|Finaliser tous les tests unitaires et l'oracle de test   | 22 décembre    | ✅ Terminé  | `M3` |
+| Présentation vidéo | 23 décembre   | ✅ Terminé  | `M1`  |
 
 ## Lien du répertoire GitHub
 https://github.com/m4riel4u/Oriento 
