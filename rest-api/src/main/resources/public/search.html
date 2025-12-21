@@ -200,9 +200,9 @@
                     const cycleMismatch = (userCycle !== courseCycle);
 
                     if (missingPrereqs.length === 0 && !cycleMismatch) {
-                        resultDiv.innerHTML = "Éligible ✅";
+                        resultDiv.innerHTML = "Éligible ";
                     } else {
-                        let msg = "Non éligible ❌<br>";
+                        let msg = "Non éligible <br>";
                         if (missingPrereqs.length) {
                             msg += "Prérequis manquants : " + missingPrereqs.join(", ") + "<br>";
                         }
@@ -213,7 +213,7 @@
                     }
                 })
                 .catch(err => {
-                    resultDiv.textContent = "Erreur lors de la vérification de l'éligibilité.";
+                    resultDiv.textContent = "Erreur lors de la vérification de l'éligibilité. Vérifier si vous avez le bon Id ou si le sigle du cours est valide.";
                 });
         }
     </script>

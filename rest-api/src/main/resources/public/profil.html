@@ -6,41 +6,61 @@
 </head>
     <body>
 
-    <h1>Créer ou modifier mon profil</h1>
+    <h1>Créer mon profil</h1>
     <a class=button href="index.html"> Retour au menu principal</a>
-    <br><br>
-
+    <br>
     <h3>Informations du profil</h3>
-
     <p>Entrer votre nom</p>
-    <input type="text" id="name" placeholder="Nom"><br><br>
-
+    <input type="text" id="name" placeholder="Nom"><br>
     <p>Entrer votre courriel</p>
-    <input type="email" id="email" placeholder="exemple@exemple.com"><br><br>
-
+    <input type="email" id="email" placeholder="exemple@exemple.com"><br>
     <p>Sélectionner votre cycle</p>
     <select id="cycle">
         <option>Baccalauréat</option>
         <option>Maîtrise</option>
         <option>Doctorat</option>
     </select><br><br>
-    <p>Entrer les cours suivis (séparés par des virgules)</p>
-    <input type="text" id="completedCourses" placeholder="Ex: IFT1005, IFT1015, IFT2255" style="width: 400px;"><br><br>
-    
+    <button onclick="createProfile()">Créer</button>
+    <p id="resultCreation"></p>
+
+    <h2>Modifier mon profil</h2>
     <h3>Votre identifiant</h3>
     <p>Pour modifier ou supprimer votre profil, veuillez entrer votre ID.</p>
-    <input type="number" id="userId" placeholder="Ex: 3"><br><br>
+    <input type="number" id="userId" placeholder="Ex: 3">
+    <button onclick="viewProfile()">Voir mon profil</button>
+    <div id="profileInfo">
+        <p><strong>Nom :</strong> <span id="profileName"></span></p>
+        <p><strong>Courriel :</strong> <span id="profileEmail"></span></p>
+        <p><strong>Cycle :</strong> <span id="profileCycle"></span></p>
+        <p><strong>ID :</strong> <span id="profileId"></span></p>
+        <h3>Cours complétés</h3>
+        <ul id="completedCoursesList"></ul> 
+    </div>
 
-    <button onclick="createProfile()">Créer</button>
+    <p>Ajouter un cours suivi :</p>
+    <input type="text" id="newCourse" placeholder="Ex: IFT2255">
+    <button onclick="addCourse()">Ajouter</button>
+
+    <p>Supprimer un cours suivi :</p>
+    <input type="text" id="removeCourse" placeholder="Ex: IFT2255">
+    <button onclick="removeCourse()">Supprimer</button>
+    
+    <h3>Changer de nom, de courriel ou de cycle</h3>
+    <em id="resultModif"></em>
+    <p>Entrer votre nom</p>
+    <input type="text" id="nameModif" placeholder="Nom"><br>
+    <p>Entrer votre courriel</p>
+    <input type="email" id="emailModif" placeholder="exemple@exemple.com"><br>
+    <p>Sélectionner votre cycle</p>
+    <select id="cycleModif">
+        <option>Baccalauréat</option>
+        <option>Maîtrise</option>
+        <option>Doctorat</option>
+    </select><br><br>
     <button onclick="updateProfile()">Modifier mon profil</button>
-
-    <h3>Supprimer mon profil</h3>
     <button onclick="deleteProfile()">Supprimer mon profil</button>
 
-    <p id="result"></p>
-
-
-        <script>
+    <script>
         function createProfile() {
             fetch("/users", {
                 method: "POST",
@@ -55,11 +75,11 @@
             .then(res => res.json())
             .then(user => {
                 localStorage.setItem("userId", user.id);
-                document.getElementById("result").textContent =
+                document.getElementById("resultCreation").textContent =
                     "Profil créé ! ID utilisateur : " + user.id+ ". Conservez-le précieusement pour pouvoir modifier ou supprimer votre profil.";
             })
             .catch(() => {
-                document.getElementById("result").textContent =
+                document.getElementById("resultCreation").textContent =
                     "Erreur lors de la création du profil.";
             });
         }
@@ -76,23 +96,23 @@
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    name: document.getElementById("name").value,
-                    email: document.getElementById("email").value,
-                    cycle: document.getElementById("cycle").value,
+                    name: document.getElementById("nameModif").value,
+                    email: document.getElementById("emailModif").value,
+                    cycle: document.getElementById("cycleModif").value,
                     completedCourses: getCompletedCourses()
                 })
             })
             .then(response => {
                 if (response.ok) {
-                    document.getElementById("result").textContent =
+                    document.getElementById("resultModif").textContent =
                         "Profil modifié avec succès.";
                 } else {
-                    document.getElementById("result").textContent =
+                    document.getElementById("resultModif").textContent =
                         "Erreur : ID invalide.";
                 }
             })
             .catch(() => {
-                document.getElementById("result").textContent =
+                document.getElementById("resultModif").textContent =
                     "Erreur lors de la modification.";
             });
         }
@@ -114,24 +134,140 @@
             })
             .then(response => {
                 if (response.status === 204) {
-                    document.getElementById("result").textContent =
+                    document.getElementById("resultModif").textContent =
                         "Profil supprimé avec succès.";
                 } else {
-                    document.getElementById("result").textContent =
+                    document.getElementById("resultModif").textContent =
                         "Aucun profil trouvé avec cet ID.";
                 }
             })
             .catch(() => {
-                document.getElementById("result").textContent =
+                document.getElementById("resultModif").textContent =
                     "Erreur lors de la suppression.";
             });
         }
 
         function getCompletedCourses() {
-            return document.getElementById("completedCourses").value
-                .split(",")
-                .map(c => c.trim().toUpperCase())
-                .filter(c => c.length > 0);
+            const listItems = document.querySelectorAll("#completedCoursesList li");
+            return Array.from(listItems).map(li => li.textContent);
+        }
+
+        function displayCompletedCourses() {
+            const userId = document.getElementById("userId").value;
+            const list = document.getElementById("completedCoursesList");
+            list.innerHTML = ""; // vide la liste avant de remplir
+
+            if (!userId) return;
+
+            fetch(`/users/${userId}`)
+                .then(res => {
+                    if (!res.ok) throw new Error("Utilisateur introuvable");
+                    return res.json();
+                })
+                .then(user => {
+                    user.completedCourses.forEach(c => {
+                        const li = document.createElement("li");
+                        li.textContent = c;
+                        list.appendChild(li);
+                    });
+                })
+                .catch(err => console.error(err));
+        }
+
+        function addCourse() {
+            const userId = document.getElementById("userId").value;
+            const course = document.getElementById("newCourse").value.trim().toUpperCase();
+            if (!userId || !course) return alert("Veuillez entrer un ID utilisateur et un cours.");
+
+            fetch(`/users/${userId}`)
+                .then(res => {
+                    if (!res.ok) {
+                        alert("ID utilisateur invalide. Aucun profil trouvé avec cet ID.");
+                        throw new Error("ID utilisateur invalide");
+                    }
+                    return res.json();
+                })
+
+                .then(user => {
+                    const courses = user.completedCourses || [];
+                    if (!courses.includes(course)) courses.push(course);
+
+                    fetch(`/users/${userId}`, {
+                        method: "PUT",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            ...user,
+                            completedCourses: courses
+                        })
+                    })
+                    .then(() => {
+                        displayCompletedCourses();
+                        document.getElementById("newCourse").value = "";
+                    });
+                });
+        }
+
+        function removeCourse() {
+            const userId = document.getElementById("userId").value;
+            const course = document.getElementById("removeCourse").value.trim().toUpperCase();
+            if (!userId || !course) return alert("Veuillez entrer un ID utilisateur et un cours à supprimer.");
+
+            fetch(`/users/${userId}`)
+                .then(res => res.json())
+                .then(user => {
+                    const courses = user.completedCourses || [];
+                    const updatedCourses = courses.filter(c => c !== course);
+
+                    fetch(`/users/${userId}`, {
+                        method: "PUT",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            ...user,
+                            completedCourses: updatedCourses
+                        })
+                    })
+                    .then(() => {
+                        displayCompletedCourses();
+                        document.getElementById("removeCourse").value = "";
+                    });
+                });
+        }
+
+        // Afficher automatiquement la liste des cours lorsqu'on entre l'ID
+        document.getElementById("userId").addEventListener("change", displayCompletedCourses);
+
+        function viewProfile() {
+            const userId = document.getElementById("userId").value;
+            if (!userId) return alert("Veuillez entrer votre ID utilisateur.");
+
+            // Fetch les données du profil depuis users.json via ton endpoint
+            fetch(`/users/${userId}`)
+                .then(res => {
+                    if (!res.ok) throw new Error("Utilisateur introuvable");
+                    return res.json();
+                })
+                .then(user => {
+                    // Afficher les informations du profil
+                    document.getElementById("profileId").textContent = user.id;
+                    document.getElementById("profileName").textContent = user.name;
+                    document.getElementById("profileEmail").textContent = user.email;
+                    document.getElementById("profileCycle").textContent = user.cycle;
+
+                    // Afficher la liste des cours suivis
+                    const list = document.getElementById("completedCoursesList");
+                    list.innerHTML = "";
+                    (user.completedCourses || []).forEach(course => {
+                        const li = document.createElement("li");
+                        li.textContent = course;
+                        list.appendChild(li);
+                    });
+
+                    // Pré-remplir les champs de modification
+                    document.getElementById("nameModif").value = user.name;
+                    document.getElementById("emailModif").value = user.email;
+                    document.getElementById("cycleModif").value = user.cycle;
+                })
+                .catch(err => alert(err.message));
         }
 
         </script>
