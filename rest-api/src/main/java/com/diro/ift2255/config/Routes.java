@@ -28,7 +28,8 @@ public class Routes {
         app.post("/users", userController::createUser);
         app.put("/users/{id}", userController::updateUser);
         app.delete("/users/{id}", userController::deleteUser);
-        app.post("/eligibility", courseController::checkEligibility);
+        app.post("/eligibility/user/{userId}/course/{courseId}",courseController::checkEligibilityForUser);
+
 
 
     }

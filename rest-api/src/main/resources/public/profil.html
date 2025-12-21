@@ -24,7 +24,9 @@
         <option>Maîtrise</option>
         <option>Doctorat</option>
     </select><br><br>
-
+    <p>Entrer les cours suivis (séparés par des virgules)</p>
+    <input type="text" id="completedCourses" placeholder="Ex: IFT1005, IFT1015, IFT2255" style="width: 400px;"><br><br>
+    
     <h3>Votre identifiant</h3>
     <p>Pour modifier ou supprimer votre profil, veuillez entrer votre ID.</p>
     <input type="number" id="userId" placeholder="Ex: 3"><br><br>
@@ -46,7 +48,8 @@
                 body: JSON.stringify({
                     name: document.getElementById("name").value,
                     email: document.getElementById("email").value,
-                    cycle: document.getElementById("cycle").value
+                    cycle: document.getElementById("cycle").value,
+                    completedCourses: getCompletedCourses()
                 })
             })
             .then(res => res.json())
@@ -75,7 +78,8 @@
                 body: JSON.stringify({
                     name: document.getElementById("name").value,
                     email: document.getElementById("email").value,
-                    cycle: document.getElementById("cycle").value
+                    cycle: document.getElementById("cycle").value,
+                    completedCourses: getCompletedCourses()
                 })
             })
             .then(response => {
@@ -122,6 +126,14 @@
                     "Erreur lors de la suppression.";
             });
         }
+
+        function getCompletedCourses() {
+            return document.getElementById("completedCourses").value
+                .split(",")
+                .map(c => c.trim().toUpperCase())
+                .filter(c => c.length > 0);
+        }
+
         </script>
 
     </body>

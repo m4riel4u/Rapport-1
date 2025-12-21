@@ -1,7 +1,9 @@
 package com.diro.ift2255.service;
 
+import com.diro.ift2255.model.Avis;
 import com.diro.ift2255.model.Course;
 import com.diro.ift2255.model.Schedule;
+import com.diro.ift2255.model.User;
 import com.diro.ift2255.model.EligibilityResult;
 import com.diro.ift2255.util.HttpClientApi;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -19,6 +21,7 @@ public class CourseService {
     private static final String BASE_URL = "https://planifium-api.onrender.com/api/v1/courses";
     private final Map<String, String[]> csvCache = new HashMap<>();
     private static final String CSV_PATH ="src/main/java/com/diro/ift2255/historique_cours_prog_117510.csv";
+    private final Map<String, List<Avis>> avisParCours = new HashMap<>();
 
     public CourseService(HttpClientApi clientApi) {
         this.clientApi = clientApi;
@@ -79,34 +82,65 @@ public class CourseService {
     }
     /**Fetch course details */
     public Optional<Course> getCompleteCourse(String courseId) {
+        loadAvisIfNeeded();
         Map<String, String> params = Map.of("complete", "true", "include_schedule", "true");
         URI uri = HttpClientApi.buildUri(BASE_URL + "/" + courseId, params);
 
         try {
             Course course = clientApi.get(uri, Course.class);
+            //Ajout avis.log
+             List<Avis> avisCours = avisParCours.get(course.getId());
 
+            if (avisCours != null && !avisCours.isEmpty()) {
+
+                double moyenne = avisCours.stream()
+                    .mapToInt(Avis::getNote)
+                    .average()
+                    .orElse(0);
+
+                String messages = avisCours.stream()
+                    .map(Avis::getMessage)
+                    .distinct()
+                    .reduce("", (a, b) -> a + "• " + b + "\n");
+
+                course.setNote_etudiant(String.format("%.2f", moyenne));
+                course.setAvis(messages);
+            } else {
+                course.setNote_etudiant("—");
+                course.setAvis("Aucun avis");
+            }
             // AJOUT CSV
             loadCsvIfNeeded();
 
             String[] csv = csvCache.get(course.getId());
             if (csv != null) {
                 String average = csv[2];
-            double difficultyScore = Double.parseDouble(csv[3]);
+                course.setClass_average(average);
 
-            course.setClass_average(average);
-            course.setDifficulty_score(difficultyScore);
+                String difficultyRaw = csv[3];
 
-            // NOUVEL ATTRIBUT DÉRIVÉ
-            String classDifficulty = computeClassDifficulty(difficultyScore);
-            course.setClass_difficulty(classDifficulty);
+                if (difficultyRaw == null || difficultyRaw.isBlank()) {
+                    course.setDifficulty_score(null);
+                    course.setClass_difficulty("—");
+                    System.out.println(
+                        " | course=" + course.getId() +
+                        " | score=— | difficulté=—"
+                    );
+                } else {
+                    double difficultyScore = Double.parseDouble(difficultyRaw);
+                    String classDifficulty = computeClassDifficulty(difficultyScore);
+                    course.setDifficulty_score(difficultyScore);
+                    course.setClass_difficulty(classDifficulty);
+                
+
 
             System.out.println(
                 " | course=" + course.getId() +
                 " | score=" + difficultyScore +
                 " | difficulté=" + classDifficulty + "/5"
             );
+                }
         }
-
         return Optional.of(course);
 
         } catch (RuntimeException e) {
@@ -384,5 +418,47 @@ public class CourseService {
             e.printStackTrace();
         }
     }
-   
+   private void loadAvisIfNeeded(){
+    if(!avisParCours.isEmpty())return;
+
+    try (InputStream is = getClass().getClassLoader().getResourceAsStream("avis.log")){
+        if (is == null){
+            System.err.println("avis.log introuvable");
+            return;
+        }
+        BufferedReader br = new BufferedReader(new InputStreamReader(is));
+        String line;
+        Avis avis = null;
+
+        while ((line = br.readLine()) != null){
+            if (line.startsWith("Cours :")){
+                avis = new Avis();
+                avis.setCours(line.substring(7).trim().toUpperCase());
+            }
+            else if (line.startsWith("Note :")) {
+                avis.setNote(Integer.parseInt(line.substring(6).trim()));
+            } 
+            else if (line.startsWith("Utilisateur :")) {
+                avis.setUtilisateur(line.substring(12).trim());
+            } 
+            else if (line.startsWith("Message :")) {
+                avis.setMessage(line.substring(9).trim() + "<br>");
+            } 
+            else if (line.startsWith("Lien du message :")) {
+                avis.setLien(line.substring(17).trim());
+                avisParCours.computeIfAbsent(avis.getCours(), k -> new ArrayList<>()).add(avis);
+            }
+        }
+        System.out.println("Avis chargés : "+ avisParCours.size() + "cours");
+    }catch (Exception e){
+            e.printStackTrace();
+    }
+    }
+    public EligibilityResult checkEligibilityForUser(User user, String courseId) {
+        return checkEligibility(
+            user.getCompletedCourses(),
+            courseId
+        );
+    }
+
 }

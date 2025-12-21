@@ -3,8 +3,12 @@ package com.diro.ift2255.controller;
 import io.javalin.http.Context;
 import com.diro.ift2255.model.Course;
 import com.diro.ift2255.model.EligibilityResult;
+import com.diro.ift2255.model.User;
 import com.diro.ift2255.service.CourseService;
+import com.diro.ift2255.service.UserService;
 import com.diro.ift2255.util.ResponseUtil;
+
+
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -85,59 +89,82 @@ public class CourseController {
 
     }
     public void getCompleteCourse(Context ctx) {
-    String id = ctx.pathParam("id").trim().toUpperCase();
+        String id = ctx.pathParam("id").trim().toUpperCase();
 
-    service.getCompleteCourse(id).ifPresentOrElse(
-        course -> {
+        service.getCompleteCourse(id).ifPresentOrElse(
+            course -> {
 
-            List<Map<String, Object>> rebuiltSchedules = service.rebuild(course);
+                List<Map<String, Object>> rebuiltSchedules = service.rebuild(course);
+                String cycle = determineCycle(course.getId());
+                course.setCycle(cycle);
+                // Créer un Map combiné pour le front-end
+                Map<String, Object> response = new LinkedHashMap<>();
+                response.put("id", course.getId());
+                response.put("name", course.getName());
+                response.put("description", course.getDescription());
+                response.put("credits", course.getCredits());
+                response.put("class_average", course.getClass_average());
+                response.put("difficulty_score", course.getDifficulty_score());
+                response.put("class_difficulty", course.getClass_difficulty());
+                response.put("note_etudiant", course.getNote_etudiant());
+                response.put("avis", course.getAvis());
+                response.put("schedules", rebuiltSchedules);
+                response.put("prerequisite_courses", course.getPrerequisite_courses());
+                response.put("equivalent_courses", course.getEquivalent_courses());
+                response.put("concomitant_courses", course.getConcomitant_courses());
+                response.put("cycle", course.getCycle());
+                Map<String, Boolean> termsFR = new LinkedHashMap<>();
+                course.getAvailable_terms().forEach((key, value) -> {
+                    String keyFR;
+                    switch (key.toLowerCase()) {
+                        case "autumn": keyFR = "Automne"; break;
+                        case "winter": keyFR = "Hiver"; break;
+                        case "summer": keyFR = "Ete"; break;
+                        default: keyFR = key;
+                    }
+                    termsFR.put(keyFR, value);
+                });
+                response.put("available_terms", termsFR);
+                Map<String, Boolean> periodsFR = new LinkedHashMap<>();
+                course.getAvailable_periods().forEach((key, value) -> {
+                    String keyFR;
+                    switch (key.toLowerCase()) {
+                        case "daytime": keyFR = "Jour"; break;
+                        case "evening": keyFR = "Soir"; break;
+                        default: keyFR = key;
+                    }
+                    periodsFR.put(keyFR, value);
+                });
+                response.put("available_periods", periodsFR);
 
-            // Créer un Map combiné pour le front-end
-            Map<String, Object> response = new LinkedHashMap<>();
-            response.put("id", course.getId());
-            response.put("name", course.getName());
-            response.put("description", course.getDescription());
-            response.put("credits", course.getCredits());
-            response.put("class_average", course.getClass_average());
-            response.put("difficulty_score", course.getDifficulty_score());
-            response.put("class_difficulty", course.getClass_difficulty());
-            response.put("schedules", rebuiltSchedules);
-            response.put("prerequisite_courses", course.getPrerequisite_courses());
-            response.put("equivalent_courses", course.getEquivalent_courses());
-            response.put("concomitant_courses", course.getConcomitant_courses());
-            Map<String, Boolean> termsFR = new LinkedHashMap<>();
-            course.getAvailable_terms().forEach((key, value) -> {
-                String keyFR;
-                switch (key.toLowerCase()) {
-                    case "autumn": keyFR = "Automne"; break;
-                    case "winter": keyFR = "Hiver"; break;
-                    case "summer": keyFR = "Ete"; break;
-                    default: keyFR = key;
-                }
-                termsFR.put(keyFR, value);
-            });
-            response.put("available_terms", termsFR);
-            Map<String, Boolean> periodsFR = new LinkedHashMap<>();
-            course.getAvailable_periods().forEach((key, value) -> {
-                String keyFR;
-                switch (key.toLowerCase()) {
-                    case "daytime": keyFR = "Jour"; break;
-                    case "evening": keyFR = "Soir"; break;
-                    default: keyFR = key;
-                }
-                periodsFR.put(keyFR, value);
-            });
-            response.put("available_periods", periodsFR);
+                
+                ctx.json(response);
+            },
+            () -> {
 
-            
-            ctx.json(response);
-        },
-        () -> {
+                ctx.status(404).json(Map.of("error", "Cours introuvable"));
+            }
+        );
+    }
+    public String determineCycle (String courseId){
+        if (courseId == null || courseId.length() < 6) return "N/A";
 
-            ctx.status(404).json(Map.of("error", "Cours introuvable"));
+        // Extraire les 4 chiffres du sigle
+        String numberPart = courseId.substring(courseId.length() - 4);
+        int num;
+        try {
+            num = Integer.parseInt(numberPart);
+        } catch (NumberFormatException e) {
+            return "N/A";
         }
-    );
-}
+
+        if (num >= 1000 && num <= 3999) return "Baccalauréat";
+        if (num == 6000) return "Maîtrise";
+        if ((num >= 7000 && num <= 9000) || num == 0) return "Doctorat";
+
+        return "N/A";
+    }
+    
     public void getCoursesByProgram (Context ctx){
         String program = ctx.pathParam("program");
         List<Course> results = service.getCourseByProgram(program);
@@ -194,6 +221,23 @@ public class CourseController {
         System.out.println("Cours cible : " + targetCourse);
 
         EligibilityResult result = service.checkEligibility(completedCourses, targetCourse);
+
+        ctx.json(result);
+    }
+    public void checkEligibilityForUser(Context ctx) {
+        int userId = Integer.parseInt(ctx.pathParam("userId"));
+        String courseId = ctx.pathParam("courseId").toUpperCase();
+
+        UserService userService = new UserService();
+        Optional<User> userOpt = userService.getUserById(userId);
+
+        if (userOpt.isEmpty()) {
+            ctx.status(404).json(Map.of("error", "Utilisateur introuvable"));
+            return;
+        }
+
+        EligibilityResult result =
+            service.checkEligibilityForUser(userOpt.get(), courseId);
 
         ctx.json(result);
     }

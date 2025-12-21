@@ -6,20 +6,26 @@
 </head>
 <body>
     <h1>Recherche de cours</h1>
-    <a class=button href="index.html"> Retour au menu principal</a>
+    <a class="button" href="index.html">Retour au menu principal</a>
+    
     <h3>Chercher un cours par mots clé ou par sigle partiel</h3>
     <input type="text" id="searchQueryInput" placeholder="Ex: informatique ou IFT">
     <button onclick="searchCourseByQuery()">Chercher</button>
     
-    <h3>Chercher un cours par sigle spécifique pour avoir plus de détails sur un cours particulier </h3>
+    <h3>Chercher un cours par sigle spécifique pour avoir plus de détails</h3>
     <input type="text" id="searchIdInput" placeholder="Ex: IFT2255">
-    <button onclick="searchCourseById()">Chercher</button>
-    
+    <button onclick="searchCourseById()">Chercher</button><br>
+
+    <em>Pour vérifier votre éligibilité au cours, veuillez entrer l'ID de votre profil.</em><br>
+    <input type="text" id="idProfil" placeholder="Ex.: 1"><br>
+    <button onclick="fetchAndCheckEligibility()">Vérifier l'éligibilité</button>
+    <p id="eligibilityResult"></p>
+
     <h3>Voir les cours offerts dans un programme</h3>
     <input type="text" id="courseProgram" placeholder="Ex.: 146811">
     <button onclick="searchCourseByProgram()">Chercher</button>
 
-    <h3>Voir les cours offerts d'un programme dans un trimestre donné pour un programme</h3>
+    <h3>Voir les cours offerts d'un programme dans un trimestre donné</h3>
     <em>Cette recherche peut prendre quelques secondes à exécuter.<br></em>
     <input type="text" id="program" placeholder="Ex.: 146811">
     <input type="text" id="trimestre" placeholder="Ex.: H25">
@@ -27,75 +33,56 @@
         <input type="checkbox" id="includeSchedule"> Afficher l'horaire
     </label>
     <button onclick="getProgramCourses()">Chercher</button>
-    
-    <div id="resultDiv"> </div>
-    
-    
+
+    <div id="resultDiv"></div>
+
     <script>
         function searchCourseByQuery() {
             const query = document.getElementById("searchQueryInput").value.trim();
             const resultDiv = document.getElementById("resultDiv");
 
-            //Appel à API
             fetch(`/courses/search?query=${encodeURIComponent(query)}`)
                 .then(res => res.json())
                 .then(courses => {
-                    if (courses.length === 0) {
+                    if (!courses.length) {
                         resultDiv.textContent = "Aucun cours trouvé.";
                         return;
                     }
-                    resultDiv.innerHTML = courses.map(cours => `
+                    resultDiv.innerHTML = courses.map(c => `
                         <div>
-                            <strong>ID :</strong> ${cours.id} <br>
-                            <strong>Titre :</strong> ${cours.name} <br>
-                            <strong>Description :</strong> ${cours.description} <br>
+                            <strong>ID :</strong> ${c.id} <br>
+                            <strong>Titre :</strong> ${c.name} <br>
+                            <strong>Description :</strong> ${c.description} <br>
                             <hr>
                         </div>
                     `).join("");
                 });
         }
+
         function searchCourseById() {
             const query = document.getElementById("searchIdInput").value.trim().toUpperCase();
             const resultDiv = document.getElementById("resultDiv");
-
 
             fetch(`/courses/complete/${query}`)
                 .then(res => {
                     if (!res.ok) throw new Error("Cours introuvable");
                     return res.json();
                 })
-                .then(cours => {
+                .then(c => {
                     resultDiv.innerHTML = `
                         <div>
-                            <strong>ID :</strong> ${cours.id}<br>
-                            <strong>Titre :</strong> ${cours.name}<br>
-                            <strong>Description :</strong> ${cours.description}<br>
-                            <strong>Crédits :</strong> ${cours.credits}<br>
-                            <strong>Horaire :</strong><br>
-                            ${cours.schedules.map(s => `
-                                <div>
-                                    <strong>Section :</strong> ${s.section}<br>
-                                    <strong>Semestre:</strong> ${s.semester}<br>
-                                    <strong>Enseignant :</strong> ${s.teachers.join(", ")}<br>
-                                    <strong>Horaire :</strong><br>
-                                    ${s.horaire.join("<br>")}<br>
-                                    <strong>Intra :</strong> ${s.intra || "N/A"}<br>
-                                    <strong>Final :</strong> ${s.final || "N/A"}<br>
-                                </div>
-                            `).join("<hr>") || "Aucun horaire disponible"}
-                            <br>
-                            <strong>Prérequis :</strong> ${cours.prerequisite_courses?.join(", ") || "Aucun"}<br>
+                            <strong>ID :</strong> ${c.id}<br>
+                            <strong>Titre :</strong> ${c.name}<br>
+                            <strong>Description :</strong> ${c.description}<br>
+                            <strong>Crédits :</strong> ${c.credits}<br>
+                            <strong>Prérequis :</strong> ${c.prerequisite_courses?.join(", ") || "Aucun"}<br>
+                            <strong>Cycle :</strong> ${c.cycle || "N/D"}<br>
                             <strong>Trimestre offert :</strong> 
-                            ${Object.keys(cours.available_terms)
-                                .filter(k => cours.available_terms[k])
-                                .join(", ") || "N/D"}<br>
+                            ${Object.keys(c.available_terms || {}).filter(k => c.available_terms[k]).join(", ") || "N/D"}<br>
                             <strong>Période offerte :</strong> 
-                            ${Object.keys(cours.available_periods)
-                                .filter(k => cours.available_periods[k])
-                                .join(", ") || "N/D"}<br>
-                            <strong> Cours équivalents : </strong>${cours.equivalent_courses?.join(", ") || "Aucun"}<br>
-                            <strong> Cours concomitants : </strong>${cours.concomitant_courses?.join(", ") || "Aucun"}<br>
-                            <strong> 
+                            ${Object.keys(c.available_periods || {}).filter(k => c.available_periods[k]).join(", ") || "N/D"}<br>
+                            <strong>Cours équivalents :</strong> ${c.equivalent_courses?.join(", ") || "Aucun"}<br>
+                            <strong>Cours concomitants :</strong> ${c.concomitant_courses?.join(", ") || "Aucun"}<br>
                         </div>
                     `;
                 })
@@ -103,105 +90,132 @@
                     resultDiv.textContent = "Aucun cours trouvé pour ce sigle.";
                 });
         }
-        function searchCourseByProgram(){
+
+        function searchCourseByProgram() {
             const programCode = document.getElementById("courseProgram").value.trim().toUpperCase();
             const resultDiv = document.getElementById("resultDiv");
 
-
             fetch(`/courses/program/${programCode}`)
-                .then(res => {
-                    if (!res.ok) throw new Error("Programme introuvable");
-                    return res.json();
-                })
+                .then(res => res.json())
                 .then(programs => {
-
-                    // Si ce n'est pas un tableau, on le transforme en tableau
-                    if (!Array.isArray(programs)) {
-                        programs = [programs];
-                    }
-
-                    if (programs.length === 0) {
+                    if (!Array.isArray(programs)) programs = [programs];
+                    if (!programs.length) {
                         resultDiv.textContent = "Aucun programme trouvé.";
                         return;
                     }
-
                     const prog = programs[0];
-
-                    let html = `
-                        <h2>${prog.name}</h2>
+                    resultDiv.innerHTML = `<h2>${prog.name}</h2>
                         <p><strong>Code :</strong> ${prog.id}</p>
                         <h3>Liste des cours</h3>
-                        <ul>
-                    `;
+                        <ul>${prog.courses.map(sigle => `<li>${sigle}</li>`).join("")}</ul>`;
+                })
+                .catch(err => {
+                    resultDiv.textContent = "Aucun cours trouvé pour ce programme.";
+                });
+        }
 
-                    prog.courses.forEach(sigle => {
-                        html += `<li>${sigle}</li>`;
+        function getProgramCourses() {
+            const program = document.getElementById("program").value.trim();
+            const semester = document.getElementById("trimestre").value.trim().toUpperCase();
+            const includeSchedule = document.getElementById("includeSchedule").checked;
+            const resultDiv = document.getElementById("resultDiv");
+
+            fetch(`/courses/program/${program}/schedule?includeSchedule=${includeSchedule}&semester=${semester}`)
+                .then(res => res.json())
+                .then(courses => {
+                    if (!Array.isArray(courses) || !courses.length) {
+                        resultDiv.textContent = "Aucun cours trouvé.";
+                        return;
+                    }
+
+                    let html = "";
+                    courses.forEach(c => {
+                        html += `<div>
+                            <strong>ID :</strong> ${c.id}<br>
+                            <strong>Titre :</strong> ${c.name}<br>
+                            <strong>Description :</strong> ${c.description}<br>
+                            <strong>Crédits :</strong> ${c.credits}<br>`;
+
+                        if (includeSchedule && c.schedules) {
+                            html += `<strong>Horaires :</strong><br>`;
+                            c.schedules.forEach(s => {
+                                html += `
+                                    Section: ${s.section}<br>
+                                    Semestre: ${s.semester}<br>
+                                    Enseignants: ${s.teachers.join(", ")}<br>
+                                    Horaire: ${s.horaire.join(", ")}<br>
+                                    Intra: ${s.intra || "N/A"}<br>
+                                    Final: ${s.final || "N/A"}<br>
+                                    <hr>`;
+                            });
+                        }
+                        html += `<hr></div>`;
                     });
-
-                    html += `</ul>`;
                     resultDiv.innerHTML = html;
                 })
                 .catch(err => {
-                    console.error("ERREUR JS :", err);
-                    resultDiv.textContent = "Aucun cours trouvé pour ce programme.";
+                    resultDiv.textContent = "Erreur lors de la récupération des cours : " + err.message;
                 });
-
         }
-        function getProgramCourses() {
-    const program = document.getElementById("program").value.trim();
-    const semester = document.getElementById("trimestre").value.trim().toUpperCase();
-    const includeSchedule = document.getElementById("includeSchedule").checked;
-    const resultDiv = document.getElementById("resultDiv");
 
-    const url = `/courses/program/${program}/schedule?includeSchedule=${includeSchedule}&semester=${semester}`;
-    console.log(">>> Fetch URL:", url);
+        function fetchAndCheckEligibility() {
+            const resultDiv = document.getElementById("eligibilityResult");
+            resultDiv.textContent = "Vérification en cours...";
 
-    fetch(url)
-        .then(res => {
-            if (!res.ok) throw new Error("Aucun cours trouvé pour ce programme et trimestre.");
-            return res.json();
-        })
-        .then(courses => {
-            console.log(">>> courses reçus:", courses);
-            if (!Array.isArray(courses) || courses.length === 0) {
-                resultDiv.textContent = "Aucun cours trouvé.";
+            const userId = document.getElementById("idProfil").value.trim();
+            if (!userId) {
+                alert("Veuillez entrer votre ID profil");
                 return;
             }
 
-            let html = "";
-            courses.forEach(cours => {
-                html += `<div>
-                    <strong>ID :</strong> ${cours.id}<br>
-                    <strong>Titre :</strong> ${cours.name}<br>
-                    <strong>Description :</strong> ${cours.description}<br>
-                    <strong>Crédits :</strong> ${cours.credits}<br>`;
+            fetch(`/users/${userId}`)
+                .then(res => {
+                    if (!res.ok) throw new Error("Utilisateur introuvable");
+                    return res.json();
+                })
+                .then(user => {
+                    const completedCourses = user.completedCourses || [];
+                    const userCycle = user.cycle || "";
+                    checkEligibilityWithUser(userCycle, completedCourses);
+                })
+                .catch(err => {
+                    resultDiv.textContent = "Erreur lors de la récupération du profil.";
+                });
+        }
 
-                if (includeSchedule && cours.schedules) {
-                    html += `<strong>Horaires :</strong><br>`;
-                    cours.schedules.forEach(s => {
-                        html += `
-                            Section: ${s.section}<br>
-                            Semestre: ${s.semester}<br>
-                            Enseignants: ${s.teachers.join(", ")}<br>
-                            Horaire: ${s.horaire.join(", ")}<br>
-                            Intra: ${s.intra || "N/A"}<br>
-                            Final: ${s.final || "N/A"}<br>
-                            <hr>`;
-                    });
-                }
-                html += `<hr></div>`;
-            });
+        function checkEligibilityWithUser(userCycle, completedCourses) {
+            const targetCourseId = document.getElementById("searchIdInput").value.trim().toUpperCase();
+            const resultDiv = document.getElementById("eligibilityResult");
 
-            resultDiv.innerHTML = html;
-        })
-        .catch(err => {
-            console.error(err);
-            resultDiv.textContent = "Erreur lors de la récupération des cours : " + err.message;
-        });
-}
+            fetch(`/courses/complete/${targetCourseId}`)
+                .then(res => {
+                    if (!res.ok) throw new Error("Cours introuvable");
+                    return res.json();
+                })
+                .then(course => {
+                    const coursePrereqs = course.prerequisite_courses || [];
+                    const courseCycle = course.cycle || "";
 
+                    const missingPrereqs = coursePrereqs.filter(c => !completedCourses.includes(c));
+                    const cycleMismatch = (userCycle !== courseCycle);
 
-
+                    if (missingPrereqs.length === 0 && !cycleMismatch) {
+                        resultDiv.innerHTML = "Éligible ✅";
+                    } else {
+                        let msg = "Non éligible ❌<br>";
+                        if (missingPrereqs.length) {
+                            msg += "Prérequis manquants : " + missingPrereqs.join(", ") + "<br>";
+                        }
+                        if (cycleMismatch) {
+                            msg += `Cycle requis : ${courseCycle}, votre cycle : ${userCycle}`;
+                        }
+                        resultDiv.innerHTML = msg;
+                    }
+                })
+                .catch(err => {
+                    resultDiv.textContent = "Erreur lors de la vérification de l'éligibilité.";
+                });
+        }
     </script>
 </body>
 </html>

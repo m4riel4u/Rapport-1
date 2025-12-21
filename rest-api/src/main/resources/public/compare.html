@@ -77,9 +77,14 @@
                 <td id="diffCourse2">—</td>
             </tr>
             <tr>
-                <td>Horaire</td>
-                <td id="course1Schedule">—</td>
-                <td id="course2Schedule">—</td>
+                <td>Note des étudiants</td>
+                <td id="course1StudentNote">—</td>
+                <td id="course2StudentNote">—</td>
+            </tr>
+            <tr>
+                <td>Avis</td>
+                <td id="course1Avis">—</td>
+                <td id="course2Avis">—</td>
             </tr>
             <tr>
                 <td>Prérequis</td>
@@ -106,6 +111,11 @@
                 <td id="course1Coco">—</td>
                 <td id="course2Coco">—</td>
             </tr>
+            <tr>
+                <td>Horaire</td>
+                <td id="course1Schedule">—</td>
+                <td id="course2Schedule">—</td>
+            </tr>
         </tbody>
     </table>
 
@@ -130,6 +140,8 @@
                 document.getElementById("course1Avg").textContent = data.class_average || "—";
                 document.getElementById("course1Diff").textContent = data.difficulty_score ?? "—";
                 document.getElementById("diffCourse1").textContent = data.class_difficulty ?? "—";
+                document.getElementById("course1StudentNote").textContent = data.note_etudiant ?? "-";
+                document.getElementById("course1Avis").innerHTML = data.avis ?? "-";
 
                  // Horaire
                     const scheduleText1 = data.schedules.map(s => `
@@ -191,6 +203,9 @@
                 document.getElementById("course2Avg").textContent = data.class_average || "—";
                 document.getElementById("course2Diff").textContent = data.difficulty_score ?? "—";
                 document.getElementById("diffCourse2").textContent = data.class_difficulty ?? "—";
+                document.getElementById("course2StudentNote").textContent = data.note_etudiant ?? "-";
+                document.getElementById("course2Avis").innerHTML = data.avis ?? "-";
+
 
                 // Horaire
                     const scheduleText2 = data.schedules.map(s => `

@@ -15,12 +15,15 @@ public class Course {
     private String requirement_text;
     private String class_average;
     private String class_difficulty; 
+    private String avis;
+    private String note_etudiant; 
+    private String cycle;
 
     private Map<String, Boolean> available_periods;
     private Map<String, Boolean> available_terms;
 
     private double credits;
-    private double difficulty_score;
+    private Double difficulty_score;
 
     private List<Schedule> schedules;
 
@@ -34,7 +37,8 @@ public class Course {
         String req, double cred, List<Schedule> sche, 
         List<String> pre, Map<String, Boolean> terms, 
         List<String> equi, List<String> conco, List<String> courses,
-        Double difficulty_score, String class_average, String class_difficulty) {
+        Double difficulty_score, String class_average, String class_difficulty,
+        String avis, String note_etudiant, String cycle) {
         this.id = id;
         this.name = name;
         this.description = desc;
@@ -50,6 +54,9 @@ public class Course {
         this.class_average = class_average;
         this.difficulty_score = difficulty_score;
         this.class_difficulty = class_difficulty;
+        this.avis = avis;
+        this.note_etudiant = note_etudiant; 
+        this.cycle = cycle;
     }
 
     public String getId() { return id; }
@@ -91,9 +98,18 @@ public class Course {
     public String getClass_average() {return class_average;}
     public void setClass_average(String class_average) {this.class_average = class_average;}
 
-    public double getDifficulty_score() { return difficulty_score; }
-    public void setDifficulty_score(double difficulty_score) { this.difficulty_score = difficulty_score; }
+    public Double getDifficulty_score() { return difficulty_score; }
+    public void setDifficulty_score(Double difficulty_score) { this.difficulty_score = difficulty_score; }
 
     public String getClass_difficulty() {return class_difficulty;}
     public void setClass_difficulty(String classDifficulty) {this.class_difficulty = classDifficulty;}
+
+    public String getAvis() {return avis;}
+    public void setAvis(String avis) {this.avis = avis;}
+
+    public String getNote_etudiant(){return note_etudiant;}
+    public void setNote_etudiant(String note_etudiant) {this.note_etudiant = note_etudiant;}
+
+    public String getCycle() {return cycle;}
+    public void setCycle(String cycle) {this.cycle = cycle;}
 }
