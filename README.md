@@ -55,7 +55,10 @@ Prérequis :
 ## Tester l'application
 
 - Tests effectués dans le répertoire src/test/
-  > mvn compile
-  > run main
-  > mvn test
+  > mvn compile  
+  > run main  
+  > mvn test  
 
+## Serveur Discord
+
+discord.gg/VMtfavu5ZR
