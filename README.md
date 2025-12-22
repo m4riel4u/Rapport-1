@@ -61,4 +61,5 @@ Prérequis :
 
 ## Serveur Discord
 
-discord.gg/VMtfavu5ZR
+[Oriento](discord.gg/VMtfavu5ZR)
+
