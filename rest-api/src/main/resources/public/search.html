@@ -83,6 +83,19 @@
                             ${Object.keys(c.available_periods || {}).filter(k => c.available_periods[k]).join(", ") || "N/D"}<br>
                             <strong>Cours équivalents :</strong> ${c.equivalent_courses?.join(", ") || "Aucun"}<br>
                             <strong>Cours concomitants :</strong> ${c.concomitant_courses?.join(", ") || "Aucun"}<br>
+                            <strong>Horaire :</strong><br>
+                            ${c.schedules.map(s => `
+                                <div>
+                                    <strong>Section :</strong> ${s.section}<br>
+                                    <strong>Semestre:</strong> ${s.semester}<br>
+                                    <strong>Enseignant :</strong> ${s.teachers.join(", ")}<br>
+                                    <strong>Horaire :</strong><br>
+                                    ${s.horaire.join("<br>")}<br>
+                                    <strong>Intra :</strong> ${s.intra || "N/A"}<br>
+                                    <strong>Final :</strong> ${s.final || "N/A"}<br>
+                                </div>
+                            `).join("<hr>") || "Aucun horaire disponible"}
+                            <br>
                         </div>
                     `;
                 })
@@ -119,7 +132,7 @@
             const semester = document.getElementById("trimestre").value.trim().toUpperCase();
             const includeSchedule = document.getElementById("includeSchedule").checked;
             const resultDiv = document.getElementById("resultDiv");
-
+            resultDiv.innerHTML = "<em>Recherche en cours... Veuillez patienter.</em>";
             fetch(`/courses/program/${program}/schedule?includeSchedule=${includeSchedule}&semester=${semester}`)
                 .then(res => res.json())
                 .then(courses => {

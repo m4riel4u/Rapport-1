@@ -38,4 +38,3 @@ title: Bilan de projet
 - Ajouter des fonctionnalités secondaires
 - Améliorer l’ergonomie du front-end
 - Prévoir une phase de test d'intégration et d'acceptation
-- Permettre un enregistrement des profils 

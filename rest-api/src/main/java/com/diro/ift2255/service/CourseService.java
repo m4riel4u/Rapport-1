@@ -459,8 +459,16 @@ public class CourseService {
             return new EligibilityResult(true, List.of());
         }
 
+        // Normaliser les cours complétés
+        if (completed == null) completed = List.of();
+        List<String> normalizedCompleted = completed.stream()
+                .map(c -> c.trim().toUpperCase())
+                .toList();
+
+        // Normaliser et vérifier les prérequis
         List<String> missing = prerequisites.stream()
-                .filter(pr -> !completed.contains(pr))
+                .map(p -> p.trim().toUpperCase())
+                .filter(p -> !normalizedCompleted.contains(p))
                 .toList();
 
         return new EligibilityResult(missing.isEmpty(), missing);

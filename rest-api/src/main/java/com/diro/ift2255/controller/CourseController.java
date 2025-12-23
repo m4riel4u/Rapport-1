@@ -123,10 +123,16 @@ public class CourseController {
             response.put("name", course.getName());
             response.put("description", course.getDescription());
             response.put("credits", course.getCredits());
+            response.put("class_average", course.getClass_average());
+            response.put("difficulty_score", course.getDifficulty_score());
+            response.put("class_difficulty", course.getClass_difficulty());
+            response.put("note_etudiant", course.getNote_etudiant());
+            response.put("avis", course.getAvis());
             response.put("schedules", rebuiltSchedules);
             response.put("prerequisite_courses", course.getPrerequisite_courses());
             response.put("equivalent_courses", course.getEquivalent_courses());
             response.put("concomitant_courses", course.getConcomitant_courses());
+            response.put("cycle", determineCycle(course.getId()));
             Map<String, Boolean> termsFR = new LinkedHashMap<>();
             course.getAvailable_terms().forEach((key, value) -> {
                 String keyFR;
@@ -150,9 +156,11 @@ public class CourseController {
                 periodsFR.put(keyFR, value);
             });
             response.put("available_periods", periodsFR);
-
-                ctx.status(404).json(Map.of("error", "Cours introuvable"));
-            }
+            ctx.status(200).json(response);
+        },
+        () -> {
+            ctx.status(404).json(Map.of("error", "Cours introuvable"));
+            }   
         );
     }
 
@@ -175,12 +183,12 @@ public class CourseController {
         }
 
         if (num >= 1000 && num <= 3999) return "Baccalauréat";
-        if (num == 6000) return "Maîtrise";
-        if ((num >= 7000 && num <= 9000) || num == 0) return "Doctorat";
+        if (num >= 6000 && num <= 6999) return "Maîtrise";
+        if ((num >= 7000 && num <= 9999) || num == 0) return "Doctorat";
 
         return "N/A";
     }
-    
+
     /**
      * Récupère les cours d'un programme donné.
      * 
@@ -231,63 +239,11 @@ public class CourseController {
                 response.add(courseMap);
             }
             ctx.json(response);
-        },
-        () -> {
-
-            ctx.status(404).json(Map.of("error", "Cours introuvable"));
-        }
-
-        if (num >= 1000 && num <= 3999) return "Baccalauréat";
-        if (num == 6000) return "Maîtrise";
-        if ((num >= 7000 && num <= 9000) || num == 0) return "Doctorat";
-
-        return "N/A";
-    }
-    
-    public void getCoursesByProgram (Context ctx){
-        String program = ctx.pathParam("program");
-        List<Course> results = service.getCourseByProgram(program);
-        ctx.json(results);
-
-    }
-    public void getCoursesByProgramWithSchedule(Context ctx) {
-        String program = ctx.pathParam("program");
-        System.out.println(">>> getCoursesByProgramWithSchedule called, program=" + program);
-
-        if (program == null || program.isEmpty()) {
-            ctx.status(400).json(Map.of("error", "Le code du programme est requis"));
-            return;
-        }
-
-        String includeScheduleParam = ctx.queryParam("includeSchedule");
-        boolean includeSchedule = includeScheduleParam != null && includeScheduleParam.equalsIgnoreCase("true");
-        String semester = ctx.queryParam("semester"); 
-        System.out.println(">>> includeSchedule=" + includeSchedule + ", semester=" + semester);
-
-        List<Course> courses = service.getCoursesByProgramWithSchedule(program, includeSchedule, semester);
-        System.out.println(">>> courses.size()=" + courses.size());
-
-        if (courses.isEmpty()) {
-            ctx.status(404).json(Map.of("error", "Aucun cours trouvé pour ce programme et trimestre."));
-            return;
-        }
-
-        if (includeSchedule) {
-            List<Map<String, Object>> response = new ArrayList<>();
-            for (Course course : courses) {
-                Map<String, Object> courseMap = new LinkedHashMap<>();
-                courseMap.put("id", course.getId());
-                courseMap.put("name", course.getName());
-                courseMap.put("description", course.getDescription());
-                courseMap.put("credits", course.getCredits());
-                courseMap.put("schedules", service.rebuild(course));
-                response.add(courseMap);
-            }
-            ctx.json(response);
         } else {
             ctx.json(courses);
         }
     }
+
     public void checkEligibility(Context ctx) {
         System.out.println(">>> checkEligibility CALLED");
 
