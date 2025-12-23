@@ -16,18 +16,55 @@ import java.io.InputStreamReader;
 import java.net.URI;
 import java.util.*;
 
+/**
+ * La classe {@code CourseService} fournit des services pour gérer les cours, 
+ * en particulier pour récupérer des informations sur les cours, 
+ * vérifier l'éligibilité d'un utilisateur pour un cours donné, 
+ * et organiser les données des cours.
+ * 
+ * Cette classe interagit avec une API externe pour obtenir des données sur les cours.
+ */
 public class CourseService {
-    private final HttpClientApi clientApi;
-    private static final String BASE_URL = "https://planifium-api.onrender.com/api/v1/courses";
-    private final Map<String, String[]> csvCache = new HashMap<>();
-    private static final String CSV_PATH ="src/main/java/com/diro/ift2255/historique_cours_prog_117510.csv";
-    private final Map<String, List<Avis>> avisParCours = new HashMap<>();
 
+    /**
+     * Le client API utilisé pour effectuer les requêtes HTTP vers l'API externe.
+     */
+    private final HttpClientApi clientApi;
+
+    /**
+     * L'URL de base de l'API pour récupérer les informations sur les cours.
+     */
+    private static final String BASE_URL = "https://planifium-api.onrender.com/api/v1/courses";
+
+    /**
+     * Un cache pour stocker les données CSV des cours.
+     */
+    private final Map<String, String[]> csvCache = new HashMap<>();
+
+    /**
+     * Le chemin du fichier CSV contenant des informations supplémentaires sur les cours.
+     */
+    private static final String CSV_PATH ="src/main/java/com/diro/ift2255/historique_cours_prog_117510.csv";
+
+    /**
+     * Un cache pour stocker les avis des utilisateurs sur les cours.
+     */
+    private final Map<String, List<Avis>> avisParCours = new HashMap<>();
+    
+
+    /**
+     * Constructeur de la classe {@code CourseService}.
+     * @param clientApi Le client API utilisé pour effectuer les requêtes HTTP.
+     */
     public CourseService(HttpClientApi clientApi) {
         this.clientApi = clientApi;
     }
 
-    /** Fetch all courses */
+    /**
+     * Récupère tous les cours disponibles.
+     * @param queryParams Les paramètres de la requête.
+     * @return Une liste de tous les cours.
+     */
     public List<Course> getAllCourses(Map<String, String> queryParams) {
         Map<String, String> params = (queryParams == null) ? Collections.emptyMap() : queryParams;
 
@@ -37,12 +74,21 @@ public class CourseService {
         return courses;
     }
 
-    /** Fetch a course by ID */
+    /**
+     * Récupère un cours par son identifiant (ID).
+     * @param courseId L'ID du cours à récupérer.
+     * @return Un objet {@code Optional} contenant le cours, s'il est trouvé.
+     */
     public Optional<Course> getCourseById(String courseId) {
         return getCourseById(courseId, null);
     }
 
-    /** Fetch a course by ID with optional query params */
+    /**
+     * Récupère un cours par son identifiant (ID) avec des paramètres de requête optionnels.
+     * @param courseId L'ID du cours à récupérer.
+     * @param queryParams Les paramètres de la requête.
+     * @return Un objet {@code Optional} contenant le cours, s'il est trouvé.
+     */
     public Optional<Course> getCourseById(String courseId, Map<String, String> queryParams) {
         Map<String, String> params = (queryParams == null) ? Collections.emptyMap() : queryParams;
         URI uri = HttpClientApi.buildUri(BASE_URL + "/" + courseId, params);
@@ -54,7 +100,12 @@ public class CourseService {
             return Optional.empty();
         }
     }
-    /**Fetch a course by query */
+    
+    /**
+     * Recherche les cours selon la requête.
+     * @param query La chaîne de recherche pour filtrer les cours par leur ID ou nom.
+     * @return Une liste de cours filtrés en fonction de la requête.
+     */
     public List<Course> searchCourses(String query) {
         if (query == null || query.isEmpty()){
             return getAllCourses(null); //Retourne tous les cours si c'est vide
@@ -70,7 +121,13 @@ public class CourseService {
         }
         return filteredCourses;
     }
-     private String computeClassDifficulty(double score) {
+
+    /**
+     * Calcule la difficulté d'un cours en fonction de sa note de difficulté.
+     * @param score La note de difficulté du cours (entre 0 et 5).
+     * @return La description de la difficulté du cours.
+     */
+    private String computeClassDifficulty(double score) {
 
         if (score >= 0 && score <= 1.0) return "5 (Très difficile)";
         if (score > 1.0 && score <= 2.0) return "4 (Difficile)";
@@ -80,7 +137,12 @@ public class CourseService {
 
         return "N/A"; 
     }
-    /**Fetch course details */
+    
+    /**
+     * Récupère les détails complets d'un cours.
+     * @param courseId L'ID du cours à récupérer.
+     * @return Un objet {@code Optional} contenant le cours complet, s'il est trouvé.
+     */
     public Optional<Course> getCompleteCourse(String courseId) {
         loadAvisIfNeeded();
         Map<String, String> params = Map.of("complete", "true", "include_schedule", "true");
@@ -89,7 +151,7 @@ public class CourseService {
         try {
             Course course = clientApi.get(uri, Course.class);
             //Ajout avis.log
-             List<Avis> avisCours = avisParCours.get(course.getId());
+            List<Avis> avisCours = avisParCours.get(course.getId());
 
             if (avisCours != null && !avisCours.isEmpty()) {
 
@@ -149,6 +211,12 @@ public class CourseService {
     }
 
     //Méthode pour formater toutes les info données avec les horaires 
+
+    /**
+     * Restructure les informations des cours et les horaires sous un format organisé.
+     * @param course Le cours dont les informations doivent être restructurées.
+     * @return Une liste de cartes contenant les informations structurées des cours.
+     */
     public List<Map<String,Object>> rebuild(Course course) {
         List<Map<String,Object>> out = new ArrayList<>();
         // Organisation des données : schedules -> sections -> teachers, volets -> activities
@@ -193,7 +261,14 @@ public class CourseService {
         }
         return out;
     }
+
     //méthode privé pour formater les exams
+
+    /**
+     * Formate les informations d'un examen (intra ou final) sous un format lisible.
+     * @param volet Le volet contenant les informations sur l'examen.
+     * @return Les informations de l'examen.
+     */
     private String formatExam(Schedule.Volet volet) {
         if (volet.activities == null || volet.activities.isEmpty()) {
             return "Non spécifié";
@@ -205,7 +280,12 @@ public class CourseService {
                 + " " + act.start_time + "-" + act.end_time
                 + " (" + (act.room != null ? act.room : "??") + ")";
     }
-    /**Fetch course selon programmes */
+    
+    /**
+     * Récupère les cours d’un programme.
+     * @param program Le sigle du programme
+     * @return La liste de {@link Course} du programme
+     */
     public List<Course> getCourseByProgram(String program){
         Map<String, String> params = (null);
         URI uri = HttpClientApi.buildUri("https://planifium-api.onrender.com/api/v1/programs?programs_list=" + program, params);
@@ -221,7 +301,13 @@ public class CourseService {
         
     }
 
-    //Fetch les cours d'un programme à un trimestre donné*/
+    /**
+     * Récupère les cours d’un programme pour un semestre donné et optionnellement avec horaires.
+     * @param program Le sigle du programme
+     * @param includeSchedule Inclure ou non les horaires
+     * @param semester Semestre (ex: "H2025")
+     * @return La liste de {@link Course} filtrés
+     */
     public List<Course> getCoursesByProgramWithSchedule(String program, boolean includeSchedule, String semester) {
         System.out.println(">>> getCoursesByProgramWithSchedule SERVICE CALLED");
         System.out.println(">>> program reçu = " + program);
@@ -327,6 +413,13 @@ public class CourseService {
                 return Collections.emptyList();
             }
         }
+
+    /**
+     * Convertit un semestre sous forme de code (ex: "H2025") en un terme valide pour l'API.
+     * @param semester Le semestre sous forme de code (ex: "H2025").
+     * @return Le terme correspondant (ex: "winter", "autumn", "summer").
+     * @throws IllegalArgumentException Si le semestre est invalide.
+     */
     private String semesterToTerm(String semester) {
         if (semester == null || semester.isBlank()) {
             throw new IllegalArgumentException("Semester obligatoire pour le filtrage");
@@ -340,6 +433,14 @@ public class CourseService {
                 throw new IllegalArgumentException("Semester invalide: " + semester);
             }
         }
+
+    /**
+     * Vérifie l'éligibilité d'un utilisateur à un cours donné en fonction des cours qu'il a déjà complétés.
+     * @param completed La liste des cours que l'utilisateur a complétés.
+     * @param target Le sigle du cours cible à vérifier.
+     * @return {@link EligibilityResult} qui indique si l'utilisateur est éligible ou non, 
+     *         et la liste des prérequis manquants si applicable.
+     */
     public EligibilityResult checkEligibility(List<String> completed, String target) {
 
         System.out.println(">>> checkEligibility SERVICE");
@@ -364,6 +465,10 @@ public class CourseService {
 
         return new EligibilityResult(missing.isEmpty(), missing);
     }
+
+    /**
+     * Charge les données CSV nécessaires si elles ne sont pas déjà chargées.
+     */
     private void loadCsvIfNeeded() {
         if (!csvCache.isEmpty()) {
             System.out.println(" CSV déjà chargé");
@@ -418,7 +523,11 @@ public class CourseService {
             e.printStackTrace();
         }
     }
-   private void loadAvisIfNeeded(){
+
+    /**
+     * Charge les avis des utilisateurs à partir d'un fichier de log si nécessaire.
+     */
+    private void loadAvisIfNeeded(){
     if(!avisParCours.isEmpty())return;
 
     try (InputStream is = getClass().getClassLoader().getResourceAsStream("avis.log")){
@@ -454,6 +563,14 @@ public class CourseService {
             e.printStackTrace();
     }
     }
+
+    /**
+     * Vérifie l'éligibilité d'un utilisateur à un cours donné en fonction des cours qu'il a déjà complétés.
+     * Cette méthode utilise les données de l'utilisateur {@code user}.
+     * @param user L'utilisateur à vérifier.
+     * @param courseId Le sigle du cours cible à vérifier.
+     * @return {@link EligibilityResult} indiquant l'éligibilité de l'utilisateur.
+     */
     public EligibilityResult checkEligibilityForUser(User user, String courseId) {
         return checkEligibility(
             user.getCompletedCourses(),
