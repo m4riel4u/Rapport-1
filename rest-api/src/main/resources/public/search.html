@@ -5,16 +5,20 @@
     <title>Recherche de cours</title>
 </head>
 <body>
-    <h1>Rechercher un cours</h1>
+    <h1>Recherche de cours</h1>
     <a class=button href="index.html"> Retour au menu principal</a>
-    <h3>Chercher un cours par mots clé</h3>
-    <input type="text" id="searchQueryInput" placeholder="Ex: informatique">
+    <h3>Chercher un cours par mots clé ou par sigle partiel</h3>
+    <input type="text" id="searchQueryInput" placeholder="Ex: informatique ou IFT">
     <button onclick="searchCourseByQuery()">Chercher</button>
     
     <h3>Chercher un cours par sigle spécifique pour avoir plus de détails sur un cours particulier </h3>
     <input type="text" id="searchIdInput" placeholder="Ex: IFT2255">
     <button onclick="searchCourseById()">Chercher</button>
     
+    <h3>Voir les cours offerts dans un programme</h3>
+    <input type="text" id="courseProgram" placeholder="Ex.: 146811">
+    <button onclick="searchCourseByProgram()">Chercher</button>
+
     <div id="resultDiv"> </div>
     
     
@@ -89,6 +93,52 @@
                 .catch(err => {
                     resultDiv.textContent = "Aucun cours trouvé pour ce sigle.";
                 });
+        }
+        function searchCourseByProgram(){
+            const programCode = document.getElementById("courseProgram").value.trim().toUpperCase();
+            const resultDiv = document.getElementById("resultDiv");
+
+
+            fetch(`/courses/program/${programCode}`)
+                .then(res => {
+                    if (!res.ok) throw new Error("Programme introuvable");
+                    return res.json();
+                })
+                .then(programs => {
+                    console.log("Réponse brute :", programs);
+
+                    // Si ce n'est pas un tableau, on le transforme en tableau
+                    if (!Array.isArray(programs)) {
+                        programs = [programs];
+                    }
+
+                    if (programs.length === 0) {
+                        resultDiv.textContent = "Aucun programme trouvé.";
+                        return;
+                    }
+
+                    const prog = programs[0];
+                    console.log("PROGRAM :", prog);
+                    console.log("prog.courses :", prog.courses);
+                    let html = `
+                        <h2>${prog.name}</h2>
+                        <p><strong>Code :</strong> ${prog.id}</p>
+                        <h3>Liste des cours</h3>
+                        <ul>
+                    `;
+
+                    prog.courses.forEach(sigle => {
+                        html += `<li>${sigle}</li>`;
+                    });
+
+                    html += `</ul>`;
+                    resultDiv.innerHTML = html;
+                })
+                .catch(err => {
+                    console.error("ERREUR JS :", err);
+                    resultDiv.textContent = "Aucun cours trouvé pour ce programme.";
+                });
+
         }
     </script>
 </body>

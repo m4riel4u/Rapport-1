@@ -145,9 +145,6 @@ public class CourseController {
             });
             response.put("available_periods", periodsFR);
 
-<<<<<<< Updated upstream
-            
-=======
                 ctx.status(404).json(Map.of("error", "Cours introuvable"));
             }
         );
@@ -227,7 +224,6 @@ public class CourseController {
                 courseMap.put("schedules", service.rebuild(course));
                 response.add(courseMap);
             }
->>>>>>> Stashed changes
             ctx.json(response);
         },
         () -> {
@@ -236,5 +232,12 @@ public class CourseController {
         }
     );
 }
+    public void getCoursesByProgram (Context ctx){
+        System.out.println(">>> getCoursesByProgram CALLED");
+        String program = ctx.pathParam("program");
+        System.out.println(">>> program reçu = [" + program + "]");
+        List<Course> results = service.getCourseByProgram(program);
+        ctx.json(results);
 
+    }
 }

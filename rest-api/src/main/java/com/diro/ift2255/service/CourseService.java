@@ -4,6 +4,8 @@ import com.diro.ift2255.model.Course;
 import com.diro.ift2255.model.Schedule;
 import com.diro.ift2255.util.HttpClientApi;
 import com.fasterxml.jackson.core.type.TypeReference;
+
+import java.lang.reflect.Array;
 import java.net.URI;
 import java.util.*;
 
@@ -129,6 +131,23 @@ public class CourseService {
                 + " " + act.start_time + "-" + act.end_time
                 + " (" + (act.room != null ? act.room : "??") + ")";
     }
+    /**Fetch course selon programmes */
+    public List<Course> getCourseByProgram(String program){
+        Map<String, String> params = (null);
+        URI uri = HttpClientApi.buildUri("https://planifium-api.onrender.com/api/v1/programs?programs_list=" + program, params);
+        System.out.println(">>> appel API pour program = " + program);
+        System.out.println(">>> URI = " + uri);
+        try{
+            Course[] courses = clientApi.get(uri, Course[].class);
+            System.out.println(">>> réponse API OK : " + courses);
+            return java.util.Arrays.asList(courses);
 
+        }catch (RuntimeException e){
+            System.out.println(">>> ERREUR API : " + e.getMessage());
+            e.printStackTrace();
+            return Collections.emptyList();
+        }
+        
+    }
 
 }

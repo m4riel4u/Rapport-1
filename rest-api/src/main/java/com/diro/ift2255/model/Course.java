@@ -24,11 +24,12 @@ public class Course {
     private List<String> prerequisite_courses;
     private List<String> equivalent_courses;
     private List<String> concomitant_courses;
+    private List<String> courses;
 
 
     public Course(String id, String name, String desc, Map<String, Boolean> peri,
         String req, double cred, List<Schedule> sche, 
-        List<String> pre, Map<String, Boolean> terms, List<String> equi, List<String> conco) {
+        List<String> pre, Map<String, Boolean> terms, List<String> equi, List<String> conco, List<String> courses) {
         this.id = id;
         this.name = name;
         this.description = desc;
@@ -40,6 +41,7 @@ public class Course {
         this.equivalent_courses = equi;
         this.concomitant_courses = conco;
         this.requirement_text = req;
+        this.courses = courses;
     }
 
     public String getId() { return id; }
@@ -75,4 +77,6 @@ public class Course {
     public List<String> getConcomitant_courses() { return concomitant_courses; }
     public void setConcomitant_courses(List<String> concomitant_courses) { this.concomitant_courses = concomitant_courses; }
 
+    public List<String> getCourses() { return courses; }
+    public void setCourses(List<String> courses) { this.courses = courses; }
 }
