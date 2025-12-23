@@ -37,8 +37,9 @@ title: Évaluation et tests
 ## Oracle de tests
 |Nom du test|Entrée|Sortie attendue|Cas d'utilisation |État après l'appel|Type|Description|
 |-----------|------|---------------|------------------|------------------|----|-----------|
-|testIsNotEmpty |"Hello" |true |Connection |N/A |Succès |Vérifie que la méthode détecte une chaîne 
-|testIsEmail |"abc@mail.com" |true |Connection |N/A |Succès |Vérifie qu'un email valide est reconnu. |
+|testIsNotEmpty |"Hello" |true |Connexion |N/A |Succès |Vérifie que la méthode détecte une chaîne de caractères. |
+|testIsEmail |"abc@mail.com" |true |Connexion |N/A |Succès |Vérifie qu'un email valide est reconnu. |
+|testFormatError | "Message d'erreur" | Map contenant clé "error" avec valeur "Message d'erreur" |Connexion| N/A | Succès | Vérifie que la méthode 'formatError' retourne une map contenant la clé "error" et que la valeur correspond au message fourni. |
 |testGetAllUsers |Aucune |Nombre d'utilisateurs |Créer un compte |N/A |Succès |Lorsqu'on appel tous les utilisateurs, on s'attend à avoir le bon nombre d'utilisateur. |
 |testGetUserById |userId = 1 |{id:1, name: Alice, email: alice@example.com} |Créer un compte |N/A |Succès |Lorsqu'on appel un utilisateur par son ID, on s'attend à avoir les informations liées au bon utilisateur. |
 |testCreateUser |newUser = new User(0, "Marie", "marie@example.com") |{{id:0, name: Marie, email: marie@example.com}, {id:1, name: Alice, email: alice@example.com}, {id:2, name: Charlie, email: charlie@example.com}} |Créer un compte |Un utilisateur ajouté. |Succès |Lorsqu'on ajoute un utilisateur, il devrait être présent dans le système avec les bonnes informations liées à ce profil. |
