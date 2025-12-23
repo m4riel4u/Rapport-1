@@ -61,4 +61,3 @@ Ce projet vise à développer une plateforme simple et accessible pour les étud
 ## Lien du répertoire GitHub
 https://github.com/m4riel4u/Oriento 
 
-## Lien de la documentation JavaDoc

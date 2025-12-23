@@ -127,5 +127,8 @@ Prérequis :
 [Oriento](discord.gg/VMtfavu5ZR)
 
 ## Documentation JavaDoc
+Pour avoir accès à la Javadoc effectuer la commande ci-dessous : 
+mvn clean javadoc:javadoc
 
-
+Pour ouvrir la Javadoc, ouvrez le fichier index.html sur un navigateur web situé ici: 
+rest-api/target/reports/apidocs/index.html
