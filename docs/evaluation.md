@@ -39,3 +39,5 @@ title: Évaluation et tests
 |testGetUserById_zero |User ID est de 0 |Résultat vide |Obtenir un utilisateur |N/A |Succès |Aucun utilisateur ne doit possèder un ID de 0. |
 |testGetUserById_idNegatif |User ID est de -1 |Résultat vide |Obtenir un utilisateur |N/A |Succès |Aucun utilisateur ne doit possèder un ID négatif. |
 
+## Évaluation du système
+
